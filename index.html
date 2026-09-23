@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arena FPS — Descarga</title>
+<meta name="description" content="Descarga la última versión de Arena FPS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0c0f;
+    --card: #15171d;
+    --card-2: #1b1e25;
+    --line: rgba(255,255,255,0.08);
+    --text: #eceef3;
+    --dim: #8b90a0;
+    --accent: #fab847;
+    --accent-ink: #1a1205;
+    --ok: #5fd08e;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.6 Inter, system-ui, sans-serif;
+    background-image:
+      radial-gradient(900px 500px at 50% -10%, rgba(250,184,71,0.14), transparent 70%),
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: auto, 64px 64px, 64px 64px;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 56px 16px 80px; }
+  h1, h2, .display { font-family: Rajdhani, Inter, sans-serif; letter-spacing: 0.02em; }
+  header { text-align: center; margin-bottom: 36px; }
+  header .kicker { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.18em; }
+  header h1 { font-size: clamp(44px, 9vw, 72px); line-height: 1; margin: 8px 0 10px; }
+  header h1 span { color: var(--accent); }
+  header p { color: var(--dim); margin: 0; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .hero { text-align: center; border-color: rgba(250,184,71,0.35); box-shadow: 0 20px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(250,184,71,0.08) inset; }
+  .version { font-family: Rajdhani, sans-serif; font-size: 40px; font-weight: 700; line-height: 1; }
+  .meta { color: var(--dim); font-size: 13px; margin: 6px 0 22px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--accent); color: var(--accent-ink);
+    font: 700 18px Rajdhani, sans-serif; letter-spacing: 0.06em;
+    padding: 16px 34px; border-radius: 10px; text-decoration: none;
+    transition: transform .12s ease, filter .12s ease;
+  }
+  .btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+  .btn svg { width: 20px; height: 20px; }
+  .small { color: var(--dim); font-size: 13px; margin-top: 14px; }
+  .new-badge { display: inline-block; background: rgba(95,208,142,0.15); color: var(--ok); font-size: 11px; font-weight: 600; letter-spacing: .08em; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; }
+
+  h2 { font-size: 24px; margin: 0 0 14px; }
+  .notes { background: var(--card-2); border-radius: 10px; padding: 16px 20px; }
+  .notes ul { margin: 0; padding-left: 20px; }
+  .notes p { margin: 0 0 8px; }
+  .notes p:last-child { margin: 0; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  ol.steps { margin: 0; padding-left: 20px; }
+  ol.steps li { margin-bottom: 8px; }
+  code { background: var(--card-2); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; font-size: 13px; }
+
+  .keys { display: grid; grid-template-columns: auto 1fr; gap: 8px 14px; align-items: center; }
+  kbd {
+    font: 600 12px Inter, sans-serif; color: var(--text);
+    background: var(--card-2); border: 1px solid rgba(255,255,255,0.18); border-bottom-width: 3px;
+    border-radius: 6px; padding: 2px 8px; white-space: nowrap; justify-self: start;
+  }
+  .keys span { color: var(--dim); font-size: 14px; }
+
+  .history { list-style: none; margin: 0; padding: 0; }
+  .history li { border-top: 1px solid var(--line); padding: 14px 0; }
+  .history li:first-child { border-top: 0; padding-top: 0; }
+  .history .row { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .history .v { font-family: Rajdhani, sans-serif; font-weight: 700; font-size: 18px; }
+  .history .d { color: var(--dim); font-size: 13px; }
+  .history .n { color: var(--dim); font-size: 14px; margin-top: 4px; white-space: pre-line; }
+  .history a { color: var(--accent); font-size: 13px; }
+  footer { text-align: center; color: var(--dim); font-size: 12px; margin-top: 36px; }
+  @media (max-width: 520px) {
+    .card { padding: 20px; }
+    .btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">FPS MULTIJUGADOR · ESTILO KRUNKER</div>
+    <h1>ARENA <span>FPS</span></h1>
+    <p>Descarga siempre la última versión desde aquí.</p>
+  </header>
+
+  <section class="card hero">
+    <div class="new-badge" id="badge" hidden>NUEVA VERSIÓN</div>
+    <div class="version" id="version">Última versión</div>
+    <div class="meta" id="meta">Windows · 64 bits</div>
+    <a class="btn" id="download" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+      DESCARGAR
+    </a>
+    <div class="small">Descomprime el .zip y abre <code>ArenaFPS.exe</code>. Para actualizar, descarga de nuevo y sustituye el archivo.</div>
+  </section>
+
+  <section class="card">
+    <h2>Novedades</h2>
+    <div class="notes" id="notes"><p>Cargando…</p></div>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Jugar con amigos</h2>
+      <ol class="steps">
+        <li>Uno pulsa <b>Crear partida</b> (y permite el acceso en el firewall).</li>
+        <li>Ese mismo abre <code>cmd</code>, escribe <code>ipconfig</code> y comparte su <b>Dirección IPv4</b>.</li>
+        <li>Los demás la ponen en <b>IP del servidor</b> y pulsan <b>Unirse</b>.</li>
+      </ol>
+      <p class="small">¿Cada uno en su casa? Usad <b>Radmin VPN</b> o <b>ZeroTier</b> y la IP que os dé, o abrid el puerto <code>8910</code> UDP en el router del host.</p>
+      <p class="small">Si Windows avisa de que “protegió su PC”: <b>Más información → Ejecutar de todas formas</b>.</p>
+    </section>
+    <section class="card">
+      <h2>Controles</h2>
+      <div class="keys">
+        <kbd>WASD</kbd><span>Moverse</span>
+        <kbd>Clic izq.</kbd><span>Disparar</span>
+        <kbd>Clic der.</kbd><span>Apuntar</span>
+        <kbd>R</kbd><span>Recargar</span>
+        <kbd>Espacio</kbd><span>Saltar (doble)</span>
+        <kbd>Shift</kbd><span>Correr</span>
+        <kbd>Ctrl + Shift</kbd><span>Deslizarse</span>
+        <kbd>1 / 2</kbd><span>Principal / pistola</span>
+        <kbd>B</kbd><span>Elegir arma</span>
+        <kbd>Tab</kbd><span>Marcador</span>
+        <kbd>Esc</kbd><span>Pausa</span>
+      </div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Historial de versiones</h2>
+    <ul class="history" id="history"><li class="d">Cargando…</li></ul>
+  </section>
+
+  <footer>Hecho con Godot 4 · Modelos CC0 de Quaternius, Poly Haven y styloo</footer>
+</div>
+
+<script>
+  // La página vive en https://<usuario>.github.io/<repo>/ y lee las
+  // versiones publicadas (GitHub Releases) de ese mismo repositorio.
+  const owner = location.hostname.split(".")[0];
+  const repo = location.pathname.split("/").filter(Boolean)[0] || "";
+  const ASSET = "ArenaFPS.zip";
+  const latestUrl = `https://github.com/${owner}/${repo}/releases/latest/download/${ASSET}`;
+  const dl = document.getElementById("download");
+  dl.href = latestUrl; // funciona aunque falle la API
+
+  const esc = s => s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const fmtDate = iso => new Date(iso).toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" });
+
+  function renderNotes(text) {
+    const lines = (text || "").split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+    if (!lines.length) return "<p>Sin notas para esta versión.</p>";
+    let html = "", inList = false;
+    for (const l of lines) {
+      const item = l.match(/^[-*•]\s+(.*)/);
+      if (item && !inList) { html += "<ul>"; inList = true; }
+      if (!item && inList) { html += "</ul>"; inList = false; }
+      html += item ? `<li>${esc(item[1])}</li>` : `<p>${esc(l)}</p>`;
+    }
+    return html + (inList ? "</ul>" : "");
+  }
+
+  fetch(`https://api.github.com/repos/${owner}/${repo}/releases?per_page=30`)
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(releases => {
+      releases = releases.filter(r => !r.draft);
+      if (!releases.length) {
+        document.getElementById("notes").innerHTML = "<p>Todavía no hay ninguna versión publicada.</p>";
+        document.getElementById("history").innerHTML = "";
+        return;
+      }
+      const last = releases[0];
+      const asset = (last.assets || []).find(a => a.name === ASSET);
+      document.getElementById("version").textContent = last.tag_name;
+      document.getElementById("meta").textContent =
+        `Publicada el ${fmtDate(last.published_at)}` + (asset ? ` · ${(asset.size / 1048576).toFixed(0)} MB` : "") + " · Windows 64 bits";
+      if (Date.now() - new Date(last.published_at) < 3 * 86400000) document.getElementById("badge").hidden = false;
+      document.getElementById("notes").innerHTML = renderNotes(last.body);
+      document.getElementById("history").innerHTML = releases.map(r => {
+        const a = (r.assets || []).find(x => x.name === ASSET);
+        return `<li><div class="row"><span class="v">${esc(r.tag_name)}</span><span class="d">${fmtDate(r.published_at)}</span></div>` +
+          (r.body ? `<div class="n">${esc(r.body)}</div>` : "") +
+          (a && r !== last ? `<a href="${a.browser_download_url}">Descargar esta versión</a>` : "") + "</li>";
+      }).join("");
+    })
+    .catch(() => {
+      document.getElementById("notes").innerHTML = "<p>No se pudieron cargar las novedades, pero el botón de descarga funciona.</p>";
+      document.getElementById("history").innerHTML = "";
+    });
+</script>
+</body>
+</html>
