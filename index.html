@@ -4,7 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Arena FPS — Descarga</title>
-<meta name="description" content="Descarga la última versión de Arena FPS.">
+<meta name="description" content="Shooter multijugador gratis para Windows: 4 modos, 3 mapas, bots, skins, cajas y chat de voz. Juega con tus amigos por internet sin abrir puertos.">
+<meta name="theme-color" content="#0b0c0f">
+<!-- Tarjeta al compartir el enlace (WhatsApp, Discord, X...) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Arena FPS — Descarga gratis">
+<meta property="og:description" content="Shooter multijugador para jugar con tus amigos: 4 modos, 3 mapas, bots, skins y cajas.">
+<meta property="og:image" content="https://newzile.github.io/arena-fps/img/og.jpg">
+<meta property="og:url" content="https://newzile.github.io/arena-fps/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0c0f'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='%23fab847' stroke-width='5'/%3E%3Cpath d='M32 6v14M32 44v14M6 32h14M44 32h14' stroke='%23fab847' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='3.5' fill='%23fab847'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -21,25 +30,40 @@
     --ok: #5fd08e;
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   html, body { margin: 0; }
+  html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
     color: var(--text);
     font: 15px/1.6 Inter, system-ui, sans-serif;
     background-image:
-      radial-gradient(900px 500px at 50% -10%, rgba(250,184,71,0.14), transparent 70%),
       linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: auto, 64px 64px, 64px 64px;
+    background-size: 64px 64px, 64px 64px;
     min-height: 100vh;
+    overflow-x: hidden;
   }
-  .wrap { max-width: 880px; margin: 0 auto; padding: 56px 16px 80px; }
-  h1, h2, .display { font-family: Rajdhani, Inter, sans-serif; letter-spacing: 0.02em; }
-  header { text-align: center; margin-bottom: 36px; }
-  header .kicker { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.18em; }
-  header h1 { font-size: clamp(44px, 9vw, 72px); line-height: 1; margin: 8px 0 10px; }
-  header h1 span { color: var(--accent); }
-  header p { color: var(--dim); margin: 0; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 80px; }
+  h1, h2, h3, .display { font-family: Rajdhani, Inter, sans-serif; letter-spacing: 0.02em; }
+
+  /* --- Cabecera con captura del juego de fondo --- */
+  .top {
+    position: relative;
+    padding: 72px 16px 150px;
+    text-align: center;
+    background:
+      linear-gradient(180deg, rgba(11,12,15,0.55) 0%, rgba(11,12,15,0.75) 60%, var(--bg) 100%),
+      radial-gradient(900px 500px at 50% 0%, rgba(250,184,71,0.18), transparent 70%),
+      url("img/ciudad.jpg") center 35% / cover no-repeat;
+  }
+  .top .kicker { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.18em; }
+  .top h1 { font-size: clamp(52px, 11vw, 96px); line-height: 1; margin: 10px 0 12px; text-shadow: 0 4px 30px rgba(0,0,0,0.6); }
+  .top h1 span { color: var(--accent); }
+  .top p { color: #c5c9d4; margin: 0 auto; max-width: 520px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 18px; }
+  .chip { font-size: 12px; font-weight: 600; color: var(--text); background: rgba(21,23,29,0.75); border: 1px solid var(--line); padding: 4px 12px; border-radius: 20px; backdrop-filter: blur(4px); }
 
   .card {
     background: var(--card);
@@ -48,30 +72,84 @@
     padding: 28px;
     margin-bottom: 20px;
   }
-  .hero { text-align: center; border-color: rgba(250,184,71,0.35); box-shadow: 0 20px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(250,184,71,0.08) inset; }
+  .hero {
+    position: relative;
+    margin-top: -110px;
+    text-align: center;
+    border-color: rgba(250,184,71,0.35);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(250,184,71,0.08) inset;
+  }
   .version { font-family: Rajdhani, sans-serif; font-size: 40px; font-weight: 700; line-height: 1; }
   .meta { color: var(--dim); font-size: 13px; margin: 6px 0 22px; }
   .btn {
+    position: relative; overflow: hidden;
     display: inline-flex; align-items: center; gap: 10px;
     background: var(--accent); color: var(--accent-ink);
     font: 700 18px Rajdhani, sans-serif; letter-spacing: 0.06em;
     padding: 16px 34px; border-radius: 10px; text-decoration: none;
-    transition: transform .12s ease, filter .12s ease;
+    box-shadow: 0 8px 30px rgba(250,184,71,0.25);
+    transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
   }
-  .btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+  .btn:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 10px 40px rgba(250,184,71,0.4); }
+  .btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
   .btn svg { width: 20px; height: 20px; }
-  .small { color: var(--dim); font-size: 13px; margin-top: 14px; }
+  /* brillo que cruza el botón de vez en cuando */
+  .btn::after {
+    content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.45), transparent);
+    transform: skewX(-20deg);
+    animation: shine 4.5s ease-in-out infinite;
+  }
+  @keyframes shine { 0%, 70% { left: -60%; } 100% { left: 130%; } }
+  .downloads { color: var(--ok); font-size: 13px; font-weight: 600; margin-top: 14px; }
+  .small { color: var(--dim); font-size: 13px; margin-top: 12px; }
   .new-badge { display: inline-block; background: rgba(95,208,142,0.15); color: var(--ok); font-size: 11px; font-weight: 600; letter-spacing: .08em; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; }
 
-  h2 { font-size: 24px; margin: 0 0 14px; }
+  h2 { font-size: 26px; margin: 0 0 14px; }
+  .section-title { text-align: center; margin: 44px 0 18px; }
+  .section-title h2 { margin: 0; }
+  .section-title p { color: var(--dim); margin: 4px 0 0; }
+
+  /* --- Galería --- */
+  .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 20px; }
+  .shot {
+    position: relative; padding: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+    background: var(--card); cursor: zoom-in; aspect-ratio: 16 / 9;
+  }
+  .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+  .shot:hover img { transform: scale(1.04); }
+  .shot:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .shot span {
+    position: absolute; left: 0; right: 0; bottom: 0; text-align: left;
+    padding: 24px 14px 10px; font: 700 17px Rajdhani, sans-serif; letter-spacing: .04em; color: #fff;
+    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+  }
+  .lightbox {
+    position: fixed; inset: 0; z-index: 10; display: none; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.88); padding: 16px; cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-height: 90vh; border-radius: 10px; box-shadow: 0 20px 80px rgba(0,0,0,0.6); }
+
+  /* --- Características --- */
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 20px; }
+  .feature { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; transition: border-color .2s ease, transform .2s ease; }
+  .feature:hover { border-color: rgba(250,184,71,0.35); transform: translateY(-2px); }
+  .feature .ico { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: rgba(250,184,71,0.12); color: var(--accent); margin-bottom: 12px; }
+  .feature .ico svg { width: 22px; height: 22px; }
+  .feature h3 { font-size: 19px; margin: 0 0 4px; }
+  .feature p { color: var(--dim); font-size: 14px; margin: 0; }
+
   .notes { background: var(--card-2); border-radius: 10px; padding: 16px 20px; }
   .notes ul { margin: 0; padding-left: 20px; }
   .notes p { margin: 0 0 8px; }
   .notes p:last-child { margin: 0; }
 
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
   ol.steps { margin: 0; padding-left: 20px; }
   ol.steps li { margin-bottom: 8px; }
+  h3.sub { font-size: 17px; margin: 18px 0 8px; color: var(--accent); }
+  h3.sub:first-of-type { margin-top: 0; }
   code { background: var(--card-2); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; font-size: 13px; }
 
   .keys { display: grid; grid-template-columns: auto 1fr; gap: 8px 14px; align-items: center; }
@@ -85,26 +163,51 @@
   .history { list-style: none; margin: 0; padding: 0; }
   .history li { border-top: 1px solid var(--line); padding: 14px 0; }
   .history li:first-child { border-top: 0; padding-top: 0; }
+  .history li.extra { display: none; }
+  .history.all li.extra { display: list-item; }
   .history .row { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
   .history .v { font-family: Rajdhani, sans-serif; font-weight: 700; font-size: 18px; }
   .history .d { color: var(--dim); font-size: 13px; }
   .history .n { color: var(--dim); font-size: 14px; margin-top: 4px; white-space: pre-line; }
   .history a { color: var(--accent); font-size: 13px; }
+  .more {
+    display: block; width: 100%; margin-top: 14px; padding: 10px;
+    background: var(--card-2); color: var(--text); border: 1px solid var(--line); border-radius: 10px;
+    font: 600 14px Inter, sans-serif; cursor: pointer;
+  }
+  .more:hover { border-color: rgba(250,184,71,0.35); }
   footer { text-align: center; color: var(--dim); font-size: 12px; margin-top: 36px; }
+
+  /* Aparecen suavemente al bajar */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .btn::after { display: none; }
+    .shot img, .feature { transition: none; }
+  }
+  @media (max-width: 620px) {
+    .gallery { grid-template-columns: 1fr; }
+  }
   @media (max-width: 520px) {
+    .top { padding: 48px 16px 130px; }
     .card { padding: 20px; }
     .btn { width: 100%; justify-content: center; }
   }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="kicker">FPS MULTIJUGADOR · ESTILO KRUNKER</div>
-    <h1>ARENA <span>FPS</span></h1>
-    <p>Descarga siempre la última versión desde aquí.</p>
-  </header>
+<header class="top">
+  <div class="kicker">FPS MULTIJUGADOR · GRATIS · WINDOWS</div>
+  <h1>ARENA <span>FPS</span></h1>
+  <p>Partidas rápidas con tus amigos o contra bots: rifles, francotirador, cuchillos y un modo Bomba al estilo CS.</p>
+  <div class="chips">
+    <span class="chip">4 modos</span><span class="chip">3 mapas</span><span class="chip">Hasta 16 jugadores</span><span class="chip">Online sin abrir puertos</span>
+  </div>
+</header>
 
+<div class="wrap">
   <section class="card hero">
     <div class="new-badge" id="badge" hidden>NUEVA VERSIÓN</div>
     <div class="version" id="version">Última versión</div>
@@ -113,50 +216,114 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
       DESCARGAR
     </a>
-    <div class="small">Descomprime el .zip y abre <code>ArenaFPS.exe</code>. Para actualizar, descarga de nuevo y sustituye el archivo.</div>
+    <div class="downloads" id="downloads" hidden></div>
+    <div class="small">Descomprime el .zip y abre <code>ArenaFPS.exe</code>. El juego se actualiza solo al abrirlo.</div>
   </section>
 
-  <section class="card">
+  <div class="section-title reveal"><h2>Así se ve</h2><p>Capturas del juego</p></div>
+  <div class="gallery reveal">
+    <button class="shot" data-full="img/ciudad.jpg"><img src="img/ciudad_s.jpg" alt="Mapa Ciudad en modo Bomba, con una caja de munición" loading="lazy"><span>Ciudad · modo Bomba</span></button>
+    <button class="shot" data-full="img/desierto.jpg"><img src="img/desierto_s.jpg" alt="Mapa Desierto con un bot al fondo" loading="lazy"><span>Desierto</span></button>
+    <button class="shot" data-full="img/arena.jpg"><img src="img/arena_s.jpg" alt="Mapa Arena con varios bots" loading="lazy"><span>Arena</span></button>
+    <button class="shot" data-full="img/menu.jpg"><img src="img/menu_s.jpg" alt="Menú principal con el personaje y el panel de amigos" loading="lazy"><span>Menú · personajes y amigos</span></button>
+  </div>
+
+  <div class="section-title reveal"><h2>Qué trae</h2></div>
+  <div class="features">
+    <div class="feature reveal">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></div>
+      <h3>4 modos de juego</h3>
+      <p>Todos contra todos, por equipos, solo cuchillos y Bomba: rondas, dinero y compras como en CS.</p>
+    </div>
+    <div class="feature reveal">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 7 6-3 6 3 6-3v13l-6 3-6-3-6 3z"/><path d="M9 4v13M15 7v13"/></svg></div>
+      <h3>3 mapas</h3>
+      <p>Desierto (inspirado en Dust II), Arena, pequeño y rápido, y Ciudad, con calles y tiendas.</p>
+    </div>
+    <div class="feature reveal">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg></div>
+      <h3>Skins, cajas y mercado</h3>
+      <p>Gana cajas jugando, ábrelas, compra y vende skins. Con StatTrak™ que cuenta tus bajas.</p>
+    </div>
+    <div class="feature reveal">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16 14.2A5 5 0 0 1 22 19"/></svg></div>
+      <h3>Online con amigos</h3>
+      <p>Añade a tus amigos con su código y entrad juntos por internet, sin abrir puertos ni VPN.</p>
+    </div>
+    <div class="feature reveal">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 8V5M9 13h.01M15 13h.01M9.5 16h5"/><circle cx="12" cy="4" r="1"/></svg></div>
+      <h3>Bots</h3>
+      <p>Rellena la partida con bots en fácil, normal o difícil. También plantan y desactivan la bomba.</p>
+    </div>
+    <div class="feature reveal">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
+      <h3>Chat de voz y texto</h3>
+      <p>Pulsa para hablar con tu equipo, o escribe a todos o solo a los tuyos.</p>
+    </div>
+    <div class="feature reveal">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17h13l3-4h2"/><path d="M6 17v3M13 17v3"/><rect x="3" y="4" width="8" height="6" rx="1"/><path d="M5 7h4"/></svg></div>
+      <h3>Armas y munición</h3>
+      <p>Munición limitada, cajas de balas por el mapa y armas que se caen al morir, con su skin.</p>
+    </div>
+    <div class="feature reveal">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></div>
+      <h3>Rangos y medallas</h3>
+      <p>Sube de nivel, gana rango y consigue medallas por rachas, headshots o no-scopes.</p>
+    </div>
+  </div>
+
+  <section class="card reveal">
     <h2>Novedades</h2>
     <div class="notes" id="notes"><p>Cargando…</p></div>
   </section>
 
   <div class="grid">
-    <section class="card">
+    <section class="card reveal">
       <h2>Jugar con amigos</h2>
+      <h3 class="sub">Por internet (lo más fácil)</h3>
       <ol class="steps">
-        <li>Uno pulsa <b>Crear partida</b> (y permite el acceso en el firewall).</li>
-        <li>Ese mismo abre <code>cmd</code>, escribe <code>ipconfig</code> y comparte su <b>Dirección IPv4</b>.</li>
-        <li>Los demás la ponen en <b>IP del servidor</b> y pulsan <b>Unirse</b>.</li>
+        <li>En el menú, abre <b>AMIGOS</b> y pulsa <b>+ AÑADIR AMIGO</b> con el código de tu amigo (cada uno ve el suyo en esa ventana).</li>
+        <li>Uno pulsa <b>CREAR PARTIDA</b> y elige <b>ONLINE (AMIGOS)</b>.</li>
+        <li>Los demás le buscan en su lista de <b>AMIGOS</b> y pulsan <b>UNIRSE</b>.</li>
       </ol>
-      <p class="small">¿Cada uno en su casa? Usad <b>Radmin VPN</b> o <b>ZeroTier</b> y la IP que os dé, o abrid el puerto <code>8910</code> UDP en el router del host.</p>
-      <p class="small">Si Windows avisa de que “protegió su PC”: <b>Más información → Ejecutar de todas formas</b>.</p>
+      <h3 class="sub">En la misma casa o red</h3>
+      <p class="small" style="margin-top:0">Uno crea la partida en <b>RED LOCAL / IP</b> y los demás pulsan <b>BUSCAR SALAS</b>. Si no aparece, usad <b>UNIRSE POR IP</b> con la IP que sale en la sala.</p>
+      <p class="small">Si Windows avisa de que “protegió su PC”: <b>Más información → Ejecutar de todas formas</b>, y permite el acceso en el firewall.</p>
     </section>
-    <section class="card">
+    <section class="card reveal">
       <h2>Controles</h2>
       <div class="keys">
         <kbd>WASD</kbd><span>Moverse</span>
-        <kbd>Clic izq.</kbd><span>Disparar</span>
-        <kbd>Clic der.</kbd><span>Apuntar</span>
+        <kbd>Clic izq.</kbd><span>Disparar (cuchillo: tajo)</span>
+        <kbd>Clic der.</kbd><span>Apuntar (cuchillo: puñalada)</span>
         <kbd>R</kbd><span>Recargar</span>
         <kbd>Espacio</kbd><span>Saltar (doble)</span>
         <kbd>Shift</kbd><span>Correr</span>
-        <kbd>Ctrl + Shift</kbd><span>Deslizarse</span>
-        <kbd>1 / 2</kbd><span>Principal / pistola</span>
-        <kbd>B</kbd><span>Elegir arma</span>
+        <kbd>Ctrl</kbd><span>Agacharse · con Shift: deslizarse</span>
+        <kbd>1 / 2 / 3</kbd><span>Principal / pistola / cuchillo</span>
+        <kbd>E</kbd><span>Recoger arma · plantar / desactivar</span>
+        <kbd>G</kbd><span>Tirar arma</span>
+        <kbd>F</kbd><span>Inspeccionar</span>
+        <kbd>B</kbd><span>Elegir arma · comprar (Bomba)</span>
+        <kbd>V</kbd><span>Hablar por voz</span>
+        <kbd>Y / U</kbd><span>Chat a todos / de equipo</span>
         <kbd>Tab</kbd><span>Marcador</span>
         <kbd>Esc</kbd><span>Pausa</span>
       </div>
+      <p class="small">Todas se pueden cambiar en <b>CONTROLES</b>.</p>
     </section>
   </div>
 
-  <section class="card">
+  <section class="card reveal">
     <h2>Historial de versiones</h2>
     <ul class="history" id="history"><li class="d">Cargando…</li></ul>
+    <button class="more" id="more" hidden></button>
   </section>
 
-  <footer>Hecho con Godot 4 · Modelos CC0 de Quaternius, Poly Haven y styloo</footer>
+  <footer>Hecho con Godot 4 · Modelos de Quaternius, Poly Haven, styloo y artistas de Sketchfab</footer>
 </div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Captura ampliada"><img alt=""></div>
 
 <script>
   // La página vive en https://<usuario>.github.io/<repo>/ y lee las
@@ -164,6 +331,7 @@
   const owner = location.hostname.split(".")[0];
   const repo = location.pathname.split("/").filter(Boolean)[0] || "";
   const ASSET = "ArenaFPS.zip";
+  const SHOWN = 5; // versiones visibles antes de "Ver todas"
   const latestUrl = `https://github.com/${owner}/${repo}/releases/latest/download/${ASSET}`;
   const dl = document.getElementById("download");
   dl.href = latestUrl; // funciona aunque falle la API
@@ -184,7 +352,29 @@
     return html + (inList ? "</ul>" : "");
   }
 
-  fetch(`https://api.github.com/repos/${owner}/${repo}/releases?per_page=30`)
+  // Galería: clic para ver la captura en grande.
+  const lb = document.getElementById("lightbox");
+  document.querySelectorAll(".shot").forEach(b => b.addEventListener("click", () => {
+    lb.querySelector("img").src = b.dataset.full;
+    lb.querySelector("img").alt = b.querySelector("img").alt;
+    lb.classList.add("open");
+  }));
+  const closeLb = () => lb.classList.remove("open");
+  lb.addEventListener("click", closeLb);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeLb(); });
+
+  // Las secciones aparecen al bajar.
+  const reveals = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }), { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add("in"));
+  }
+
+  fetch(`https://api.github.com/repos/${owner}/${repo}/releases?per_page=100`)
     .then(r => r.ok ? r.json() : Promise.reject(r.status))
     .then(releases => {
       releases = releases.filter(r => !r.draft);
@@ -200,12 +390,31 @@
         `Publicada el ${fmtDate(last.published_at)}` + (asset ? ` · ${(asset.size / 1048576).toFixed(0)} MB` : "") + " · Windows 64 bits";
       if (Date.now() - new Date(last.published_at) < 3 * 86400000) document.getElementById("badge").hidden = false;
       document.getElementById("notes").innerHTML = renderNotes(last.body);
-      document.getElementById("history").innerHTML = releases.map(r => {
+
+      // Descargas de todas las versiones juntas.
+      const total = releases.reduce((n, r) => n + (r.assets || []).filter(a => a.name === ASSET)
+        .reduce((m, a) => m + (a.download_count || 0), 0), 0);
+      if (total > 0) {
+        const d = document.getElementById("downloads");
+        d.textContent = `${total.toLocaleString("es-ES")} descargas`;
+        d.hidden = false;
+      }
+
+      document.getElementById("history").innerHTML = releases.map((r, i) => {
         const a = (r.assets || []).find(x => x.name === ASSET);
-        return `<li><div class="row"><span class="v">${esc(r.tag_name)}</span><span class="d">${fmtDate(r.published_at)}</span></div>` +
+        return `<li${i >= SHOWN ? ' class="extra"' : ""}><div class="row"><span class="v">${esc(r.tag_name)}</span><span class="d">${fmtDate(r.published_at)}</span></div>` +
           (r.body ? `<div class="n">${esc(r.body)}</div>` : "") +
           (a && r !== last ? `<a href="${a.browser_download_url}">Descargar esta versión</a>` : "") + "</li>";
       }).join("");
+      if (releases.length > SHOWN) {
+        const more = document.getElementById("more");
+        const hist = document.getElementById("history");
+        const label = () => more.textContent = hist.classList.contains("all")
+          ? "Ver menos" : `Ver todas las versiones (${releases.length})`;
+        label();
+        more.hidden = false;
+        more.addEventListener("click", () => { hist.classList.toggle("all"); label(); });
+      }
     })
     .catch(() => {
       document.getElementById("notes").innerHTML = "<p>No se pudieron cargar las novedades, pero el botón de descarga funciona.</p>";
