@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Arena FPS — Descarga</title>
+<title>Strike Zone — Descarga</title>
 <meta name="description" content="Shooter multijugador gratis para Windows: 4 modos, 3 mapas, bots, skins, cajas y chat de voz. Juega con tus amigos por internet sin abrir puertos.">
 <meta name="theme-color" content="#0b0c0f">
 <!-- Tarjeta al compartir el enlace (WhatsApp, Discord, X...) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Arena FPS — Descarga gratis">
+<meta property="og:title" content="Strike Zone — Descarga gratis">
 <meta property="og:description" content="Shooter multijugador para jugar con tus amigos: 4 modos, 3 mapas, bots, skins y cajas.">
 <meta property="og:image" content="https://newzile.github.io/arena-fps/img/og.jpg">
 <meta property="og:url" content="https://newzile.github.io/arena-fps/">
@@ -200,7 +200,7 @@
 <body>
 <header class="top">
   <div class="kicker">FPS MULTIJUGADOR · GRATIS · WINDOWS</div>
-  <h1>ARENA <span>FPS</span></h1>
+  <h1>STRIKE <span>ZONE</span></h1>
   <p>Partidas rápidas con tus amigos o contra bots: rifles, francotirador, cuchillos y un modo Bomba al estilo CS.</p>
   <div class="chips">
     <span class="chip">4 modos</span><span class="chip">3 mapas</span><span class="chip">Hasta 16 jugadores</span><span class="chip">Online sin abrir puertos</span>
@@ -217,7 +217,7 @@
       DESCARGAR
     </a>
     <div class="downloads" id="downloads" hidden></div>
-    <div class="small">Descomprime el .zip y abre <code>ArenaFPS.exe</code>. El juego se actualiza solo al abrirlo.</div>
+    <div class="small">Descomprime el .zip y abre <code>StrikeZone.exe</code>. El juego se actualiza solo al abrirlo.<br>¿Venías de <b>Arena FPS</b>? Es el mismo juego con otro nombre: conservas tu perfil y tus skins.</div>
   </section>
 
   <div class="section-title reveal"><h2>Así se ve</h2><p>Capturas del juego</p></div>
@@ -330,7 +330,10 @@
   // versiones publicadas (GitHub Releases) de ese mismo repositorio.
   const owner = location.hostname.split(".")[0];
   const repo = location.pathname.split("/").filter(Boolean)[0] || "";
-  const ASSET = "ArenaFPS.zip";
+  const ASSET = "StrikeZone.zip";
+  const OLD_ASSET = "ArenaFPS.zip"; // versiones de antes del cambio de nombre
+  const isGame = a => a.name === ASSET || a.name === OLD_ASSET;
+  const gameAsset = r => (r.assets || []).find(a => a.name === ASSET) || (r.assets || []).find(a => a.name === OLD_ASSET);
   const SHOWN = 5; // versiones visibles antes de "Ver todas"
   const latestUrl = `https://github.com/${owner}/${repo}/releases/latest/download/${ASSET}`;
   const dl = document.getElementById("download");
@@ -384,7 +387,8 @@
         return;
       }
       const last = releases[0];
-      const asset = (last.assets || []).find(a => a.name === ASSET);
+      const asset = gameAsset(last);
+      if (asset) dl.href = asset.browser_download_url;
       document.getElementById("version").textContent = last.tag_name;
       document.getElementById("meta").textContent =
         `Publicada el ${fmtDate(last.published_at)}` + (asset ? ` · ${(asset.size / 1048576).toFixed(0)} MB` : "") + " · Windows 64 bits";
@@ -392,7 +396,7 @@
       document.getElementById("notes").innerHTML = renderNotes(last.body);
 
       // Descargas de todas las versiones juntas.
-      const total = releases.reduce((n, r) => n + (r.assets || []).filter(a => a.name === ASSET)
+      const total = releases.reduce((n, r) => n + (r.assets || []).filter(isGame)
         .reduce((m, a) => m + (a.download_count || 0), 0), 0);
       if (total > 0) {
         const d = document.getElementById("downloads");
@@ -401,7 +405,7 @@
       }
 
       document.getElementById("history").innerHTML = releases.map((r, i) => {
-        const a = (r.assets || []).find(x => x.name === ASSET);
+        const a = gameAsset(r);
         return `<li${i >= SHOWN ? ' class="extra"' : ""}><div class="row"><span class="v">${esc(r.tag_name)}</span><span class="d">${fmtDate(r.published_at)}</span></div>` +
           (r.body ? `<div class="n">${esc(r.body)}</div>` : "") +
           (a && r !== last ? `<a href="${a.browser_download_url}">Descargar esta versión</a>` : "") + "</li>";

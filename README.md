@@ -1,6 +1,6 @@
-# Arena FPS
+# Strike Zone
 
-FPS multijugador estilo Krunker hecho en Godot 4.
+Shooter multijugador hecho en Godot 4 (antes se llamaba Arena FPS).
 
 **Descarga la última versión:** https://newzile.github.io/arena-fps/
 
