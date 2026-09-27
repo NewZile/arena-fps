@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accesibilidad · Strike Zone</title>
+<meta name="description" content="Cómo se ha hecho accesible esta web y cómo avisar de problemas.">
+<meta name="theme-color" content="#0b0c0f">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0c0f'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='%23fab847' stroke-width='5'/%3E%3Cpath d='M32 6v14M32 44v14M6 32h14M44 32h14' stroke='%23fab847' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='3.5' fill='%23fab847'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header class="bar">
+  <div class="in">
+    <a class="brand" href="./">STRIKE <span>ZONE</span></a>
+    <a class="back" href="./">← Volver a la página de descarga</a>
+  </div>
+</header>
+<main id="contenido">
+<h1>Accesibilidad</h1>
+<p class="updated">Última actualización: 27 de septiembre de 2026</p>
+<p>Esta web intenta cumplir las pautas <strong>WCAG 2.1 nivel AA</strong>, para que la pueda usar cualquier persona.</p>
+
+<h2>Qué se ha hecho</h2>
+<ul>
+<li><strong>Contraste:</strong> el texto y los botones tienen un contraste mínimo de 4,5:1 con su fondo (el texto grande, de 3:1).</li>
+<li><strong>Teclado:</strong> todo se puede usar con el teclado. <kbd>Tab</kbd> recorre enlaces y botones, cada elemento enfocado se marca con un borde visible y al principio hay un enlace para saltar al contenido. Las capturas se abren con <kbd>Intro</kbd> y se cierran con <kbd>Esc</kbd> o con el botón «Cerrar».</li>
+<li><strong>Texto alternativo:</strong> todas las imágenes tienen una descripción, y los iconos decorativos están ocultos para los lectores de pantalla.</li>
+<li><strong>Etiquetas claras:</strong> los enlaces y botones dicen qué hacen (por ejemplo, «Descargar la versión 1.5.52» en lugar de «aquí»).</li>
+<li><strong>Estructura:</strong> la página usa títulos ordenados y zonas marcadas (cabecera, contenido y pie) para moverse con lectores de pantalla.</li>
+<li><strong>Movimiento:</strong> si tu sistema tiene activada la opción de reducir el movimiento, se quitan las animaciones.</li>
+<li><strong>Sin JavaScript:</strong> todo el contenido se ve igual y el botón de descarga funciona.</li>
+<li><strong>Tamaño:</strong> la web se adapta al móvil y se puede ampliar hasta el 200 % sin perder contenido.</li>
+</ul>
+
+<h2>Limitaciones conocidas</h2>
+<ul>
+<li>Las capturas del juego son imágenes: su descripción resume lo que se ve, no cada detalle.</li>
+<li>El historial de versiones y las novedades vienen de GitHub y se muestran tal como se publicaron.</li>
+<li>El juego en sí, fuera de la web, todavía no tiene todas las opciones de accesibilidad (por ejemplo, subtítulos de los sonidos).</li>
+</ul>
+
+<h2>¿Encuentras un problema?</h2>
+<p>Si algo de la web no se puede usar bien con tu forma de navegar, avisa en las <a href="https://github.com/NewZile/arena-fps/issues">incidencias del proyecto</a> y se intentará arreglar lo antes posible.</p>
+</main>
+<footer class="site">
+  <div class="in">
+    <nav aria-label="Información legal"><ul><li><a href="aviso-legal.html">Aviso legal</a></li><li><a href="privacidad.html">Privacidad</a></li><li><a href="cookies.html">Cookies</a></li><li><a href="terminos.html">Términos</a></li><li><a href="reembolsos.html">Reembolsos</a></li><li><a href="creditos.html">Créditos y licencias</a></li><li><a href="accesibilidad.html">Accesibilidad</a></li></ul></nav>
+    <p>Strike Zone es un juego gratuito y sin ánimo de lucro. Esta web no usa cookies ni herramientas de seguimiento.</p>
+    <p>Strike Zone no está afiliado, patrocinado ni respaldado por Valve Corporation ni por ninguna otra empresa de videojuegos.</p>
+  </div>
+</footer>
+</body>
+</html>
