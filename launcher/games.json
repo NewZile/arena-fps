@@ -1,0 +1,52 @@
+{
+  "games": [
+    {
+      "id": "strikezone",
+      "name": "Strike Zone",
+      "title_a": "STRIKE",
+      "title_b": "ZONE",
+      "tagline": "Shooter táctico con modo Bomba, Zombis por oleadas y Escondite. Gratis y con tus amigos.",
+      "tags": [
+        "SHOOTER",
+        "ZOMBIS",
+        "ESCONDITE"
+      ],
+      "status": "available",
+      "repo": "NewZile/arena-fps",
+      "asset": "StrikeZone.zip",
+      "legacy_asset": "ArenaFPS.zip",
+      "exe": "StrikeZone.exe",
+      "alt_exes": [
+        "ArenaFPS.exe"
+      ],
+      "folder": "Strike Zone",
+      "page": "https://newzile.github.io/arena-fps/",
+      "developer": "NewZile",
+      "covers": [
+        "builtin:sz_1.jpg",
+        "builtin:sz_2.jpg",
+        "builtin:sz_3.jpg",
+        "builtin:sz_4.jpg"
+      ],
+      "thumb": "builtin:sz_thumb.jpg"
+    },
+    {
+      "id": "soon-1",
+      "name": "???",
+      "status": "soon",
+      "hint": "Un juego nuevo está en camino"
+    },
+    {
+      "id": "soon-2",
+      "name": "???",
+      "status": "soon",
+      "hint": "En desarrollo"
+    },
+    {
+      "id": "soon-3",
+      "name": "???",
+      "status": "soon",
+      "hint": "Muy pronto"
+    }
+  ]
+}

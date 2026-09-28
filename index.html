@@ -107,6 +107,9 @@
   @keyframes shine { 0%, 70% { left: -60%; } 100% { left: 130%; } }
   .downloads { color: var(--ok); font-size: 13px; font-weight: 600; margin-top: 14px; }
   .small { color: var(--dim); font-size: 13px; margin-top: 12px; }
+  .alt-dl { margin-top: 12px; font-size: 13px; }
+  .alt-dl a { color: var(--dim); text-decoration: underline; text-underline-offset: 3px; }
+  .alt-dl a:hover, .alt-dl a:focus-visible { color: #fff; }
   .new-badge { display: inline-block; background: rgba(95,208,142,0.15); color: var(--ok); font-size: 11px; font-weight: 600; letter-spacing: .08em; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; }
 
   h2 { font-size: 26px; margin: 0 0 14px; }
@@ -295,12 +298,13 @@
     <div class="new-badge" id="badge" hidden data-i18n="new_badge">NUEVA VERSIÓN</div>
     <div class="version" id="version" data-i18n="latest">Última versión</div>
     <div class="meta" id="meta">Windows · 64 bits</div>
-    <a class="btn" id="download" href="#" aria-label="Descargar Strike Zone para Windows (archivo .zip)">
+    <a class="btn" id="download" href="https://github.com/NewZile/arena-fps/releases/download/launcher/ZileLauncher.exe" aria-label="Descargar Zile Launcher para Windows (instala y actualiza Strike Zone)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
       <span data-i18n="download">DESCARGAR</span>
     </a>
+    <div class="alt-dl"><a id="download-zip" href="#" data-i18n="dl_zip_plain">¿Prefieres el juego suelto? Descarga el .zip</a></div>
     <div class="downloads" id="downloads" hidden></div>
-    <div class="small" data-i18n="dl_help">Gratis, sin cuentas ni compras. Descomprime el .zip y abre <code>StrikeZone.exe</code>. Al abrirlo, el juego busca actualizaciones y se actualiza con un clic.<br>¿Venías de <b>Arena FPS</b>? Es el mismo juego con otro nombre: conservas tu perfil y tus skins.</div>
+    <div class="small" data-i18n="dl_help">Gratis, sin cuentas ni compras. Descarga el <b>Zile Launcher</b>, ábrelo y pulsa <b>INSTALAR</b>: descarga el juego y lo mantiene al día. Si prefieres el .zip, descomprímelo y abre <code>StrikeZone.exe</code>.<br>¿Venías de <b>Arena FPS</b>? Es el mismo juego con otro nombre: conservas tu perfil y tus skins.</div>
   </section>
 
   <section class="card zombies reveal">
@@ -502,7 +506,11 @@
   const SHOWN = 5; // versiones visibles antes de "Ver todas"
   const latestUrl = `https://github.com/${owner}/${repo}/releases/latest/download/${ASSET}`;
   const dl = document.getElementById("download");
-  dl.href = latestUrl; // funciona aunque falle la API
+  // El botón grande baja el Zile Launcher (release "launcher", ver publicar-launcher.ps1);
+  // el enlace de debajo, el juego suelto.
+  dl.href = `https://github.com/${owner}/${repo}/releases/download/launcher/ZileLauncher.exe`;
+  const zipLink = document.getElementById("download-zip");
+  zipLink.href = latestUrl; // funciona aunque falle la API
   const T = (k, ...a) => I18N.t(k, ...a);
 
   const esc = s => s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -575,9 +583,13 @@
     const last = releases[0];
     const asset = gameAsset(last);
     const mb = asset ? (asset.size / 1048576).toFixed(0) : "";
-    if (asset) dl.href = asset.browser_download_url;
+    if (asset) {
+      zipLink.href = asset.browser_download_url;
+      zipLink.textContent = T("dl_zip", mb);
+      zipLink.setAttribute("aria-label", T("dl_aria", last.tag_name) + T("dl_aria_size", mb));
+    }
     document.getElementById("version").textContent = last.tag_name;
-    dl.setAttribute("aria-label", T("dl_aria", last.tag_name) + (asset ? T("dl_aria_size", mb) : ""));
+    dl.setAttribute("aria-label", T("dl_aria_launcher"));
     document.getElementById("meta").textContent =
       T("published", fmtDate(last.published_at)) + (asset ? ` · ${mb} MB` : "") + " · Windows 64 bits";
     if (Date.now() - new Date(last.published_at) < 3 * 86400000) document.getElementById("badge").hidden = false;
@@ -612,7 +624,7 @@
 
   fetch(`https://api.github.com/repos/${owner}/${repo}/releases?per_page=100`)
     .then(r => r.ok ? r.json() : Promise.reject(r.status))
-    .then(list => { releases = list.filter(r => !r.draft); renderReleases(); })
+    .then(list => { releases = list.filter(r => !r.draft && !r.prerelease && r.tag_name !== "launcher"); renderReleases(); })
     .catch(() => {
       document.getElementById("notes").innerHTML = `<p>${T("releases_error")}</p>`;
       document.getElementById("history").innerHTML = "";

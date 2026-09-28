@@ -9,6 +9,7 @@
   // Textos que se montan desde el código ({0}, {1}: datos).
   const DYN = {
     es: {
+      dl_aria_launcher: "Descargar Zile Launcher para Windows (instala y actualiza Strike Zone)", dl_zip: "¿Prefieres el juego suelto? Descarga el .zip ({0} MB)",
       dl_aria: "Descargar Strike Zone {0} para Windows", dl_aria_size: " (archivo .zip de {0} MB)",
       published: "Publicada el {0}", downloads: "{0} descargas", dl_version: "Descargar la versión {0}",
       less: "Ver menos", all_versions: "Ver todas las versiones ({0})", no_notes: "Sin notas para esta versión.",
@@ -16,6 +17,7 @@
       releases_error: "No se pudieron cargar las novedades, pero el botón de descarga funciona."
     },
     en: {
+      dl_aria_launcher: "Download Zile Launcher for Windows (installs and updates Strike Zone)", dl_zip: "Prefer the standalone game? Download the .zip ({0} MB)",
       dl_aria: "Download Strike Zone {0} for Windows", dl_aria_size: " ({0} MB .zip file)",
       published: "Released on {0}", downloads: "{0} downloads", dl_version: "Download version {0}",
       less: "Show less", all_versions: "Show all versions ({0})", no_notes: "No notes for this version.",
@@ -23,6 +25,7 @@
       releases_error: "The news couldn't be loaded, but the download button works."
     },
     pt: {
+      dl_aria_launcher: "Baixar o Zile Launcher para Windows (instala e atualiza o Strike Zone)", dl_zip: "Prefere o jogo avulso? Baixe o .zip ({0} MB)",
       dl_aria: "Baixar Strike Zone {0} para Windows", dl_aria_size: " (arquivo .zip de {0} MB)",
       published: "Publicada em {0}", downloads: "{0} downloads", dl_version: "Baixar a versão {0}",
       less: "Ver menos", all_versions: "Ver todas as versões ({0})", no_notes: "Sem notas para esta versão.",
@@ -30,6 +33,7 @@
       releases_error: "Não foi possível carregar as novidades, mas o botão de download funciona."
     },
     fr: {
+      dl_aria_launcher: "Télécharger Zile Launcher pour Windows (installe et met à jour Strike Zone)", dl_zip: "Tu préfères le jeu seul ? Télécharge le .zip ({0} Mo)",
       dl_aria: "Télécharger Strike Zone {0} pour Windows", dl_aria_size: " (fichier .zip de {0} Mo)",
       published: "Publiée le {0}", downloads: "{0} téléchargements", dl_version: "Télécharger la version {0}",
       less: "Voir moins", all_versions: "Voir toutes les versions ({0})", no_notes: "Pas de notes pour cette version.",
@@ -37,6 +41,7 @@
       releases_error: "Impossible de charger les nouveautés, mais le bouton de téléchargement fonctionne."
     },
     de: {
+      dl_aria_launcher: "Zile Launcher für Windows herunterladen (installiert und aktualisiert Strike Zone)", dl_zip: "Lieber das Spiel einzeln? Lade die .zip herunter ({0} MB)",
       dl_aria: "Strike Zone {0} für Windows herunterladen", dl_aria_size: " (.zip-Datei, {0} MB)",
       published: "Veröffentlicht am {0}", downloads: "{0} Downloads", dl_version: "Version {0} herunterladen",
       less: "Weniger anzeigen", all_versions: "Alle Versionen anzeigen ({0})", no_notes: "Keine Hinweise zu dieser Version.",
@@ -44,6 +49,7 @@
       releases_error: "Die Neuigkeiten konnten nicht geladen werden, aber der Download-Button funktioniert."
     },
     it: {
+      dl_aria_launcher: "Scarica Zile Launcher per Windows (installa e aggiorna Strike Zone)", dl_zip: "Preferisci il gioco da solo? Scarica lo .zip ({0} MB)",
       dl_aria: "Scarica Strike Zone {0} per Windows", dl_aria_size: " (file .zip da {0} MB)",
       published: "Pubblicata il {0}", downloads: "{0} download", dl_version: "Scarica la versione {0}",
       less: "Mostra meno", all_versions: "Mostra tutte le versioni ({0})", no_notes: "Nessuna nota per questa versione.",
@@ -60,7 +66,8 @@
       lead: "Three games in one: tactical <b>Shooter</b> with Bomb mode, ranks and skins; <b>Zombies</b>, waves solo or with your friends; and <b>Hide and seek</b>, turn into an object on the map and don't get found.",
       chip1: "6 modes", chip2: "5 maps", chip3: "6 languages", chip4: "Clans", chip5: "Replays", chip6: "Online with friends",
       new_badge: "NEW VERSION", latest: "Latest version", download: "DOWNLOAD",
-      dl_help: "Free, no accounts or purchases. Unzip the .zip and open <code>StrikeZone.exe</code>. When it opens, the game checks for updates and updates with one click.<br>Coming from <b>Arena FPS</b>? It's the same game with a new name: you keep your profile and your skins.",
+      dl_help: "Free, no accounts or purchases. Download the <b>Zile Launcher</b>, open it and press <b>INSTALL</b>: it downloads the game and keeps it up to date. If you prefer the .zip, unzip it and open <code>StrikeZone.exe</code>.<br>Coming from <b>Arena FPS</b>? It's the same game with a new name: you keep your profile and your skins.",
+      dl_zip_plain: "Prefer the standalone game? Download the .zip",
       z_tag: "ZOMBIES MODE", z_title: "SURVIVE THE <span>HORDE</span>",
       z_lead: "When you open the game you choose: <b>Shooter</b> or <b>Zombies</b>. In Zombies you hold out against ever harder waves on the <b>Apocalypse</b> map, alone or with your friends online.",
       z1: "<b>Endless waves</b>Zombies that walk, run and crawl. How far will you get? They say some waves bring surprises…",
@@ -128,7 +135,8 @@
       lead: "Três jogos em um: <b>Shooter</b> tático com modo Bomba, ranks e skins; <b>Zumbis</b>, ondas sozinho ou com seus amigos; e <b>Esconde-esconde</b>, vire um objeto do mapa e não deixe te acharem.",
       chip1: "6 modos", chip2: "5 mapas", chip3: "6 idiomas", chip4: "Clãs", chip5: "Replays", chip6: "Online com amigos",
       new_badge: "NOVA VERSÃO", latest: "Última versão", download: "BAIXAR",
-      dl_help: "Grátis, sem contas nem compras. Descompacte o .zip e abra o <code>StrikeZone.exe</code>. Ao abrir, o jogo procura atualizações e se atualiza com um clique.<br>Vinha do <b>Arena FPS</b>? É o mesmo jogo com outro nome: você mantém seu perfil e suas skins.",
+      dl_help: "Grátis, sem contas nem compras. Baixe o <b>Zile Launcher</b>, abra-o e clique em <b>INSTALAR</b>: ele baixa o jogo e o mantém atualizado. Se preferir o .zip, descompacte-o e abra o <code>StrikeZone.exe</code>.<br>Vinha do <b>Arena FPS</b>? É o mesmo jogo com outro nome: você mantém seu perfil e suas skins.",
+      dl_zip_plain: "Prefere o jogo avulso? Baixe o .zip",
       z_tag: "MODO ZUMBIS", z_title: "SOBREVIVA À <span>HORDA</span>",
       z_lead: "Ao abrir o jogo você escolhe: <b>Shooter</b> ou <b>Zumbis</b>. Nos Zumbis vocês aguentam ondas cada vez mais difíceis no mapa <b>Apocalipse</b>, sozinho ou com seus amigos pela internet.",
       z1: "<b>Ondas sem fim</b>Zumbis que andam, correm e rastejam. Até que onda vocês chegam? Dizem que algumas trazem surpresas…",
@@ -196,7 +204,8 @@
       lead: "Trois jeux en un : un <b>Shooter</b> tactique avec mode Bombe, rangs et skins ; <b>Zombies</b>, des vagues en solo ou avec tes amis ; et <b>Cache-cache</b>, transforme-toi en objet de la carte et ne te fais pas trouver.",
       chip1: "6 modes", chip2: "5 cartes", chip3: "6 langues", chip4: "Clans", chip5: "Rediffusions", chip6: "En ligne avec des amis",
       new_badge: "NOUVELLE VERSION", latest: "Dernière version", download: "TÉLÉCHARGER",
-      dl_help: "Gratuit, sans compte ni achat. Décompresse le .zip et ouvre <code>StrikeZone.exe</code>. À l'ouverture, le jeu cherche les mises à jour et se met à jour en un clic.<br>Tu venais d'<b>Arena FPS</b> ? C'est le même jeu sous un autre nom : tu gardes ton profil et tes skins.",
+      dl_help: "Gratuit, sans compte ni achat. Télécharge le <b>Zile Launcher</b>, ouvre-le et clique sur <b>INSTALLER</b> : il télécharge le jeu et le garde à jour. Si tu préfères le .zip, décompresse-le et ouvre <code>StrikeZone.exe</code>.<br>Tu venais d'<b>Arena FPS</b> ? C'est le même jeu sous un autre nom : tu gardes ton profil et tes skins.",
+      dl_zip_plain: "Tu préfères le jeu seul ? Télécharge le .zip",
       z_tag: "MODE ZOMBIES", z_title: "SURVIS À LA <span>HORDE</span>",
       z_lead: "En ouvrant le jeu, tu choisis : <b>Shooter</b> ou <b>Zombies</b>. En Zombies, vous tenez face à des vagues de plus en plus dures sur la carte <b>Apocalypse</b>, seul ou avec tes amis en ligne.",
       z1: "<b>Des vagues sans fin</b>Des zombies qui marchent, courent et rampent. Jusqu'à quelle vague tiendrez-vous ? On dit que certaines réservent des surprises…",
@@ -264,7 +273,8 @@
       lead: "Drei Spiele in einem: taktischer <b>Shooter</b> mit Bomben-Modus, Rängen und Skins; <b>Zombies</b>, Wellen allein oder mit deinen Freunden; und <b>Verstecken</b>: Verwandle dich in ein Objekt der Karte und lass dich nicht finden.",
       chip1: "6 Modi", chip2: "5 Karten", chip3: "6 Sprachen", chip4: "Clans", chip5: "Wiederholungen", chip6: "Online mit Freunden",
       new_badge: "NEUE VERSION", latest: "Neueste Version", download: "HERUNTERLADEN",
-      dl_help: "Kostenlos, ohne Konto und ohne Käufe. Entpacke die .zip und öffne <code>StrikeZone.exe</code>. Beim Start sucht das Spiel nach Updates und aktualisiert sich mit einem Klick.<br>Du kommst von <b>Arena FPS</b>? Es ist dasselbe Spiel mit neuem Namen: Du behältst dein Profil und deine Skins.",
+      dl_help: "Kostenlos, ohne Konto und ohne Käufe. Lade den <b>Zile Launcher</b> herunter, öffne ihn und klicke auf <b>INSTALLIEREN</b>: Er lädt das Spiel herunter und hält es aktuell. Wenn du lieber die .zip willst, entpacke sie und öffne <code>StrikeZone.exe</code>.<br>Du kommst von <b>Arena FPS</b>? Es ist dasselbe Spiel mit neuem Namen: Du behältst dein Profil und deine Skins.",
+      dl_zip_plain: "Lieber das Spiel einzeln? Lade die .zip herunter",
       z_tag: "ZOMBIE-MODUS", z_title: "ÜBERLEBE DIE <span>HORDE</span>",
       z_lead: "Beim Start wählst du: <b>Shooter</b> oder <b>Zombies</b>. Bei Zombies haltet ihr immer härtere Wellen auf der Karte <b>Apokalypse</b> aus, allein oder mit deinen Freunden online.",
       z1: "<b>Endlose Wellen</b>Zombies, die gehen, rennen und kriechen. Bis zu welcher Welle schafft ihr es? Man sagt, manche bringen Überraschungen…",
@@ -332,7 +342,8 @@
       lead: "Tre giochi in uno: <b>Shooter</b> tattico con modalità Bomba, gradi e skin; <b>Zombie</b>, ondate da solo o con i tuoi amici; e <b>Nascondino</b>: trasformati in un oggetto della mappa e non farti trovare.",
       chip1: "6 modalità", chip2: "5 mappe", chip3: "6 lingue", chip4: "Clan", chip5: "Replay", chip6: "Online con gli amici",
       new_badge: "NUOVA VERSIONE", latest: "Ultima versione", download: "SCARICA",
-      dl_help: "Gratis, senza account né acquisti. Estrai lo .zip e apri <code>StrikeZone.exe</code>. All'avvio il gioco cerca aggiornamenti e si aggiorna con un clic.<br>Venivi da <b>Arena FPS</b>? È lo stesso gioco con un altro nome: mantieni il profilo e le skin.",
+      dl_help: "Gratis, senza account né acquisti. Scarica lo <b>Zile Launcher</b>, aprilo e premi <b>INSTALLA</b>: scarica il gioco e lo tiene aggiornato. Se preferisci lo .zip, estrailo e apri <code>StrikeZone.exe</code>.<br>Venivi da <b>Arena FPS</b>? È lo stesso gioco con un altro nome: mantieni il profilo e le skin.",
+      dl_zip_plain: "Preferisci il gioco da solo? Scarica lo .zip",
       z_tag: "MODALITÀ ZOMBIE", z_title: "SOPRAVVIVI ALL'<span>ORDA</span>",
       z_lead: "All'avvio scegli: <b>Shooter</b> o <b>Zombie</b>. In Zombie resistete a ondate sempre più dure nella mappa <b>Apocalisse</b>, da solo o con i tuoi amici online.",
       z1: "<b>Ondate senza fine</b>Zombie che camminano, corrono e strisciano. Fino a che ondata arriverete? Dicono che alcune portino sorprese…",
