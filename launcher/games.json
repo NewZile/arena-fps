@@ -31,6 +31,33 @@
       "thumb": "builtin:sz_thumb.jpg"
     },
     {
+      "id": "kartparty",
+      "name": "Kart Party",
+      "title_a": "KART",
+      "title_b": "PARTY",
+      "tagline": "Carreras locas de karts: derrapes, turbos, plátanos y caparazones. Solo contra bots, en red local u online con tus amigos.",
+      "tags": [
+        "CARRERAS",
+        "MULTIJUGADOR",
+        "BARCELONA"
+      ],
+      "status": "live",
+      "tag_prefix": "kart-v",
+      "repo": "NewZile/arena-fps",
+      "asset": "KartParty.zip",
+      "exe": "KartParty.exe",
+      "folder": "Kart Party",
+      "page": "https://newzile.github.io/arena-fps/",
+      "developer": "NewZile",
+      "covers": [
+        "builtin:kp_1.jpg",
+        "builtin:kp_2.jpg",
+        "builtin:kp_3.jpg",
+        "builtin:kp_4.jpg"
+      ],
+      "thumb": "builtin:kp_thumb.jpg"
+    },
+    {
       "id": "soon-1",
       "name": "???",
       "status": "soon",
@@ -38,12 +65,6 @@
     },
     {
       "id": "soon-2",
-      "name": "???",
-      "status": "soon",
-      "hint": "En desarrollo"
-    },
-    {
-      "id": "soon-3",
       "name": "???",
       "status": "soon",
       "hint": "Muy pronto"
