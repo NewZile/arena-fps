@@ -3,632 +3,608 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Strike Zone — Descarga</title>
-<meta name="description" content="Shooter multijugador gratis para Windows con modo Zombis y modo Escondite (Prop Hunt). Modo Bomba, rangos, skins, clanes, bots, repeticiones y 6 idiomas. Juega con tus amigos por internet o en red local.">
-<meta name="theme-color" content="#0b0c0f">
-<!-- Tarjeta al compartir el enlace (WhatsApp, Discord, X...) -->
+<title>Zile Launcher — Strike Zone y Kart Party gratis</title>
+<meta name="description" content="Zile Launcher: descarga gratis Strike Zone (shooter con Zombis y Escondite) y Kart Party (carreras locas de karts). Se instalan y actualizan solos. Juega con tus amigos por internet o en red local.">
+<meta name="theme-color" content="#07080c">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Strike Zone — Descarga gratis">
-<meta property="og:description" content="Shooter multijugador, Zombis cooperativo y Escondite (Prop Hunt) para jugar con tus amigos. Gratis y en 6 idiomas.">
+<meta property="og:title" content="Zile Launcher — Strike Zone y Kart Party">
+<meta property="og:description" content="Dos juegos gratis para jugar con tus amigos: un shooter con Zombis y Escondite, y carreras locas de karts. Un launcher que los instala y actualiza.">
 <meta property="og:image" content="https://newzile.github.io/arena-fps/img/og.jpg">
 <meta property="og:url" content="https://newzile.github.io/arena-fps/">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0c0f'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='%23fab847' stroke-width='5'/%3E%3Cpath d='M32 6v14M32 44v14M6 32h14M44 32h14' stroke='%23fab847' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='3.5' fill='%23fab847'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%2322e6ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%2307080c'/%3E%3Cpath d='M16 18h32L22 46h26' fill='none' stroke='url(%23g)' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <script>document.documentElement.classList.add("js");</script>
 <style>
-  /* Fuentes servidas desde esta web: no se conecta a Google Fonts. */
-  @font-face { font-family: Inter; font-style: normal; font-weight: 400 700; font-display: swap; src: url("fonts/inter.woff2") format("woff2"); }
-  @font-face { font-family: Rajdhani; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/rajdhani-600.woff2") format("woff2"); }
-  @font-face { font-family: Rajdhani; font-style: normal; font-weight: 700; font-display: swap; src: url("fonts/rajdhani-700.woff2") format("woff2"); }
+  @font-face { font-family: Inter; font-weight: 400 700; font-display: swap; src: url("fonts/inter.woff2") format("woff2"); }
+  @font-face { font-family: Rajdhani; font-weight: 600; font-display: swap; src: url("fonts/rajdhani-600.woff2") format("woff2"); }
+  @font-face { font-family: Rajdhani; font-weight: 700; font-display: swap; src: url("fonts/rajdhani-700.woff2") format("woff2"); }
+  @font-face { font-family: Luckiest; font-display: swap; src: url("fonts/luckiest.ttf") format("truetype"); }
   :root {
-    --bg: #0b0c0f;
-    --card: #15171d;
-    --card-2: #1b1e25;
-    --line: rgba(255,255,255,0.08);
-    --text: #eceef3;
-    --dim: #a3a8b6;
-    --accent: #fab847;
-    --accent-ink: #1a1205;
+    --bg: #07080c;
+    --bg-2: #0d0f16;
+    --card: rgba(22, 25, 36, 0.72);
+    --line: rgba(255, 255, 255, 0.09);
+    --text: #eef0f6;
+    --dim: #a2a8ba;
+    --brand-a: #7c5cff;
+    --brand-b: #22e6ff;
+    --sz: #fab847;
+    --sz-ink: #1a1205;
+    --kp-a: #ff3d6e;
+    --kp-b: #ffcc00;
     --ok: #5fd08e;
+    --radius: 18px;
   }
   * { box-sizing: border-box; }
   [hidden] { display: none !important; }
   html, body { margin: 0; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
   body {
-    background: var(--bg);
-    color: var(--text);
-    font: 15px/1.6 Inter, system-ui, sans-serif;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 64px 64px, 64px 64px;
-    min-height: 100vh;
+    background: var(--bg); color: var(--text);
+    font: 16px/1.6 Inter, system-ui, sans-serif;
     overflow-x: hidden;
   }
   img { max-width: 100%; display: block; }
-  .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 80px; }
-  h1, h2, h3, .display { font-family: Rajdhani, Inter, sans-serif; letter-spacing: 0.02em; }
-
-  /* --- Cabecera con captura del juego de fondo --- */
-  .top {
-    position: relative;
-    padding: 72px 16px 150px;
-    text-align: center;
-    background:
-      linear-gradient(180deg, rgba(11,12,15,0.55) 0%, rgba(11,12,15,0.75) 60%, var(--bg) 100%),
-      radial-gradient(900px 500px at 50% 0%, rgba(250,184,71,0.18), transparent 70%),
-      url("img/ciudad.jpg") center 35% / cover no-repeat;
+  a { color: inherit; }
+  h1, h2, h3 { font-family: Rajdhani, Inter, sans-serif; letter-spacing: .01em; line-height: 1.02; margin: 0; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+  .grad {
+    background: linear-gradient(90deg, var(--brand-a), var(--brand-b), #b388ff, var(--brand-a));
+    background-size: 300% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: flow 8s linear infinite;
   }
-  .top .kicker { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.18em; }
-  .top h1 { font-size: clamp(52px, 11vw, 96px); line-height: 1; margin: 10px 0 12px; text-shadow: 0 4px 30px rgba(0,0,0,0.6); }
-  .top h1 span { color: var(--accent); }
-  .top p { color: #c5c9d4; margin: 0 auto; max-width: 520px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
-  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 18px; }
-  .chip { font-size: 12px; font-weight: 600; color: var(--text); background: rgba(21,23,29,0.75); border: 1px solid var(--line); padding: 4px 12px; border-radius: 20px; backdrop-filter: blur(4px); }
-
-  .card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 28px;
-    margin-bottom: 20px;
-  }
-  .hero {
-    position: relative;
-    margin-top: -110px;
-    text-align: center;
-    border-color: rgba(250,184,71,0.35);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(250,184,71,0.08) inset;
-  }
-  .version { font-family: Rajdhani, sans-serif; font-size: 40px; font-weight: 700; line-height: 1; }
-  .meta { color: var(--dim); font-size: 13px; margin: 6px 0 22px; }
-  .btn {
-    position: relative; overflow: hidden;
-    display: inline-flex; align-items: center; gap: 10px;
-    background: var(--accent); color: var(--accent-ink);
-    font: 700 18px Rajdhani, sans-serif; letter-spacing: 0.06em;
-    padding: 16px 34px; border-radius: 10px; text-decoration: none;
-    box-shadow: 0 8px 30px rgba(250,184,71,0.25);
-    transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
-  }
-  .btn:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 10px 40px rgba(250,184,71,0.4); }
-  .btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-  .btn svg { width: 20px; height: 20px; }
-  /* brillo que cruza el botón de vez en cuando */
-  .btn::after {
-    content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
-    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.45), transparent);
-    transform: skewX(-20deg);
-    animation: shine 4.5s ease-in-out infinite;
-  }
-  @keyframes shine { 0%, 70% { left: -60%; } 100% { left: 130%; } }
-  .downloads { color: var(--ok); font-size: 13px; font-weight: 600; margin-top: 14px; }
-  .small { color: var(--dim); font-size: 13px; margin-top: 12px; }
-  .alt-dl { margin-top: 12px; font-size: 13px; }
-  .alt-dl a { color: var(--dim); text-decoration: underline; text-underline-offset: 3px; }
-  .alt-dl a:hover, .alt-dl a:focus-visible { color: #fff; }
-  .new-badge { display: inline-block; background: rgba(95,208,142,0.15); color: var(--ok); font-size: 11px; font-weight: 600; letter-spacing: .08em; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; }
-
-  h2 { font-size: 26px; margin: 0 0 14px; }
-  .section-title { text-align: center; margin: 44px 0 18px; }
-  .section-title h2 { margin: 0; }
-  .section-title p { color: var(--dim); margin: 4px 0 0; }
-
-  /* --- Galería --- */
-  .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 20px; }
-  .shot {
-    position: relative; padding: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
-    background: var(--card); cursor: zoom-in; aspect-ratio: 16 / 9;
-  }
-  .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
-  .shot:hover img { transform: scale(1.04); }
-  .shot:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .shot span {
-    position: absolute; left: 0; right: 0; bottom: 0; text-align: left;
-    padding: 24px 14px 10px; font: 700 17px Rajdhani, sans-serif; letter-spacing: .04em; color: #fff;
-    background: linear-gradient(transparent, rgba(0,0,0,0.85) 55%);
-    text-shadow: 0 1px 3px #000;
-  }
-  .lightbox {
-    position: fixed; inset: 0; z-index: 10; display: none; align-items: center; justify-content: center;
-    background: rgba(0,0,0,0.88); padding: 16px; cursor: zoom-out;
-  }
-  .lightbox.open { display: flex; }
-  .lightbox img { max-height: 84vh; border-radius: 10px; box-shadow: 0 20px 80px rgba(0,0,0,0.6); }
-  .lightbox figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  .lightbox figcaption { color: var(--text); font-size: 14px; text-align: center; }
-  .lb-close {
-    position: absolute; top: 14px; right: 14px; background: var(--card); color: var(--text);
-    border: 1px solid rgba(255,255,255,0.25); border-radius: 10px; padding: 8px 14px;
-    font: 600 14px Inter, sans-serif; cursor: pointer;
-  }
-  .lb-close:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
-  .skip {
-    position: absolute; left: 16px; top: -60px; z-index: 20;
-    background: var(--accent); color: var(--accent-ink); font-weight: 600;
-    padding: 10px 16px; border-radius: 8px; text-decoration: none;
-  }
+  @keyframes flow { to { background-position: 300% 0; } }
+  .skip { position: absolute; left: 16px; top: -60px; z-index: 50; background: var(--brand-b); color: #041015; font-weight: 700; padding: 10px 16px; border-radius: 8px; text-decoration: none; }
   .skip:focus { top: 12px; }
-  a:focus-visible, .more:focus-visible { outline: 3px solid #fff; outline-offset: 3px; border-radius: 4px; }
-
-  /* --- Características --- */
-  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 20px; }
-  .feature { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; transition: border-color .2s ease, transform .2s ease; }
-  .feature:hover { border-color: rgba(250,184,71,0.35); transform: translateY(-2px); }
-  .feature .ico { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: rgba(250,184,71,0.12); color: var(--accent); margin-bottom: 12px; }
-  .feature .ico svg { width: 22px; height: 22px; }
-  .feature h3 { font-size: 19px; margin: 0 0 4px; }
-  .feature p { color: var(--dim); font-size: 14px; margin: 0; }
-
-  .notes { background: var(--card-2); border-radius: 10px; padding: 16px 20px; }
-  .notes ul { margin: 0; padding-left: 20px; }
-  .notes p { margin: 0 0 8px; }
-  .notes p:last-child { margin: 0; }
-
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-  ol.steps { margin: 0; padding-left: 20px; }
-  ol.steps li { margin-bottom: 8px; }
-  h3.sub { font-size: 17px; margin: 18px 0 8px; color: var(--accent); }
-  h3.sub:first-of-type { margin-top: 0; }
-  code { background: var(--card-2); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; font-size: 13px; }
-
-  .keys { display: grid; grid-template-columns: auto 1fr; gap: 8px 14px; align-items: center; }
-  kbd {
-    font: 600 12px Inter, sans-serif; color: var(--text);
-    background: var(--card-2); border: 1px solid rgba(255,255,255,0.18); border-bottom-width: 3px;
-    border-radius: 6px; padding: 2px 8px; white-space: nowrap; justify-self: start;
-  }
-  .keys span { color: var(--dim); font-size: 14px; }
-
-  .history { list-style: none; margin: 0; padding: 0; }
-  .history li { border-top: 1px solid var(--line); padding: 14px 0; }
-  .history li:first-child { border-top: 0; padding-top: 0; }
-  .history li.extra { display: none; }
-  .history.all li.extra { display: list-item; }
-  .history .row { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-  .history .v { font-family: Rajdhani, sans-serif; font-weight: 700; font-size: 18px; }
-  .history .d { color: var(--dim); font-size: 13px; }
-  .history .n { color: var(--dim); font-size: 14px; margin-top: 4px; white-space: pre-line; }
-  .history a { color: var(--accent); font-size: 13px; }
-  .more {
-    display: block; width: 100%; margin-top: 14px; padding: 10px;
-    background: var(--card-2); color: var(--text); border: 1px solid var(--line); border-radius: 10px;
-    font: 600 14px Inter, sans-serif; cursor: pointer;
-  }
-  .more:hover { border-color: rgba(250,184,71,0.35); }
-  footer.site { text-align: center; color: var(--dim); font-size: 13px; margin-top: 36px; }
-  footer.site nav ul { list-style: none; padding: 0; margin: 0 0 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; }
-  footer.site a { color: var(--accent); }
-  footer.site p { margin: 6px 0; }
-  /* --- Modo Zombis --- */
-  :root { --blood: #e5483a; --blood-text: #ff6b5c; }
-  .zombies {
-    position: relative; overflow: hidden; border-color: rgba(229,72,58,0.45);
-    background: linear-gradient(180deg, rgba(40,10,8,0.2), rgba(21,23,29,1) 60%), url("img/apocalipsis.jpg") center / cover;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(229,72,58,0.1) inset;
-  }
-  .zombies .tag { display: inline-block; font: 700 12px Inter, sans-serif; letter-spacing: .16em; color: var(--blood-text); background: rgba(229,72,58,0.14); padding: 3px 10px; border-radius: 20px; }
-  .zombies h2 { font-size: clamp(34px, 7vw, 52px); margin: 10px 0 6px; line-height: 1; }
-  .zombies h2 span { color: var(--blood-text); }
-  .zombies .lead { color: #d5d8e0; max-width: 620px; margin: 0 0 18px; }
-  .zgrid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; align-items: stretch; }
-  .zgrid .shot { aspect-ratio: auto; min-height: 220px; }
-  .zlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-  .zlist li { background: rgba(11,12,15,0.7); border: 1px solid var(--line); border-left: 3px solid var(--blood); border-radius: 10px; padding: 10px 14px; font-size: 14px; }
-  .zlist b { font-family: Rajdhani, sans-serif; font-size: 17px; letter-spacing: .03em; display: block; }
-  .zcast { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 14px; }
-  .zcast .shot { aspect-ratio: 3 / 4; }
-  .zcast .shot span { font-size: 14px; padding: 18px 10px 8px; }
-  .egg { margin-top: 14px; font-size: 13px; color: #f5c25a; background: rgba(245,194,90,0.08); border: 1px dashed rgba(245,194,90,0.35); border-radius: 10px; padding: 10px 14px; }
-  .feature.z .ico { background: rgba(229,72,58,0.14); color: var(--blood-text); }
-  .feature.z:hover { border-color: rgba(229,72,58,0.45); }
-  @media (max-width: 720px) {
-    .zgrid { grid-template-columns: 1fr; }
-    .zcast { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  /* Aparecen suavemente al bajar */
-  .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
-  .reveal.in { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .reveal { opacity: 1; transform: none; transition: none; }
-    .btn::after { display: none; }
-    .shot img, .feature { transition: none; }
-  }
-  @media (max-width: 620px) {
-    .gallery { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 520px) {
-    .top { padding: 48px 16px 130px; }
-    .card { padding: 20px; }
-    .btn { width: 100%; justify-content: center; }
-  }
-  /* --- Selector de idioma --- */
-  .langbar { position: absolute; top: 14px; right: 16px; z-index: 5; }
-  .langbar select {
-    font: 600 13px Inter, sans-serif; color: var(--text); background: rgba(21,23,29,0.85);
-    border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; padding: 6px 10px; cursor: pointer;
-  }
-  .langbar select:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+  :focus-visible { outline: 3px solid #fff; outline-offset: 3px; border-radius: 6px; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  /* --- Modo Escondite --- */
-  :root { --prop: #5fd08e; --prop-text: #7ee0a6; }
-  .props {
-    position: relative; overflow: hidden; border-color: rgba(95,208,142,0.45);
-    background: linear-gradient(180deg, rgba(8,20,13,0.88), rgba(21,23,29,0.97) 45%, rgba(21,23,29,1) 70%), url("img/escondite.jpg") center / cover;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(95,208,142,0.1) inset;
+
+  /* ---------- Barra superior ---------- */
+  .nav {
+    position: fixed; inset: 0 0 auto; z-index: 30;
+    transition: background .3s ease, box-shadow .3s ease, padding .3s ease;
+    padding: 16px 0;
   }
-  .props .tag { display: inline-block; font: 700 12px Inter, sans-serif; letter-spacing: .16em; color: var(--prop-text); background: rgba(95,208,142,0.14); padding: 3px 10px; border-radius: 20px; }
-  .props h2 { font-size: clamp(34px, 7vw, 52px); margin: 10px 0 6px; line-height: 1; }
-  .props h2 span { color: var(--prop-text); }
-  .props .lead { color: #d5d8e0; max-width: 620px; margin: 0 0 18px; }
-  .props .zlist li { border-left-color: var(--prop); }
-  .feature.p .ico { background: rgba(95,208,142,0.14); color: var(--prop-text); }
-  .feature.p:hover { border-color: rgba(95,208,142,0.45); }
+  .nav.scrolled { background: rgba(7, 8, 12, 0.72); backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4); box-shadow: 0 1px 0 var(--line); padding: 9px 0; }
+  .nav .wrap { display: flex; align-items: center; gap: 24px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 700 22px Rajdhani, sans-serif; letter-spacing: .12em; }
+  .logo svg { width: 34px; height: 34px; }
+  .nav ul { list-style: none; display: flex; gap: 22px; margin: 0 0 0 auto; padding: 0; }
+  .nav ul a { text-decoration: none; color: var(--dim); font-weight: 600; font-size: 14px; position: relative; transition: color .2s; }
+  .nav ul a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: linear-gradient(90deg, var(--brand-a), var(--brand-b)); transform: scaleX(0); transition: transform .25s ease; transform-origin: left; }
+  .nav ul a:hover { color: var(--text); }
+  .nav ul a:hover::after { transform: scaleX(1); }
+  .nav select {
+    font: 600 13px Inter, sans-serif; color: var(--text); background: rgba(22, 25, 36, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; padding: 7px 10px; cursor: pointer;
+  }
+  .btn-mini { text-decoration: none; font: 700 14px Rajdhani, sans-serif; letter-spacing: .08em; padding: 9px 16px; border-radius: 10px; color: #041015; background: linear-gradient(90deg, var(--brand-b), #8cf5ff); box-shadow: 0 6px 20px rgba(34, 230, 255, 0.25); white-space: nowrap; }
+
+  /* ---------- Portada ---------- */
+  .hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; overflow: hidden; isolation: isolate; }
+  .slides { position: absolute; inset: 0; z-index: -3; }
+  .slides img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    opacity: 0; transform: scale(1.12); transition: opacity 1.6s ease;
+  }
+  .slides img.on { opacity: 1; animation: kenburns 9s ease-out forwards; }
+  @keyframes kenburns { from { transform: scale(1.14) translate3d(1.5%, 1%, 0); } to { transform: scale(1.02) translate3d(0, 0, 0); } }
+  .hero::before {
+    content: ""; position: absolute; inset: 0; z-index: -2;
+    background:
+      linear-gradient(90deg, rgba(7, 8, 12, 0.95) 0%, rgba(7, 8, 12, 0.75) 42%, rgba(7, 8, 12, 0.25) 100%),
+      linear-gradient(0deg, var(--bg) 0%, rgba(7, 8, 12, 0) 35%);
+  }
+  .aurora { position: absolute; inset: -20%; z-index: -1; pointer-events: none; filter: blur(60px); opacity: .55; mix-blend-mode: screen; }
+  .aurora span { position: absolute; width: 42vw; height: 42vw; border-radius: 50%; }
+  .aurora span:nth-child(1) { background: radial-gradient(circle, rgba(124, 92, 255, 0.55), transparent 65%); left: 5%; top: 10%; animation: drift1 18s ease-in-out infinite alternate; }
+  .aurora span:nth-child(2) { background: radial-gradient(circle, rgba(34, 230, 255, 0.35), transparent 65%); left: 30%; top: 45%; animation: drift2 22s ease-in-out infinite alternate; }
+  .aurora span:nth-child(3) { background: radial-gradient(circle, rgba(255, 61, 110, 0.28), transparent 65%); left: 55%; top: 5%; animation: drift1 26s ease-in-out infinite alternate-reverse; }
+  @keyframes drift1 { to { transform: translate(12vw, 8vh) scale(1.2); } }
+  @keyframes drift2 { to { transform: translate(-10vw, -12vh) scale(0.85); } }
+  .floor {
+    position: absolute; left: -50%; right: -50%; bottom: -10%; height: 55%; z-index: -1; pointer-events: none;
+    background-image: linear-gradient(rgba(124, 92, 255, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(124, 92, 255, 0.35) 1px, transparent 1px);
+    background-size: 70px 70px;
+    transform: perspective(500px) rotateX(62deg);
+    mask-image: linear-gradient(0deg, rgba(0, 0, 0, 0.9), transparent 75%);
+    -webkit-mask-image: linear-gradient(0deg, rgba(0, 0, 0, 0.9), transparent 75%);
+    animation: floor 3s linear infinite;
+    opacity: .5;
+  }
+  @keyframes floor { to { background-position: 0 70px, 0 0; } }
+  .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 50px; align-items: center; padding-top: 110px; padding-bottom: 90px; width: 100%; }
+  .kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700; letter-spacing: .2em; color: var(--brand-b); }
+  .kicker::before { content: ""; width: 26px; height: 2px; background: currentColor; }
+  .hero h1 { font-size: clamp(46px, 6.1vw, 88px); margin: 16px 0 18px; text-transform: uppercase; white-space: nowrap; }
+  /* ?static: todo visible y portada de alto fijo (para hacer capturas de la página entera) */
+  .static .hero { min-height: 900px; }
+  .hero h1 .l { display: block; overflow: hidden; }
+  .hero h1 .l > span { display: inline-block; transform: translateY(105%); animation: rise .9s cubic-bezier(.2, .8, .2, 1) forwards; }
+  .hero h1 .l:nth-child(2) > span { animation-delay: .12s; }
+  @keyframes rise { to { transform: none; } }
+  .lead { color: #c9cddb; font-size: 18px; max-width: 540px; margin: 0 0 30px; }
+  .fade-up { opacity: 0; transform: translateY(20px); animation: fadeup .8s ease forwards; }
+  .d1 { animation-delay: .25s; } .d2 { animation-delay: .4s; } .d3 { animation-delay: .55s; } .d4 { animation-delay: .7s; }
+  @keyframes fadeup { to { opacity: 1; transform: none; } }
+  .ctas { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .btn {
+    position: relative; overflow: hidden; isolation: isolate;
+    display: inline-flex; align-items: center; gap: 12px; text-decoration: none; cursor: pointer; border: 0;
+    font: 700 19px Rajdhani, sans-serif; letter-spacing: .07em; padding: 17px 30px; border-radius: 14px;
+    color: #041015; background: linear-gradient(100deg, var(--brand-b), #9df7ff 45%, #b9a8ff);
+    box-shadow: 0 10px 40px rgba(34, 230, 255, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 50px rgba(34, 230, 255, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.3) inset; }
+  .btn svg { width: 22px; height: 22px; }
+  .btn::after {
+    content: ""; position: absolute; inset: 0 auto 0 -60%; width: 45%; z-index: -1;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+    transform: skewX(-20deg); animation: shine 4s ease-in-out infinite;
+  }
+  @keyframes shine { 0%, 65% { left: -60%; } 100% { left: 140%; } }
+  .btn.ghost { background: rgba(255, 255, 255, 0.06); color: var(--text); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18) inset; backdrop-filter: blur(6px); }
+  .btn.ghost::after { display: none; }
+  .btn.ghost:hover { background: rgba(255, 255, 255, 0.12); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35) inset; }
+  .fine { color: var(--dim); font-size: 13px; margin-top: 14px; }
+  .stats { display: flex; gap: 34px; margin-top: 38px; flex-wrap: wrap; }
+  .stat b { display: block; font: 700 34px Rajdhani, sans-serif; line-height: 1; }
+  .stat span { color: var(--dim); font-size: 13px; }
+
+  /* Ventana del launcher de mentira */
+  .mock-wrap { perspective: 1400px; }
+  .mock {
+    position: relative; border-radius: 16px; overflow: hidden;
+    background: #0f111a; border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(124, 92, 255, 0.15), 0 0 80px rgba(124, 92, 255, 0.25);
+    transform: rotateY(-14deg) rotateX(6deg); transform-style: preserve-3d;
+    transition: transform .15s ease-out;
+    animation: bob 7s ease-in-out infinite;
+  }
+  @keyframes bob { 50% { translate: 0 -12px; } }
+  .mock-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #0a0c12; border-bottom: 1px solid var(--line); font: 700 12px Rajdhani, sans-serif; letter-spacing: .14em; color: var(--dim); }
+  .mock-bar i { width: 10px; height: 10px; border-radius: 50%; background: #333948; }
+  .mock-bar i:nth-child(1) { background: #ff5f57; } .mock-bar i:nth-child(2) { background: #febc2e; } .mock-bar i:nth-child(3) { background: #28c840; }
+  .mock-bar span { margin-left: 8px; }
+  .mock-body { display: grid; grid-template-columns: 64px 1fr; }
+  .mock-side { background: #0a0c12; border-right: 1px solid var(--line); padding: 12px 10px; display: grid; gap: 10px; align-content: start; }
+  .mock-side div { width: 44px; height: 44px; border-radius: 12px; background-size: cover; background-position: center; opacity: .45; transition: opacity .4s, box-shadow .4s, transform .4s; }
+  .mock-side div.on { opacity: 1; box-shadow: 0 0 0 2px var(--brand-b), 0 0 20px rgba(34, 230, 255, 0.5); transform: scale(1.05); }
+  .mock-side .soon { background: repeating-linear-gradient(45deg, #151823, #151823 6px, #1b1f2c 6px, #1b1f2c 12px); }
+  .mock-main { position: relative; aspect-ratio: 16 / 10.5; overflow: hidden; }
+  .mock-main img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.08); transition: opacity .9s ease, transform 5s ease-out; }
+  .mock-main img.on { opacity: 1; transform: scale(1); }
+  .mock-main::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10, 12, 18, 0.95), rgba(10, 12, 18, 0.1) 60%); }
+  .mock-info { position: absolute; left: 22px; right: 22px; bottom: 18px; z-index: 2; }
+  .mock-title { font: 700 34px Rajdhani, sans-serif; line-height: 1; text-transform: uppercase; }
+  .mock-title.kp { font-family: Luckiest, Rajdhani, sans-serif; font-weight: 400; color: var(--kp-b); text-shadow: 0 3px 0 #c43c00; }
+  .mock-title.sz span { color: var(--sz); }
+  .mock-row { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+  .mock-play { font: 700 15px Rajdhani, sans-serif; letter-spacing: .1em; padding: 9px 22px; border-radius: 10px; background: var(--ok); color: #06200f; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 8px rgba(95, 208, 142, 0), 0 0 24px rgba(95, 208, 142, 0.6); } 0%, 100% { box-shadow: 0 0 0 0 rgba(95, 208, 142, 0.5); } }
+  .mock-prog { flex: 1; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.1); overflow: hidden; }
+  .mock-prog i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--brand-a), var(--brand-b)); animation: prog 4s ease-in-out infinite; }
+  @keyframes prog { 0% { width: 0; } 70%, 100% { width: 100%; } }
+  .mock-ver { font-size: 12px; color: var(--dim); font-weight: 600; }
+  .scroll-hint { position: absolute; left: 50%; bottom: 26px; width: 26px; height: 42px; margin-left: -13px; border: 2px solid rgba(255, 255, 255, 0.35); border-radius: 14px; }
+  .scroll-hint::after { content: ""; position: absolute; left: 50%; top: 8px; width: 4px; height: 8px; margin-left: -2px; border-radius: 2px; background: #fff; animation: wheel 1.8s ease-in-out infinite; }
+  @keyframes wheel { 0% { opacity: 0; transform: translateY(-4px); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(12px); } }
+
+  /* ---------- Secciones ---------- */
+  section { position: relative; }
+  .block { padding: 110px 0; }
+  .head { text-align: center; max-width: 720px; margin: 0 auto 50px; }
+  .head h2 { font-size: clamp(38px, 5vw, 60px); text-transform: uppercase; margin: 10px 0 12px; }
+  .head p { color: var(--dim); margin: 0; font-size: 17px; }
+  .head .kicker { justify-content: center; }
+  .head .kicker::after { content: ""; width: 26px; height: 2px; background: currentColor; }
+
+  /* Tarjetas de los juegos */
+  .games { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  .game {
+    position: relative; border-radius: 24px; overflow: hidden; min-height: 520px; isolation: isolate;
+    display: flex; flex-direction: column; justify-content: flex-end; padding: 32px; text-decoration: none;
+    border: 1px solid var(--line); background: #0d0f16;
+    transition: transform .4s cubic-bezier(.2, .8, .2, 1), box-shadow .4s ease;
+  }
+  .game::before {
+    content: ""; position: absolute; inset: -2px; z-index: -3; border-radius: inherit; padding: 2px;
+    background: conic-gradient(from var(--ang, 0deg), transparent 0 60%, var(--c1) 75%, var(--c2) 85%, transparent 100%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+    opacity: 0; transition: opacity .4s ease; animation: spin 4s linear infinite;
+  }
+  @property --ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+  @keyframes spin { to { --ang: 360deg; } }
+  .game:hover { transform: translateY(-8px); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px var(--glow); }
+  .game:hover::before { opacity: 1; }
+  .game .bg { position: absolute; inset: 0; z-index: -2; }
+  .game .bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .8s ease, transform 6s ease-out; transform: scale(1.1); }
+  .game .bg img.on { opacity: 1; transform: scale(1); }
+  .game::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(7, 8, 12, 0.97) 8%, rgba(7, 8, 12, 0.55) 55%, rgba(7, 8, 12, 0.15)); }
+  .game.sz { --c1: #fab847; --c2: #ffe7a8; --glow: rgba(250, 184, 71, 0.25); }
+  .game.kp { --c1: #ff3d6e; --c2: #ffcc00; --glow: rgba(255, 61, 110, 0.25); }
+  .badge { position: absolute; top: 22px; left: 22px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge span { font: 700 11px Inter, sans-serif; letter-spacing: .14em; padding: 5px 11px; border-radius: 20px; background: rgba(7, 8, 12, 0.7); border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(6px); }
+  .badge .live { color: var(--ok); border-color: rgba(95, 208, 142, 0.5); }
+  .badge .live::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--ok); margin-right: 7px; animation: blink 1.4s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity: .25; } }
+  .game h3 { font-size: clamp(44px, 5vw, 64px); text-transform: uppercase; }
+  .game.sz h3 span { color: var(--sz); }
+  .game.kp h3 { font-family: Luckiest, Rajdhani, sans-serif; font-weight: 400; color: var(--kp-b); text-shadow: 0 4px 0 #c43c00; letter-spacing: .02em; }
+  .game.kp h3 span { color: #fff; text-shadow: 0 4px 0 #b3123f; }
+  .game p { color: #cfd3df; margin: 12px 0 18px; max-width: 460px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .tags span { font-size: 12px; font-weight: 600; padding: 4px 11px; border-radius: 8px; background: rgba(255, 255, 255, 0.08); color: #dde1ec; }
+  .game .go { display: inline-flex; align-items: center; gap: 10px; font: 700 16px Rajdhani, sans-serif; letter-spacing: .1em; color: var(--c1); }
+  .game .go svg { width: 18px; height: 18px; transition: transform .3s ease; }
+  .game:hover .go svg { transform: translateX(6px); }
+  .game .ver { position: absolute; top: 22px; right: 22px; font: 700 15px Rajdhani, sans-serif; color: #fff; padding: 5px 12px; border-radius: 10px; background: rgba(7, 8, 12, 0.7); border: 1px solid rgba(255, 255, 255, 0.15); }
+  .soon-row { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 26px; }
+  .soon { position: relative; border-radius: 20px; padding: 26px 30px; border: 1px dashed rgba(255, 255, 255, 0.16); background: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02) 12px, transparent 12px, transparent 24px); display: flex; align-items: center; gap: 20px; overflow: hidden; }
+  .soon b { font: 700 40px Rajdhani, sans-serif; position: relative; }
+  .glitch { position: relative; display: inline-block; }
+  .glitch::before, .glitch::after { content: attr(data-t); position: absolute; left: 0; top: 0; opacity: .75; }
+  .glitch::before { color: var(--kp-a); animation: g1 2.6s infinite steps(1); }
+  .glitch::after { color: var(--brand-b); animation: g2 2.6s infinite steps(1); }
+  @keyframes g1 { 0%, 88%, 100% { transform: none; clip-path: inset(0 0 100% 0); } 90% { transform: translate(-3px, 1px); clip-path: inset(20% 0 40% 0); } 94% { transform: translate(3px, -1px); clip-path: inset(60% 0 10% 0); } }
+  @keyframes g2 { 0%, 88%, 100% { transform: none; clip-path: inset(0 0 100% 0); } 91% { transform: translate(3px, 0); clip-path: inset(50% 0 20% 0); } 95% { transform: translate(-3px, 1px); clip-path: inset(10% 0 70% 0); } }
+  .soon span { color: var(--dim); }
+
+  /* Escaparate de cada juego */
+  .show { padding: 120px 0; overflow: hidden; }
+  .show::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .5; }
+  .show.sz::before { background: radial-gradient(800px 500px at 85% 30%, rgba(250, 184, 71, 0.12), transparent 70%); }
+  .show.kp::before { background: radial-gradient(800px 500px at 15% 30%, rgba(255, 61, 110, 0.13), transparent 70%), radial-gradient(600px 400px at 40% 80%, rgba(255, 204, 0, 0.08), transparent 70%); }
+  .split { display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: center; }
+  .split.rev { grid-template-columns: 1.1fr 1fr; }
+  .split.rev .txt { order: 2; }
+  .show .kicker { color: var(--c); }
+  .show.sz { --c: var(--sz); }
+  .show.kp { --c: var(--kp-b); }
+  .show h2 { font-size: clamp(54px, 7vw, 92px); text-transform: uppercase; margin: 12px 0 16px; }
+  .show.sz h2 span { color: var(--sz); }
+  .kp-title { font-family: Luckiest, Rajdhani, sans-serif; font-weight: 400; color: var(--kp-b); text-shadow: 0 5px 0 #c43c00, 0 12px 30px rgba(255, 61, 110, 0.35); letter-spacing: .02em; }
+  .kp-title .w { display: inline-block; }
+  .kp-title .ch { display: inline-block; animation: hop 2.8s ease-in-out infinite; animation-delay: calc(var(--i) * 0.09s); }
+  .kp-title .w2 .ch { color: #fff; text-shadow: 0 5px 0 #b3123f, 0 12px 30px rgba(255, 61, 110, 0.35); }
+  @keyframes hop { 0%, 60%, 100% { transform: none; } 30% { transform: translateY(-10px) rotate(-3deg); } }
+  .show .lead { max-width: 520px; }
+  .feats { list-style: none; padding: 0; margin: 26px 0 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .feats li { display: flex; gap: 12px; align-items: flex-start; padding: 14px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); transition: border-color .25s, transform .25s; }
+  .feats li:hover { border-color: var(--c); transform: translateY(-3px); }
+  .feats .ic { flex: none; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 10px; background: color-mix(in srgb, var(--c) 16%, transparent); color: var(--c); }
+  .feats .ic svg { width: 20px; height: 20px; }
+  .feats b { display: block; font: 700 17px Rajdhani, sans-serif; letter-spacing: .02em; }
+  .feats small { color: var(--dim); font-size: 13px; line-height: 1.45; display: block; }
+  .link-more { display: inline-flex; align-items: center; gap: 10px; font: 700 17px Rajdhani, sans-serif; letter-spacing: .08em; color: var(--c); text-decoration: none; padding: 12px 20px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); transition: background .2s, gap .2s; }
+  .link-more:hover { background: color-mix(in srgb, var(--c) 12%, transparent); gap: 16px; }
+  .collage { position: relative; aspect-ratio: 1 / 0.86; }
+  .collage .shot { position: absolute; width: 74%; border-radius: 16px; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6); }
+  .collage .shot:nth-child(1) { left: 0; top: 0; z-index: 1; }
+  .collage .shot:nth-child(2) { right: 0; top: 24%; z-index: 2; }
+  .collage .shot:nth-child(3) { left: 8%; bottom: 0; z-index: 3; width: 62%; }
+  .shot { display: block; padding: 0; border: 1px solid rgba(255, 255, 255, 0.14); overflow: hidden; cursor: zoom-in; background: #111; aspect-ratio: 16 / 9; font: inherit; color: inherit; }
+  .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
+  .shot:hover img { transform: scale(1.06); }
+  .shot figcaption, .shot .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 14px 10px; text-align: left; font: 700 15px Rajdhani, sans-serif; letter-spacing: .05em; background: linear-gradient(transparent, rgba(0, 0, 0, 0.85)); opacity: 0; transform: translateY(8px); transition: opacity .3s, transform .3s; }
+  .shot { position: relative; }
+  .shot:hover .cap, .shot:focus-visible .cap { opacity: 1; transform: none; }
+
+  /* Rejilla de capturas (Kart Party) */
+  .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 170px; gap: 14px; margin-top: 60px; }
+  .bento .shot { aspect-ratio: auto; border-radius: 14px; }
+  .bento .big { grid-column: span 2; grid-row: span 2; }
+  .bento .wide { grid-column: span 2; }
+  .keys { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 30px; color: var(--dim); font-size: 14px; }
+  .keys span { display: inline-flex; align-items: center; gap: 8px; }
+  kbd { font: 700 12px Inter, sans-serif; color: var(--text); background: #171a25; border: 1px solid rgba(255, 255, 255, 0.2); border-bottom-width: 3px; border-radius: 7px; padding: 3px 9px; }
+
+  /* Cinta de capturas que no para */
+  .marquee { padding: 30px 0 90px; overflow: hidden; }
+  .track { display: flex; gap: 18px; width: max-content; animation: slide 60s linear infinite; }
+  .track.back { animation-direction: reverse; animation-duration: 70s; margin-top: 18px; }
+  .marquee:hover .track { animation-play-state: paused; }
+  .track .shot { width: 360px; border-radius: 14px; flex: none; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  /* Cómo empezar */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; counter-reset: s; }
+  .step { position: relative; padding: 30px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); overflow: hidden; transition: transform .3s, border-color .3s; }
+  .step:hover { transform: translateY(-6px); border-color: rgba(34, 230, 255, 0.4); }
+  .step::before { counter-increment: s; content: "0" counter(s); position: absolute; right: 18px; top: 6px; font: 700 84px Rajdhani, sans-serif; color: rgba(255, 255, 255, 0.05); }
+  .step .ic { width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center; margin-bottom: 18px; background: linear-gradient(135deg, rgba(124, 92, 255, 0.3), rgba(34, 230, 255, 0.2)); color: var(--brand-b); }
+  .step .ic svg { width: 26px; height: 26px; }
+  .step h3 { font-size: 24px; margin-bottom: 8px; }
+  .step p { color: var(--dim); margin: 0; font-size: 15px; }
+  .tip { margin: 26px auto 0; max-width: 780px; text-align: center; color: var(--dim); font-size: 14px; }
+
+  /* Llamada final */
+  .final { margin: 40px auto 0; border-radius: 28px; padding: 70px 30px; text-align: center; position: relative; overflow: hidden; isolation: isolate; border: 1px solid rgba(255, 255, 255, 0.12); }
+  .final::before { content: ""; position: absolute; inset: -40%; z-index: -2; background: conic-gradient(from 0deg, #7c5cff, #22e6ff, #ff3d6e, #ffcc00, #fab847, #7c5cff); animation: rot 14s linear infinite; opacity: .55; filter: blur(40px); }
+  .final::after { content: ""; position: absolute; inset: 2px; z-index: -1; border-radius: 26px; background: rgba(9, 10, 16, 0.86); }
+  @keyframes rot { to { transform: rotate(360deg); } }
+  .final h2 { font-size: clamp(40px, 5.5vw, 70px); text-transform: uppercase; margin-bottom: 14px; }
+  .final p { color: #c9cddb; margin: 0 auto 30px; max-width: 560px; }
+
+  footer { padding: 60px 0 40px; color: var(--dim); font-size: 13px; text-align: center; }
+  footer nav ul { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; }
+  footer a { color: var(--text); text-decoration: none; }
+  footer a:hover { color: var(--brand-b); }
+  footer p { margin: 6px auto; max-width: 760px; }
+
+  /* Visor de capturas */
+  .lightbox { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(4, 5, 8, 0.92); backdrop-filter: blur(8px); opacity: 0; pointer-events: none; transition: opacity .25s; }
+  .lightbox.open { opacity: 1; pointer-events: auto; }
+  .lightbox figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; transform: scale(.94); transition: transform .3s cubic-bezier(.2, .8, .2, 1); }
+  .lightbox.open figure { transform: none; }
+  .lightbox img { max-height: 82vh; border-radius: 14px; box-shadow: 0 30px 100px rgba(0, 0, 0, 0.7); }
+  .lightbox figcaption { color: var(--text); }
+  .lb-btn { position: absolute; background: rgba(22, 25, 36, 0.9); color: var(--text); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 12px; padding: 10px 16px; font: 600 15px Inter, sans-serif; cursor: pointer; }
+  .lb-close { top: 16px; right: 16px; }
+  .lb-prev, .lb-next { top: 50%; transform: translateY(-50%); font-size: 22px; padding: 12px 18px; }
+  .lb-prev { left: 16px; } .lb-next { right: 16px; }
+
+  /* Aparecer al bajar */
+  .js .rv { opacity: 0; transform: translateY(40px); transition: opacity .9s cubic-bezier(.2, .8, .2, 1), transform .9s cubic-bezier(.2, .8, .2, 1); transition-delay: calc(var(--d, 0) * 90ms); }
+  .js .rv.left { transform: translateX(-50px); }
+  .js .rv.right { transform: translateX(50px); }
+  .js .rv.zoom { transform: scale(.92); }
+  .rv.in { opacity: 1 !important; transform: none !important; }
+
+  .hero .wrap > *, .split > *, .games > * { min-width: 0; }
+  @media (max-width: 960px) {
+    .hero .wrap, .split, .split.rev { grid-template-columns: 1fr; }
+    .split.rev .txt { order: 0; }
+    .mock-wrap { max-width: 560px; }
+    .games, .soon-row, .steps { grid-template-columns: 1fr; }
+    .bento { grid-template-columns: repeat(2, 1fr); }
+    .nav ul { display: none; }
+    .nav select { margin-left: auto; }
+  }
+  @media (max-width: 560px) {
+    .hero h1 { white-space: normal; font-size: 44px; }
+    .feats { grid-template-columns: 1fr; }
+    .bento { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+    .bento .big, .bento .wide { grid-column: auto; grid-row: auto; }
+    .game { min-height: 460px; padding: 24px; }
+    .btn { width: 100%; justify-content: center; }
+    .track .shot { width: 260px; }
+    .btn-mini { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    .js .rv { opacity: 1; transform: none; }
+    .hero h1 .l > span, .fade-up { transform: none; opacity: 1; }
+  }
 </style>
 </head>
 <body>
-<a class="skip" href="#contenido" data-i18n="skip">Saltar al contenido</a>
-<header class="top">
-  <div class="langbar">
+<a class="skip" href="#juegos" data-i18n="skip">Saltar al contenido</a>
+
+<nav class="nav" id="nav" aria-label="Principal" data-i18n-aria="nav_label">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Zile Launcher">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#22e6ff"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="#12141d"/><path d="M16 18h32L22 46h26" fill="none" stroke="url(#lg)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ZILE
+    </a>
+    <ul>
+      <li><a href="#juegos" data-i18n="nav_games">Juegos</a></li>
+      <li><a href="#strikezone">Strike Zone</a></li>
+      <li><a href="#kartparty">Kart Party</a></li>
+      <li><a href="#empezar" data-i18n="nav_start">Cómo empezar</a></li>
+    </ul>
     <label for="lang" class="sr-only" data-i18n="lang_label">Idioma</label>
     <select id="lang" aria-label="Idioma / Language">
-      <option value="es">Español</option>
-      <option value="en">English</option>
-      <option value="pt">Português</option>
-      <option value="fr">Français</option>
-      <option value="de">Deutsch</option>
-      <option value="it">Italiano</option>
+      <option value="es">ES</option><option value="en">EN</option><option value="pt">PT</option>
+      <option value="fr">FR</option><option value="de">DE</option><option value="it">IT</option>
     </select>
+    <a class="btn-mini dl-launcher" href="https://github.com/NewZile/arena-fps/releases/download/launcher/ZileLauncher.exe" data-i18n="nav_dl">DESCARGAR</a>
   </div>
-  <div class="kicker" data-i18n="kicker">FPS MULTIJUGADOR · ZOMBIS · ESCONDITE · GRATIS · WINDOWS</div>
-  <h1>STRIKE <span>ZONE</span></h1>
-  <p data-i18n="lead">Tres juegos en uno: <b>Shooter</b> táctico con modo Bomba, rangos y skins; <b>Zombis</b>, oleadas para un jugador o con tus amigos; y <b>Escondite</b>, conviértete en un objeto del mapa y que no te encuentren.</p>
-  <div class="chips">
-    <span class="chip" data-i18n="chip1">6 modos</span><span class="chip" data-i18n="chip2">5 mapas</span><span class="chip" data-i18n="chip3">6 idiomas</span><span class="chip" data-i18n="chip4">Clanes</span><span class="chip" data-i18n="chip5">Repeticiones</span><span class="chip" data-i18n="chip6">Online con amigos</span>
+</nav>
+
+<header class="hero" id="top">
+  <div class="slides" aria-hidden="true">
+    <img src="img/kp_noche.jpg" alt="" class="on">
+    <img src="img/apocalipsis.jpg" alt="">
+    <img src="img/kp_desierto.jpg" alt="">
+    <img src="img/zombis.jpg" alt="">
+    <img src="img/kp_puente.jpg" alt="">
+    <img src="img/ciudad.jpg" alt="">
   </div>
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="floor" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <div class="kicker fade-up" data-i18n="hero_kicker">GRATIS · WINDOWS · CON AMIGOS</div>
+      <h1><span class="l"><span data-i18n="hero_t1">Tus juegos.</span></span><span class="l"><span class="grad" data-i18n="hero_t2">Un launcher.</span></span></h1>
+      <p class="lead fade-up d1" data-i18n="hero_lead">El <b>Zile Launcher</b> instala y mantiene al día <b>Strike Zone</b>, un shooter con Zombis y Escondite, y <b>Kart Party</b>, carreras locas de karts. Sin cuentas, sin compras: descargar y a jugar.</p>
+      <div class="ctas fade-up d2">
+        <a class="btn dl-launcher" href="https://github.com/NewZile/arena-fps/releases/download/launcher/ZileLauncher.exe">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          <span data-i18n="hero_dl">DESCARGAR ZILE LAUNCHER</span>
+        </a>
+        <a class="btn ghost" href="#juegos" data-i18n="hero_see">VER LOS JUEGOS</a>
+      </div>
+      <div class="fine fade-up d3" data-i18n="hero_fine">Windows 10 y 11 · 64 bits · Se actualiza solo</div>
+      <div class="stats fade-up d4">
+        <div class="stat"><b>2</b><span data-i18n="st_games">juegos gratis</span></div>
+        <div class="stat"><b data-count="11">11</b><span data-i18n="st_modes">modos y circuitos</span></div>
+        <div class="stat" id="dl-stat" hidden><b data-count="0" id="dl-total">0</b><span data-i18n="st_dl">descargas</span></div>
+      </div>
+    </div>
+    <div class="mock-wrap fade-up d2">
+      <div class="mock" id="mock" aria-hidden="true">
+        <div class="mock-bar"><i></i><i></i><i></i><span>ZILE LAUNCHER</span></div>
+        <div class="mock-body">
+          <div class="mock-side">
+            <div class="on" style="background-image:url(img/zombis_s.jpg)"></div>
+            <div style="background-image:url(img/kp_noche_s.jpg)"></div>
+            <div class="soon"></div><div class="soon"></div>
+          </div>
+          <div class="mock-main">
+            <img src="img/zombis_s.jpg" alt="" class="on">
+            <img src="img/kp_noche_s.jpg" alt="">
+            <div class="mock-info">
+              <div class="mock-title sz" id="mock-title">STRIKE <span>ZONE</span></div>
+              <div class="mock-row"><span class="mock-play" data-i18n="mock_play">JUGAR</span><span class="mock-prog"><i></i></span><span class="mock-ver" id="mock-ver">v1</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"></div>
 </header>
 
-<main class="wrap" id="contenido">
-  <section class="card hero" aria-labelledby="version">
-    <div class="new-badge" id="badge" hidden data-i18n="new_badge">NUEVA VERSIÓN</div>
-    <div class="version" id="version" data-i18n="latest">Última versión</div>
-    <div class="meta" id="meta">Windows · 64 bits</div>
-    <a class="btn" id="download" href="https://github.com/NewZile/arena-fps/releases/download/launcher/ZileLauncher.exe" aria-label="Descargar Zile Launcher para Windows (instala y actualiza Strike Zone)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-      <span data-i18n="download">DESCARGAR</span>
-    </a>
-    <div class="alt-dl"><a id="download-zip" href="#" data-i18n="dl_zip_plain">¿Prefieres el juego suelto? Descarga el .zip</a></div>
-    <div class="downloads" id="downloads" hidden></div>
-    <div class="small" data-i18n="dl_help">Gratis, sin cuentas ni compras. Descarga el <b>Zile Launcher</b>, ábrelo y pulsa <b>INSTALAR</b>: descarga el juego y lo mantiene al día. Si prefieres el .zip, descomprímelo y abre <code>StrikeZone.exe</code>.<br>¿Venías de <b>Arena FPS</b>? Es el mismo juego con otro nombre: conservas tu perfil y tus skins.</div>
-  </section>
-
-  <section class="card zombies reveal">
-    <span class="tag" data-i18n="z_tag">MODO ZOMBIS</span>
-    <h2 data-i18n="z_title">SOBREVIVE A LA <span>HORDA</span></h2>
-    <p class="lead" data-i18n="z_lead">Al abrir el juego eliges modalidad: <b>Shooter</b> o <b>Zombis</b>. En Zombis aguantáis oleadas cada vez más duras en el mapa <b>Apocalipsis</b>, tú solo o con tus amigos por internet.</p>
-    <div class="zgrid">
-      <button class="shot" data-full="img/zombis.jpg"><img src="img/zombis_s.jpg" alt="La horda de zombis llegando por la calle en el mapa Apocalipsis" data-i18n-alt="alt_horde" loading="lazy"><span data-i18n="cap_horde">La horda</span></button>
-      <ul class="zlist">
-        <li data-i18n="z1"><b>Oleadas sin fin</b>Zombis que andan, corren y se arrastran. ¿Hasta qué oleada llegaréis? Dicen que algunas traen sorpresas…</li>
-        <li data-i18n="z2"><b>Puntos, tienda y caja misteriosa</b>Cada baja da puntos: compra armas en las paredes, prueba suerte con la caja, bebe ventajas y mejora tu arma.</li>
-        <li data-i18n="z3"><b>Zonas por abrir y trampas</b>Abre barricadas para llegar a nuevas zonas y enciende la valla eléctrica o la parrilla de fuego.</li>
-        <li data-i18n="z4"><b>Levanta a tus compañeros</b>Si alguien cae, tienes 30 s para levantarlo. Y los zombis sueltan objetos: bomba, puntos dobles, munición…</li>
-      </ul>
-    </div>
-    <div class="zcast">
-      <button class="shot" data-full="img/z_girl.jpg"><img src="img/z_girl_s.jpg" alt="Zombi: chica zombi" data-i18n-alt="alt_zgirl" loading="lazy"><span>Zombie Girl</span></button>
-      <button class="shot" data-full="img/z_prisoner.jpg"><img src="img/z_prisoner_s.jpg" alt="Zombi: prisionero" data-i18n-alt="alt_zpris" loading="lazy"><span data-i18n="cap_pris">Prisionero</span></button>
-      <button class="shot" data-full="img/z_yaku.jpg"><img src="img/z_yaku_s.jpg" alt="Zombi: Yaku corriendo" data-i18n-alt="alt_zyaku" loading="lazy"><span data-i18n="cap_yaku">Yaku (corredor)</span></button>
-      <button class="shot" data-full="img/trampas.jpg"><img src="img/trampas_s.jpg" alt="La trampa de fuego encendida en la calle del refugio" data-i18n-alt="alt_trap" loading="lazy"><span data-i18n="cap_trap">Trampas</span></button>
-    </div>
-    <div class="egg" data-i18n="egg">🎃 Dicen que en el Apocalipsis hay algo escondido… ¿lo encontrarás?</div>
-  </section>
-
-  <section class="card props reveal">
-    <span class="tag" data-i18n="p_tag">NUEVO · MODO ESCONDITE</span>
-    <h2 data-i18n="p_title">¿DÓNDE <span>ESTÁS</span>?</h2>
-    <p class="lead" data-i18n="p_lead">El <b>Prop Hunt</b> de Strike Zone. Los escondidos se convierten en cajas, barriles, bancos o buzones; los buscadores tienen 2:30 para encontrarlos… pero cada disparo a un objeto de verdad les quita vida.</p>
-    <div class="zgrid">
-      <button class="shot" data-full="img/escondite.jpg"><img src="img/escondite_s.jpg" alt="Objetos en el mapa Desierto: uno de ellos es un jugador escondido" data-i18n-alt="alt_props" loading="lazy"><span data-i18n="cap_props">¿Cuál es el jugador?</span></button>
-      <ul class="zlist">
-        <li data-i18n="p1"><b>Conviértete en lo que quieras</b>Mira un objeto y pulsa E. Fija su giro con R para mirar alrededor sin moverlo.</li>
-        <li data-i18n="p2"><b>Los buscadores, a ciegas</b>Tienen la pantalla en negro los primeros 30 s mientras os escondéis.</li>
-        <li data-i18n="p3"><b>Silba si te atreves</b>Con F silbas y ganas puntos… pero te oyen. Al final de la ronda silbáis solos.</li>
-        <li data-i18n="p4"><b>6 rondas cambiando de papel</b>Si te encuentran, pasas a buscar. Con bots, o con tus amigos por internet.</li>
-      </ul>
-    </div>
-  </section>
-
-  <div class="section-title reveal"><h2 data-i18n="gal_title">Así se ve</h2><p data-i18n="gal_sub">Capturas del juego (haz clic para verlas en grande)</p></div>
-  <div class="gallery reveal">
-    <button class="shot" data-full="img/apocalipsis.jpg"><img src="img/apocalipsis_s.jpg" alt="El mapa Apocalipsis al atardecer" data-i18n-alt="alt_apo" loading="lazy"><span data-i18n="cap_apo">Mapa Apocalipsis</span></button>
-    <button class="shot" data-full="img/repeticiones.jpg"><img src="img/repeticiones_s.jpg" alt="El reproductor de repeticiones con la cámara detrás del jugador" data-i18n-alt="alt_rep" loading="lazy"><span data-i18n="cap_rep">Repeticiones</span></button>
-    <button class="shot" data-full="img/modalidad.jpg"><img src="img/modalidad_s.jpg" alt="Pantalla para elegir modalidad: Shooter o Zombis" data-i18n-alt="alt_mod" loading="lazy"><span data-i18n="cap_mod">Elige modalidad</span></button>
-    <button class="shot" data-full="img/ciudad.jpg"><img src="img/ciudad_s.jpg" alt="Mapa Ciudad en modo Bomba, con una caja de munición" data-i18n-alt="alt_city" loading="lazy"><span data-i18n="cap_city">Ciudad · modo Bomba</span></button>
-    <button class="shot" data-full="img/jugar.jpg"><img src="img/jugar_s.jpg" alt="Ventana JUGAR con los modos y las tarjetas de mapa" data-i18n-alt="alt_play" loading="lazy"><span data-i18n="cap_play">Ventana JUGAR</span></button>
-    <button class="shot" data-full="img/menu.jpg"><img src="img/menu_s.jpg" alt="Menú principal con tu personaje, nivel, cajas y créditos" data-i18n-alt="alt_menu" loading="lazy"><span data-i18n="cap_menu">Menú · tu personaje</span></button>
-    <button class="shot" data-full="img/campo.jpg"><img src="img/campo_s.jpg" alt="Campo de tiro con el desafío de reflejos" data-i18n-alt="alt_range" loading="lazy"><span data-i18n="cap_range">Campo de tiro</span></button>
-    <button class="shot" data-full="img/clan.jpg"><img src="img/clan_s.jpg" alt="Pantalla del clan con miembros y clasificación de clanes" data-i18n-alt="alt_clan" loading="lazy"><span data-i18n="cap_clan">Clanes</span></button>
-    <button class="shot" data-full="img/podio.jpg"><img src="img/podio_s.jpg" alt="Podio del final de la partida con emotes" data-i18n-alt="alt_podium" loading="lazy"><span data-i18n="cap_podium">Podio y emotes</span></button>
-    <button class="shot" data-full="img/desierto.jpg"><img src="img/desierto_s.jpg" alt="Mapa Desierto con un bot al fondo" data-i18n-alt="alt_desert" loading="lazy"><span data-i18n="cap_desert">Desierto</span></button>
-  </div>
-
-  <div class="section-title reveal"><h2 data-i18n="feat_title">Qué trae</h2></div>
-  <div class="features">
-    <div class="feature reveal z">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a8 8 0 0 0-5 14.2V20h10v-2.8A8 8 0 0 0 12 3z"/><circle cx="9" cy="11" r="1.6"/><circle cx="15" cy="11" r="1.6"/><path d="M10 20v-2M14 20v-2"/></svg></div>
-      <h3 data-i18n="f_z_t">Modo Zombis</h3>
-      <p data-i18n="f_z_p">Oleadas, tienda, caja misteriosa, ventajas, trampas y zonas por abrir. Para un jugador o cooperativo.</p>
-    </div>
-    <div class="feature reveal p">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.3 7 12 12l8.7-5M12 22V12"/></svg></div>
-      <h3 data-i18n="f_p_t">Modo Escondite</h3>
-      <p data-i18n="f_p_p">Conviértete en un objeto del mapa y que no te encuentren. Cada mapa tiene sus propios objetos.</p>
-    </div>
-    <div class="feature reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></div>
-      <h3 data-i18n="f_modes_t">6 modos de juego</h3>
-      <p data-i18n="f_modes_p">Todos contra todos, por equipos, solo cuchillos, Bomba (plantar y desactivar), Escondite y Zombis.</p>
-    </div>
-    <div class="feature reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 7 6-3 6 3 6-3v13l-6 3-6-3-6 3z"/><path d="M9 4v13M15 7v13"/></svg></div>
-      <h3 data-i18n="f_maps_t">5 mapas</h3>
-      <p data-i18n="f_maps_p">Desierto, Arena, Ciudad, el Campo de tiro y Apocalipsis para los zombis.</p>
-    </div>
-    <div class="feature reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
-      <h3 data-i18n="f_rep_t">Repeticiones</h3>
-      <p data-i18n="f_rep_p">Cada partida se graba sola. Mírala en primera persona, desde atrás o con cámara libre, y salta a tus mejores jugadas.</p>
-    </div>
-    <div class="feature reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
-      <h3 data-i18n="f_lang_t">6 idiomas</h3>
-      <p data-i18n="f_lang_p">Español, inglés, portugués, francés, alemán e italiano. Se cambia en Ajustes.</p>
-    </div>
-    <div class="feature reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 8V5M9 13h.01M15 13h.01M9.5 16h5"/><circle cx="12" cy="4" r="1"/></svg></div>
-      <h3 data-i18n="f_bots_t">Bots listos</h3>
-      <p data-i18n="f_bots_p">Ven solo lo que tienen delante, oyen tus pasos, te buscan, se cubren y avisan a su equipo.</p>
-    </div>
-    <div class="feature reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg></div>
-      <h3 data-i18n="f_range_t">Campo de tiro</h3>
-      <p data-i18n="f_range_p">Maniquíes, blancos móviles, placas para el sniper y un desafío de reflejos con récord.</p>
-    </div>
-    <div class="feature reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="M9 12h6M12 9v6"/></svg></div>
-      <h3 data-i18n="f_clan_t">Clanes y récords</h3>
-      <p data-i18n="f_clan_p">Crea tu clan con etiqueta y color, sumad puntos jugando y compara tu mejor oleada con tus amigos.</p>
-    </div>
-    <div class="feature reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg></div>
-      <h3 data-i18n="f_skins_t">Skins, cajas y mercado</h3>
-      <p data-i18n="f_skins_p">Gana cajas jugando, ábrelas y cambia skins en el mercado, con créditos del juego (no se usa dinero real). Algunas llevan un contador de bajas.</p>
-    </div>
-    <div class="feature reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16 14.2A5 5 0 0 1 22 19"/></svg></div>
-      <h3 data-i18n="f_online_t">Online con amigos</h3>
-      <p data-i18n="f_online_p">Añádelos con su código y entrad juntos; en la mayoría de redes no hace falta abrir puertos. Chat de voz y de texto.</p>
-    </div>
-    <div class="feature reveal">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></div>
-      <h3 data-i18n="f_rank_t">Rangos y medallas</h3>
-      <p data-i18n="f_rank_p">Sube de nivel, gana rango competitivo y consigue medallas por rachas, headshots o no-scopes.</p>
-    </div>
-  </div>
-
-  <section class="card reveal">
-    <h2 data-i18n="news_title">Novedades</h2>
-    <div class="notes" id="notes"><p data-i18n="loading">Cargando…</p></div>
-    <p class="small" data-i18n="notes_lang" hidden>Las notas de cada versión están en español.</p>
-  </section>
-
-  <div class="grid">
-    <section class="card reveal">
-      <h2 data-i18n="friends_title">Jugar con amigos</h2>
-      <h3 class="sub" data-i18n="friends_sub1">Por internet (lo más fácil)</h3>
-      <ol class="steps">
-        <li data-i18n="step1">En el menú, abre <b>AMIGOS</b> y pulsa <b>+ AÑADIR AMIGO</b> con el código de tu amigo (cada uno ve el suyo en esa ventana).</li>
-        <li data-i18n="step2">Uno pulsa <b>JUGAR</b>, pestaña <b>ONLINE · AMIGOS</b>, elige modo y pulsa <b>¡A JUGAR!</b></li>
-        <li data-i18n="step3">Los demás le buscan en su lista de <b>AMIGOS</b> y pulsan <b>UNIRSE</b>. También puede invitarles desde la partida: <b>Esc → AMIGOS → INVITAR</b>.</li>
-      </ol>
-      <h3 class="sub" data-i18n="friends_sub2">En la misma casa o red</h3>
-      <p class="small" style="margin-top:0" data-i18n="lan_help">Uno crea la partida en <b>JUGAR → RED LOCAL</b> y los demás pulsan <b>BUSCAR SALAS</b>. Si no aparece, usad <b>UNIRSE POR IP</b> con la IP que sale en la sala.</p>
-      <p class="small" data-i18n="win_help">Si Windows avisa de que “protegió su PC”: <b>Más información → Ejecutar de todas formas</b>, y permite el acceso en el firewall.</p>
-      <p class="small" data-i18n="lang_note">Los nombres de los botones son los del juego en español; si lo tienes en otro idioma, verás su traducción.</p>
-    </section>
-    <section class="card reveal">
-      <h2 data-i18n="controls_title">Controles</h2>
-      <div class="keys">
-        <kbd>WASD</kbd><span data-i18n="k_move">Moverse</span>
-        <kbd data-i18n="k_lclick">Clic izq.</kbd><span data-i18n="k_fire">Disparar (cuchillo: tajo)</span>
-        <kbd data-i18n="k_rclick">Clic der.</kbd><span data-i18n="k_aim">Apuntar (cuchillo: puñalada)</span>
-        <kbd>R</kbd><span data-i18n="k_reload">Recargar · fijar el giro (Escondite)</span>
-        <kbd data-i18n="k_space">Espacio</kbd><span data-i18n="k_jump">Saltar (doble)</span>
-        <kbd>Shift</kbd><span data-i18n="k_sprint">Correr</span>
-        <kbd>Ctrl</kbd><span data-i18n="k_crouch">Agacharse · con Shift: deslizarse</span>
-        <kbd>1 / 2 / 3</kbd><span data-i18n="k_weapons">Principal / pistola / cuchillo</span>
-        <kbd>E</kbd><span data-i18n="k_use">Usar: recoger, plantar, comprar, levantar a un compañero, convertirte en objeto</span>
-        <kbd>G</kbd><span data-i18n="k_drop">Tirar arma</span>
-        <kbd>F</kbd><span data-i18n="k_inspect">Inspeccionar · silbar (Escondite)</span>
-        <kbd>B</kbd><span data-i18n="k_buy">Elegir arma · tienda</span>
-        <kbd>V</kbd><span data-i18n="k_voice">Hablar por voz</span>
-        <kbd>Y / U</kbd><span data-i18n="k_chat">Chat a todos / de equipo</span>
-        <kbd>Tab</kbd><span data-i18n="k_tab">Marcador</span>
-        <kbd>Esc</kbd><span data-i18n="k_esc">Pausa</span>
+<main>
+  <section class="block" id="juegos">
+    <div class="wrap">
+      <div class="head rv">
+        <div class="kicker" data-i18n="games_kicker">LA COLECCIÓN</div>
+        <h2 data-i18n="games_title">Elige a qué jugar</h2>
+        <p data-i18n="games_sub">Los dos se instalan desde el launcher con un clic y se actualizan solos cada vez que sale una versión nueva.</p>
       </div>
-      <p class="small" data-i18n="k_note">Todas se pueden cambiar en <b>AJUSTES → CONTROLES</b>.</p>
-    </section>
-  </div>
+      <div class="games">
+        <a class="game sz rv left" href="#strikezone" data-cycle>
+          <div class="bg"><img src="img/zombis_s.jpg" alt="" class="on"><img src="img/ciudad_s.jpg" alt=""><img src="img/escondite_s.jpg" alt=""><img src="img/apocalipsis_s.jpg" alt=""></div>
+          <div class="badge"><span class="live" data-i18n="available">DISPONIBLE</span><span>SHOOTER</span></div>
+          <div class="ver" id="ver-sz" hidden></div>
+          <h3>Strike <span>Zone</span></h3>
+          <p data-i18n="sz_card">Shooter táctico con modo Bomba, Zombis por oleadas y Escondite (Prop Hunt). Rangos, skins, clanes y bots listos.</p>
+          <div class="tags"><span data-i18n="t_zombies">Zombis</span><span data-i18n="t_hide">Escondite</span><span data-i18n="t_bomb">Modo Bomba</span><span data-i18n="t_clans">Clanes</span></div>
+          <span class="go"><span data-i18n="discover">DESCÚBRELO</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="game kp rv right" href="#kartparty" data-cycle>
+          <div class="bg"><img src="img/kp_noche_s.jpg" alt="" class="on"><img src="img/kp_desierto_s.jpg" alt=""><img src="img/kp_podio_s.jpg" alt=""><img src="img/kp_puente_s.jpg" alt=""></div>
+          <div class="badge"><span class="live" data-i18n="available">DISPONIBLE</span><span data-i18n="t_racing">CARRERAS</span></div>
+          <div class="ver" id="ver-kp" hidden></div>
+          <h3>Kart <span>Party</span></h3>
+          <p data-i18n="kp_card">Carreras locas de karts: derrapes con mini-turbo, plátanos y caparazones, copas con podio, lluvia y tu propio piloto.</p>
+          <div class="tags"><span data-i18n="t_5tracks">5 circuitos</span><span data-i18n="t_cup">Copa y podio</span><span data-i18n="t_pilot">Tu piloto</span><span data-i18n="t_online">Online</span></div>
+          <span class="go"><span data-i18n="discover">DESCÚBRELO</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+      <div class="soon-row">
+        <div class="soon rv" style="--d:1"><b class="glitch" data-t="???">???</b><span data-i18n="soon1">Un juego nuevo está en camino…</span></div>
+        <div class="soon rv" style="--d:2"><b class="glitch" data-t="???">???</b><span data-i18n="soon2">Muy pronto en el launcher</span></div>
+      </div>
+    </div>
+  </section>
 
-  <section class="card reveal">
-    <h2 data-i18n="history_title">Historial de versiones</h2>
-    <ul class="history" id="history"><li class="d" data-i18n="loading">Cargando…</li></ul>
-    <button class="more" id="more" type="button" aria-controls="history" aria-expanded="false" hidden></button>
+  <section class="show sz" id="strikezone">
+    <div class="wrap split">
+      <div class="txt">
+        <div class="kicker rv" data-i18n="sz_kicker">FPS MULTIJUGADOR</div>
+        <h2 class="rv" style="--d:1">Strike <span>Zone</span></h2>
+        <p class="lead rv" style="--d:2" data-i18n="sz_lead">Tres juegos en uno: <b>Shooter</b> táctico, <b>Zombis</b> por oleadas para un jugador o cooperativo, y <b>Escondite</b>, donde te conviertes en un objeto del mapa para que no te encuentren.</p>
+        <ul class="feats">
+          <li class="rv" style="--d:3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a8 8 0 0 0-5 14.2V20h10v-2.8A8 8 0 0 0 12 3z"/><circle cx="9" cy="11" r="1.6"/><circle cx="15" cy="11" r="1.6"/></svg></span><span><b data-i18n="szf1">Modo Zombis</b><small data-i18n="szf1d">Oleadas, caja misteriosa, ventajas y trampas.</small></span></li>
+          <li class="rv" style="--d:4"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8l-9-5-9 5v8l9 5z"/><path d="M3.3 7 12 12l8.7-5M12 22V12"/></svg></span><span><b data-i18n="szf2">Escondite</b><small data-i18n="szf2d">Conviértete en caja, barril o buzón… y que no te pillen.</small></span></li>
+          <li class="rv" style="--d:5"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></span><span><b data-i18n="szf3">6 modos, 5 mapas</b><small data-i18n="szf3d">Bomba, equipos, cuchillos, todos contra todos…</small></span></li>
+          <li class="rv" style="--d:6"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/></svg></span><span><b data-i18n="szf4">Rangos y skins</b><small data-i18n="szf4d">Cajas, mercado, clanes, medallas y repeticiones.</small></span></li>
+        </ul>
+        <a class="link-more rv" style="--d:7" href="strikezone.html"><span data-i18n="sz_more">TODO SOBRE STRIKE ZONE</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="collage" data-parallax>
+        <button class="shot rv right" data-full="img/zombis.jpg" data-cap="cap_horde"><img src="img/zombis_s.jpg" alt="La horda de zombis en el mapa Apocalipsis" loading="lazy"><span class="cap" data-i18n="cap_horde">La horda · Zombis</span></button>
+        <button class="shot rv right" style="--d:2" data-full="img/escondite.jpg"><img src="img/escondite_s.jpg" alt="Modo Escondite: uno de los objetos es un jugador" loading="lazy"><span class="cap" data-i18n="cap_props">¿Cuál es el jugador?</span></button>
+        <button class="shot rv right" style="--d:4" data-full="img/ciudad.jpg"><img src="img/ciudad_s.jpg" alt="Mapa Ciudad en modo Bomba" loading="lazy"><span class="cap" data-i18n="cap_city">Ciudad · modo Bomba</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="show kp" id="kartparty">
+    <div class="wrap split rev">
+      <div class="txt">
+        <div class="kicker rv" data-i18n="kp_kicker">CARRERAS CON AMIGOS</div>
+        <h2 class="kp-title rv" style="--d:1" aria-label="Kart Party"><span class="w" aria-hidden="true"><span class="ch" style="--i:0">K</span><span class="ch" style="--i:1">A</span><span class="ch" style="--i:2">R</span><span class="ch" style="--i:3">T</span></span> <span class="w w2" aria-hidden="true"><span class="ch" style="--i:5">P</span><span class="ch" style="--i:6">A</span><span class="ch" style="--i:7">R</span><span class="ch" style="--i:8">T</span><span class="ch" style="--i:9">Y</span></span></h2>
+        <p class="lead rv" style="--d:2" data-i18n="kp_lead">Derrapa para cargar el mini-turbo, lanza plátanos y caparazones y gana la <b>Copa</b> para subir al podio con tu piloto. Solo contra bots, en red local u online con un código.</p>
+        <ul class="feats">
+          <li class="rv" style="--d:3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 6-3 6 3 6-3v13l-6 3-6-3-6 3z"/><path d="M9 4v13M15 7v13"/></svg></span><span><b data-i18n="kpf1">5 circuitos</b><small data-i18n="kpf1d">Valle, nieve, isla con puente, desierto y ciudad de noche.</small></span></li>
+          <li class="rv" style="--d:4"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></span><span><b data-i18n="kpf2">Copa y podio</b><small data-i18n="kpf2d">Todos los circuitos seguidos, puntos y trofeos.</small></span></li>
+          <li class="rv" style="--d:5"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><span><b data-i18n="kpf3">Tu piloto y tu coche</b><small data-i18n="kpf3d">Cascos, atuendos, número, pegatinas, bocina y baile.</small></span></li>
+          <li class="rv" style="--d:6"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 16.6A5 5 0 0 0 18 7h-1.3A8 8 0 1 0 4 15.3"/><path d="M8 19v2M8 13v2M16 19v2M16 13v2M12 21v2M12 15v2"/></svg></span><span><b data-i18n="kpf4">Lluvia y noche</b><small data-i18n="kpf4d">Asfalto mojado, relámpagos y menos agarre.</small></span></li>
+        </ul>
+        <div class="keys rv" style="--d:7"><span><kbd>WASD</kbd><span data-i18n="kk_drive">conducir</span></span><span><kbd data-i18n="kk_space">Espacio</kbd><span data-i18n="kk_drift">derrapar</span></span><span><kbd>E</kbd><span data-i18n="kk_item">objeto</span></span><span><kbd>H</kbd><span data-i18n="kk_horn">bocina</span></span><span data-i18n="kk_pad">🎮 Mando compatible</span></div>
+      </div>
+      <div class="collage" data-parallax>
+        <button class="shot rv left" data-full="img/kp_lluvia.jpg"><img src="img/kp_lluvia_s.jpg" alt="Carrera de noche bajo la lluvia en la Ciudad Nocturna" loading="lazy"><span class="cap" data-i18n="cap_rain">Ciudad Nocturna con lluvia</span></button>
+        <button class="shot rv left" style="--d:2" data-full="img/kp_podio.jpg"><img src="img/kp_podio_s.jpg" alt="Podio del final de la copa con los pilotos celebrando" loading="lazy"><span class="cap" data-i18n="cap_podium">El podio de la Copa</span></button>
+        <button class="shot rv left" style="--d:4" data-full="img/kp_desierto.jpg"><img src="img/kp_desierto_s.jpg" alt="Un bólido F1 en Dunas Doradas con líneas de velocidad" loading="lazy"><span class="cap" data-i18n="cap_desert">Dunas Doradas a 185 km/h</span></button>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="bento">
+        <button class="shot big rv zoom" data-full="img/kp_puente.jpg"><img src="img/kp_puente_s.jpg" alt="El puente del circuito en ocho de Isla Tropical" loading="lazy"><span class="cap" data-i18n="cap_bridge">Isla Tropical: circuito en 8 con puente</span></button>
+        <button class="shot rv zoom" style="--d:1" data-full="img/kp_piloto.jpg"><img src="img/kp_piloto_s.jpg" alt="Editor del piloto con corona y capa" loading="lazy"><span class="cap" data-i18n="cap_pilot">Crea tu piloto</span></button>
+        <button class="shot rv zoom" style="--d:2" data-full="img/kp_coche.jpg"><img src="img/kp_coche_s.jpg" alt="Número, pegatinas y bocina del coche" loading="lazy"><span class="cap" data-i18n="cap_car">Número y pegatinas</span></button>
+        <button class="shot wide rv zoom" style="--d:3" data-full="img/kp_nieve.jpg"><img src="img/kp_nieve_s.jpg" alt="Carrera en Pico Nevado" loading="lazy"><span class="cap" data-i18n="cap_snow">Pico Nevado</span></button>
+        <button class="shot rv zoom" style="--d:1" data-full="img/kp_copa.jpg"><img src="img/kp_copa_s.jpg" alt="Clasificación de la copa con puntos y trofeo" loading="lazy"><span class="cap" data-i18n="cap_cup">Puntos y trofeos</span></button>
+        <button class="shot rv zoom" style="--d:2" data-full="img/kp_sala.jpg"><img src="img/kp_sala_s.jpg" alt="La sala con el garaje, el circuito, el modo y la dificultad" loading="lazy"><span class="cap" data-i18n="cap_lobby">La sala y el garaje</span></button>
+        <button class="shot wide rv zoom" style="--d:3" data-full="img/kp_isla.jpg"><img src="img/kp_isla_s.jpg" alt="Isla Tropical al atardecer con cajas de objetos" loading="lazy"><span class="cap" data-i18n="cap_island">Cajas de objetos al atardecer</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="marquee" aria-label="Capturas de los dos juegos" data-i18n-aria="marquee_label">
+    <div class="track" id="track1"></div>
+    <div class="track back" id="track2"></div>
+  </section>
+
+  <section class="block" id="empezar">
+    <div class="wrap">
+      <div class="head rv">
+        <div class="kicker" data-i18n="start_kicker">EN UN MINUTO</div>
+        <h2 data-i18n="start_title">Cómo empezar</h2>
+      </div>
+      <div class="steps">
+        <div class="step rv" style="--d:0"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></div><h3 data-i18n="s1t">Descarga el launcher</h3><p data-i18n="s1p">Un solo archivo, <b>ZileLauncher.exe</b>. No hace falta instalar nada más.</p></div>
+        <div class="step rv" style="--d:1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg></div><h3 data-i18n="s2t">Instala tus juegos</h3><p data-i18n="s2p">Elige Strike Zone o Kart Party y pulsa <b>INSTALAR</b>. Cuando salga una versión nueva, se actualizan solos.</p></div>
+        <div class="step rv" style="--d:2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16 14.2A5 5 0 0 1 22 19"/></svg></div><h3 data-i18n="s3t">Juega con amigos</h3><p data-i18n="s3p">Crea una sala online y pásales el código, o jugad en la misma red. También hay bots para jugar solo.</p></div>
+      </div>
+      <p class="tip rv" data-i18n="tip">Si Windows avisa de que “protegió su PC”, pulsa <b>Más información → Ejecutar de todas formas</b>. Los juegos son gratis y no tienen anuncios ni compras.</p>
+
+      <div class="final rv zoom">
+        <h2><span data-i18n="final_t1">¿Listo para</span> <span class="grad" data-i18n="final_t2">jugar?</span></h2>
+        <p data-i18n="final_p">Descarga el Zile Launcher y ten los dos juegos en un minuto.</p>
+        <a class="btn dl-launcher" href="https://github.com/NewZile/arena-fps/releases/download/launcher/ZileLauncher.exe">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          <span data-i18n="hero_dl">DESCARGAR ZILE LAUNCHER</span>
+        </a>
+        <div class="fine"><a href="strikezone.html" data-i18n="zip_link">¿Prefieres el .zip de Strike Zone? Está en su página</a></div>
+      </div>
+    </div>
   </section>
 </main>
 
-<footer class="site wrap">
-  <nav aria-label="Información legal" data-i18n-aria="legal_nav"><ul>
-    <li><a href="aviso-legal.html" data-i18n="l_notice">Aviso legal</a></li>
-    <li><a href="privacidad.html" data-i18n="l_privacy">Privacidad</a></li>
-    <li><a href="cookies.html" data-i18n="l_cookies">Cookies</a></li>
-    <li><a href="terminos.html" data-i18n="l_terms">Términos</a></li>
-    <li><a href="reembolsos.html" data-i18n="l_refunds">Reembolsos</a></li>
-    <li><a href="creditos.html" data-i18n="l_credits">Créditos y licencias</a></li>
-    <li><a href="accesibilidad.html" data-i18n="l_access">Accesibilidad</a></li>
-  </ul></nav>
-  <p data-i18n="foot1">Juego gratuito y sin ánimo de lucro, hecho con Godot 4. Modelos de Quaternius, Poly Haven, styloo, Mixamo y artistas de Sketchfab; sonidos de zombis de dragon-studio (Pixabay). <a href="creditos.html">Ver todos los créditos</a>.</p>
-  <p data-i18n="foot2">Esta web no usa cookies ni herramientas de seguimiento. Strike Zone no está afiliado ni respaldado por Valve Corporation.</p>
-  <p data-i18n="foot3" hidden>Los textos legales están en español, que es la versión que vale.</p>
+<footer>
+  <div class="wrap">
+    <nav aria-label="Información legal" data-i18n-aria="legal_nav"><ul>
+      <li><a href="aviso-legal.html" data-i18n="l_notice">Aviso legal</a></li>
+      <li><a href="privacidad.html" data-i18n="l_privacy">Privacidad</a></li>
+      <li><a href="cookies.html" data-i18n="l_cookies">Cookies</a></li>
+      <li><a href="terminos.html" data-i18n="l_terms">Términos</a></li>
+      <li><a href="reembolsos.html" data-i18n="l_refunds">Reembolsos</a></li>
+      <li><a href="creditos.html" data-i18n="l_credits">Créditos y licencias</a></li>
+      <li><a href="accesibilidad.html" data-i18n="l_access">Accesibilidad</a></li>
+    </ul></nav>
+    <p data-i18n="foot1">Juegos gratuitos y sin ánimo de lucro, hechos con Godot 4 por NewZile. Fuentes: Inter, Rajdhani y Luckiest Guy (Astigmatic, Apache 2.0). <a href="creditos.html">Ver todos los créditos</a>.</p>
+    <p data-i18n="foot2">Esta web no usa cookies ni herramientas de seguimiento. Strike Zone no está afiliado ni respaldado por Valve Corporation.</p>
+  </div>
 </footer>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Captura ampliada" data-i18n-aria="lb_label" hidden>
-  <button class="lb-close" type="button" data-i18n="close">Cerrar ✕</button>
+  <button class="lb-btn lb-close" type="button" data-i18n="close">Cerrar ✕</button>
+  <button class="lb-btn lb-prev" type="button" aria-label="Anterior" data-i18n-aria="prev">‹</button>
+  <button class="lb-btn lb-next" type="button" aria-label="Siguiente" data-i18n-aria="next">›</button>
   <figure><img alt=""><figcaption></figcaption></figure>
 </div>
 
-<script src="i18n.js"></script>
-<script>
-  // La página vive en https://<usuario>.github.io/<repo>/ y lee las
-  // versiones publicadas (GitHub Releases) de ese mismo repositorio.
-  const owner = location.hostname.split(".")[0];
-  const repo = location.pathname.split("/").filter(Boolean)[0] || "";
-  const ASSET = "StrikeZone.zip";
-  const OLD_ASSET = "ArenaFPS.zip"; // versiones de antes del cambio de nombre
-  const isGame = a => a.name === ASSET || a.name === OLD_ASSET;
-  const gameAsset = r => (r.assets || []).find(a => a.name === ASSET) || (r.assets || []).find(a => a.name === OLD_ASSET);
-  const SHOWN = 5; // versiones visibles antes de "Ver todas"
-  const latestUrl = `https://github.com/${owner}/${repo}/releases/latest/download/${ASSET}`;
-  const dl = document.getElementById("download");
-  // El botón grande baja el Zile Launcher (release "launcher", ver publicar-launcher.ps1);
-  // el enlace de debajo, el juego suelto.
-  dl.href = `https://github.com/${owner}/${repo}/releases/download/launcher/ZileLauncher.exe`;
-  const zipLink = document.getElementById("download-zip");
-  zipLink.href = latestUrl; // funciona aunque falle la API
-  const T = (k, ...a) => I18N.t(k, ...a);
-
-  const esc = s => s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  const fmtDate = iso => new Date(iso).toLocaleDateString(I18N.locale(), { day: "numeric", month: "long", year: "numeric" });
-
-  function renderNotes(text) {
-    const lines = (text || "").split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-    if (!lines.length) return `<p>${T("no_notes")}</p>`;
-    let html = "", inList = false;
-    for (const l of lines) {
-      const item = l.match(/^[-*•]\s+(.*)/);
-      if (item && !inList) { html += "<ul>"; inList = true; }
-      if (!item && inList) { html += "</ul>"; inList = false; }
-      html += item ? `<li>${esc(item[1])}</li>` : `<p>${esc(l)}</p>`;
-    }
-    return html + (inList ? "</ul>" : "");
-  }
-
-  // Galería: clic (o Intro) para ver la captura en grande; Esc o "Cerrar" para
-  // volver. El foco va al botón de cerrar y vuelve a la captura al salir.
-  const lb = document.getElementById("lightbox");
-  const lbClose = lb.querySelector(".lb-close");
-  let lbFrom = null;
-  document.querySelectorAll(".shot").forEach(b => {
-    b.setAttribute("aria-haspopup", "dialog");
-    b.addEventListener("click", () => {
-      lbFrom = b;
-      const img = lb.querySelector("img");
-      img.src = b.dataset.full;
-      img.alt = b.querySelector("img").alt;
-      lb.querySelector("figcaption").textContent = b.querySelector("img").alt;
-      lb.hidden = false;
-      lb.classList.add("open");
-      lbClose.focus();
-    });
-  });
-  const closeLb = () => {
-    if (lb.hidden) return;
-    lb.classList.remove("open");
-    lb.hidden = true;
-    if (lbFrom) lbFrom.focus();
-  };
-  lb.addEventListener("click", e => { if (e.target === lb || e.target === lbClose) closeLb(); });
-  document.addEventListener("keydown", e => {
-    if (lb.hidden) return;
-    if (e.key === "Escape") closeLb();
-    if (e.key === "Tab") { e.preventDefault(); lbClose.focus(); } // el foco no sale del visor
-  });
-
-  // Las secciones aparecen al bajar.
-  const reveals = document.querySelectorAll(".reveal");
-  if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver(entries => entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-    }), { threshold: 0.12 });
-    reveals.forEach(el => io.observe(el));
-  } else {
-    reveals.forEach(el => el.classList.add("in"));
-  }
-
-  // Versiones publicadas: se pintan de nuevo al cambiar de idioma.
-  let releases = null;
-  function renderReleases() {
-    if (releases === null) return;
-    if (!releases.length) {
-      document.getElementById("notes").innerHTML = `<p>${T("no_releases")}</p>`;
-      document.getElementById("history").innerHTML = "";
-      return;
-    }
-    const last = releases[0];
-    const asset = gameAsset(last);
-    const mb = asset ? (asset.size / 1048576).toFixed(0) : "";
-    if (asset) {
-      zipLink.href = asset.browser_download_url;
-      zipLink.textContent = T("dl_zip", mb);
-      zipLink.setAttribute("aria-label", T("dl_aria", last.tag_name) + T("dl_aria_size", mb));
-    }
-    document.getElementById("version").textContent = last.tag_name;
-    dl.setAttribute("aria-label", T("dl_aria_launcher"));
-    document.getElementById("meta").textContent =
-      T("published", fmtDate(last.published_at)) + (asset ? ` · ${mb} MB` : "") + " · Windows 64 bits";
-    if (Date.now() - new Date(last.published_at) < 3 * 86400000) document.getElementById("badge").hidden = false;
-    document.getElementById("notes").innerHTML = renderNotes(last.body);
-    const total = releases.reduce((n, r) => n + (r.assets || []).filter(isGame)
-      .reduce((m, a) => m + (a.download_count || 0), 0), 0);
-    if (total > 0) {
-      const d = document.getElementById("downloads");
-      d.textContent = T("downloads", total.toLocaleString(I18N.locale()));
-      d.hidden = false;
-    }
-    const hist = document.getElementById("history");
-    hist.innerHTML = releases.map((r, i) => {
-      const a = gameAsset(r);
-      return `<li${i >= SHOWN ? ' class="extra"' : ""}><div class="row"><span class="v">${esc(r.tag_name)}</span><span class="d">${fmtDate(r.published_at)}</span></div>` +
-        (r.body ? `<div class="n">${esc(r.body)}</div>` : "") +
-        (a && r !== last ? `<a href="${a.browser_download_url}">${T("dl_version", esc(r.tag_name))}</a>` : "") + "</li>";
-    }).join("");
-    const more = document.getElementById("more");
-    if (releases.length > SHOWN) {
-      more.textContent = hist.classList.contains("all") ? T("less") : T("all_versions", releases.length);
-      more.hidden = false;
-    }
-  }
-  document.getElementById("more").addEventListener("click", () => {
-    const hist = document.getElementById("history");
-    hist.classList.toggle("all");
-    document.getElementById("more").setAttribute("aria-expanded", hist.classList.contains("all"));
-    renderReleases();
-  });
-  I18N.onChange(renderReleases);
-
-  fetch(`https://api.github.com/repos/${owner}/${repo}/releases?per_page=100`)
-    .then(r => r.ok ? r.json() : Promise.reject(r.status))
-    .then(list => { releases = list.filter(r => !r.draft && !r.prerelease && r.tag_name !== "launcher"); renderReleases(); })
-    .catch(() => {
-      document.getElementById("notes").innerHTML = `<p>${T("releases_error")}</p>`;
-      document.getElementById("history").innerHTML = "";
-    });
-</script>
+<script src="hub-i18n.js"></script>
+<script src="hub.js"></script>
 </body>
 </html>

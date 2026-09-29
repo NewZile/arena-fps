@@ -407,6 +407,10 @@
     }
   };
 
+  // Enlace a la portada con todos los juegos (strikezone.html).
+  const HUB_BACK = { en: "← All games", pt: "← Todos os jogos", fr: "← Tous les jeux", de: "← Alle Spiele", it: "← Tutti i giochi" };
+  for (const l in HUB_BACK) PAGE[l].hub_back = HUB_BACK[l];
+
   const orig = { html: new Map(), alt: new Map(), aria: new Map() };
   const listeners = [];
   let lang = "es";
