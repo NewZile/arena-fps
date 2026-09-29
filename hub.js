@@ -169,8 +169,11 @@
 
   // --- Versiones y descargas (GitHub Releases) ---
   const GAME_ASSETS = ["StrikeZone.zip", "ArenaFPS.zip", "KartParty.zip", "ZileLauncher.exe"];
-  fetch(`https://api.github.com/repos/${owner}/${repo}/releases?per_page=100`)
+  // Primero la lista que escribe publicar-versiones.ps1 (sin límite de consultas);
+  // si no está, la API de GitHub (60 consultas por hora sin iniciar sesión).
+  fetch(`launcher/releases.json?t=${Math.floor(Date.now() / 60000)}`)
     .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .catch(() => fetch(`https://api.github.com/repos/${owner}/${repo}/releases?per_page=100`).then(r => r.ok ? r.json() : Promise.reject(r.status)))
     .then(list => {
       const pub = list.filter(r => !r.draft);
       const sz = pub.find(r => /^v\d/.test(r.tag_name) && !r.prerelease);

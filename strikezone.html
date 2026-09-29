@@ -629,8 +629,9 @@
   });
   I18N.onChange(renderReleases);
 
-  fetch(`https://api.github.com/repos/${owner}/${repo}/releases?per_page=100`)
+  fetch(`launcher/releases.json?t=${Math.floor(Date.now() / 60000)}`)
     .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .catch(() => fetch(`https://api.github.com/repos/${owner}/${repo}/releases?per_page=100`).then(r => r.ok ? r.json() : Promise.reject(r.status)))
     .then(list => { releases = list.filter(r => !r.draft && !r.prerelease && r.tag_name !== "launcher"); renderReleases(); })
     .catch(() => {
       document.getElementById("notes").innerHTML = `<p>${T("releases_error")}</p>`;
