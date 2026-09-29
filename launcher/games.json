@@ -35,11 +35,11 @@
       "name": "Kart Party",
       "title_a": "KART",
       "title_b": "PARTY",
-      "tagline": "Carreras locas de karts: derrapes, turbos, plátanos y caparazones. Solo contra bots, en red local u online con tus amigos.",
+      "tagline": "Carreras locas de karts: derrapes con mini-turbo, copas con podio, lluvia y tu propio piloto. Contra bots, en red local u online con tus amigos.",
       "tags": [
         "CARRERAS",
         "MULTIJUGADOR",
-        "BARCELONA"
+        "COPA"
       ],
       "status": "live",
       "tag_prefix": "kart-v",
@@ -50,10 +50,10 @@
       "page": "https://newzile.github.io/arena-fps/",
       "developer": "NewZile",
       "covers": [
-        "builtin:kp_1.jpg",
-        "builtin:kp_2.jpg",
-        "builtin:kp_3.jpg",
-        "builtin:kp_4.jpg"
+        "https://newzile.github.io/arena-fps/img/kp_noche.jpg",
+        "https://newzile.github.io/arena-fps/img/kp_desierto.jpg",
+        "https://newzile.github.io/arena-fps/img/kp_podio.jpg",
+        "https://newzile.github.io/arena-fps/img/kp_puente.jpg"
       ],
       "thumb": "builtin:kp_thumb.jpg"
     },
