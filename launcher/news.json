@@ -1,0 +1,70 @@
+{
+ "news": [
+  {
+   "id": "chat-1",
+   "date": "2026-09-29",
+   "game": "",
+   "url": "",
+   "title": {
+    "es": "Chat con tus amigos",
+    "en": "Chat with your friends",
+    "pt": "Chat com seus amigos",
+    "fr": "Discute avec tes amis",
+    "de": "Chatte mit deinen Freunden",
+    "it": "Chatta con i tuoi amici"
+   },
+   "text": {
+    "es": "Pulsa un amigo en la lista para hablar con él. Los mensajes van cifrados: solo él puede leerlos.",
+    "en": "Click a friend in the list to talk. Messages are encrypted: only they can read them.",
+    "pt": "Clique em um amigo na lista para conversar. As mensagens são criptografadas: só ele pode ler.",
+    "fr": "Clique sur un ami dans la liste pour discuter. Les messages sont chiffrés : lui seul peut les lire.",
+    "de": "Klicke auf einen Freund in der Liste, um zu chatten. Nachrichten sind verschlüsselt: nur er kann sie lesen.",
+    "it": "Clicca su un amico nella lista per parlare. I messaggi sono cifrati: solo lui può leggerli."
+   }
+  },
+  {
+   "id": "kart-107",
+   "date": "2026-09-29",
+   "game": "kartparty",
+   "url": "",
+   "title": {
+    "es": "Kart Party: la Copa y tu piloto",
+    "en": "Kart Party: the Cup and your driver",
+    "pt": "Kart Party: a Copa e seu piloto",
+    "fr": "Kart Party : la Coupe et ton pilote",
+    "de": "Kart Party: der Cup und dein Fahrer",
+    "it": "Kart Party: la Coppa e il tuo pilota"
+   },
+   "text": {
+    "es": "5 circuitos seguidos, podio con celebración, lluvia, y casco, atuendo, número y bocina a tu gusto.",
+    "en": "5 tracks in a row, a podium with celebrations, rain, and your own helmet, outfit, number and horn.",
+    "pt": "5 pistas seguidas, pódio com comemoração, chuva e capacete, roupa, número e buzina do seu jeito.",
+    "fr": "5 circuits d'affilée, podium avec célébration, pluie, et casque, tenue, numéro et klaxon à ton goût.",
+    "de": "5 Strecken am Stück, Podium mit Jubel, Regen und Helm, Outfit, Nummer und Hupe nach deinem Geschmack.",
+    "it": "5 circuiti di fila, podio con esultanza, pioggia e casco, tenuta, numero e clacson a tuo gusto."
+   }
+  },
+  {
+   "id": "friends-1",
+   "date": "2026-09-29",
+   "game": "strikezone",
+   "url": "",
+   "title": {
+    "es": "Los mismos amigos en todo",
+    "en": "The same friends everywhere",
+    "pt": "Os mesmos amigos em tudo",
+    "fr": "Les mêmes amis partout",
+    "de": "Überall dieselben Freunde",
+    "it": "Gli stessi amici ovunque"
+   },
+   "text": {
+    "es": "Tu código de amigo es el mismo en el launcher, Strike Zone y Kart Party. Pulsa UNIRSE para entrar en su partida.",
+    "en": "Your friend code is the same in the launcher, Strike Zone and Kart Party. Press JOIN to enter their match.",
+    "pt": "Seu código de amigo é o mesmo no launcher, Strike Zone e Kart Party. Aperte ENTRAR para jogar com eles.",
+    "fr": "Ton code ami est le même dans le launcher, Strike Zone et Kart Party. Appuie sur REJOINDRE pour entrer dans leur partie.",
+    "de": "Dein Freundescode ist im Launcher, in Strike Zone und Kart Party gleich. Drücke BEITRETEN, um in ihr Spiel zu kommen.",
+    "it": "Il tuo codice amico è lo stesso nel launcher, in Strike Zone e Kart Party. Premi UNISCITI per entrare nella loro partita."
+   }
+  }
+ ]
+}
