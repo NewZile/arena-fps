@@ -241,6 +241,28 @@
     })
     .catch(() => { /* sin API: la página funciona igual */ });
 
+
+  // --- Novedades: las mismas noticias que enseña el launcher (launcher/news.json) ---
+  let newsItems = null;
+  const escHtml = t => String(t).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  function renderNews() {
+    if (!newsItems || !newsItems.length) return;
+    const lang = HUB.lang;
+    const pick = o => (o && (o[lang] || o.es)) || "";
+    $("#news-list").innerHTML = newsItems.slice(0, 3).map(n => {
+      const href = n.url || (n.game === "kartparty" ? "#kartparty" : n.game === "strikezone" ? "#strikezone" : "");
+      const title = escHtml(pick(n.title));
+      const date = new Date(n.date + "T12:00:00").toLocaleDateString(HUB.locale(), { day: "numeric", month: "long" });
+      return `<li><time datetime="${escHtml(n.date)}">${escHtml(date)}</time><h3>${href ? `<a href="${escHtml(href)}"${n.url ? ' rel="noopener"' : ""}>${title}</a>` : title}</h3><p>${escHtml(pick(n.text))}</p></li>`;
+    }).join("");
+    $("#novedades").hidden = false;
+  }
+  fetch(`launcher/news.json?t=${Math.floor(Date.now() / 60000)}`)
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(j => { newsItems = (j.news || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date))); renderNews(); })
+    .catch(() => { /* sin noticias: la franja se queda oculta */ });
+  HUB.onChange(renderNews);
+
   // Contadores fijos
   $$("[data-count]").forEach(el => { const n = +el.dataset.count; if (n > 0) countUp(el, n); });
 
