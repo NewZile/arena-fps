@@ -1,5 +1,6 @@
-// Portada del Zile Launcher: animaciones, capturas, visor y versiones
+// Portada del Zile Launcher: selector de capturas, visor, cinta y versiones
 // publicadas (GitHub Releases del mismo repositorio que sirve la web).
+// Sin listeners de scroll: la barra y el resaltado del menú usan IntersectionObserver.
 (function () {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
@@ -14,50 +15,39 @@
   const repo = onPages ? (location.pathname.split("/").filter(Boolean)[0] || "arena-fps") : "arena-fps";
   $$(".dl-launcher").forEach(a => { a.href = `https://github.com/${owner}/${repo}/releases/download/launcher/ZileLauncher.exe`; });
 
-  // --- Barra superior: se vuelve sólida al bajar ---
+  // --- Barra flotante: se vuelve más sólida al salir de lo alto de la página ---
   const nav = $("#nav");
-  const onScroll = () => nav.classList.toggle("scrolled", scrollY > 30);
-  addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([e]) => nav.classList.toggle("scrolled", !e.isIntersecting)).observe($("#sentinel"));
+    // Enlace del menú de la sección que se está viendo
+    const links = new Map($$(".bar ul a").map(a => [a.getAttribute("href").slice(1), a]));
+    const spy = new IntersectionObserver(es => es.forEach(e => {
+      const a = links.get(e.target.id);
+      if (!a) return;
+      a.classList.toggle("on", e.isIntersecting);
+      if (e.isIntersecting) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current");
+    }), { rootMargin: "-45% 0px -50% 0px" });
+    links.forEach((_, id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
+  }
 
-  // --- Portada: capturas de los dos juegos que se van fundiendo ---
-  const slides = $$(".slides img");
-  let si = 0;
-  if (!still) setInterval(() => {
-    slides[si].classList.remove("on");
-    si = (si + 1) % slides.length;
-    const img = slides[si];
-    img.style.animation = "none"; void img.offsetWidth; img.style.animation = "";
-    img.classList.add("on");
-  }, 6000);
-
-  // --- Ventana del launcher de mentira: alterna entre los dos juegos ---
-  const mock = $("#mock");
-  const mockImgs = $$(".mock-main img");
-  const mockSide = $$(".mock-side div:not(.soon)");
+  // --- Selector de capturas de la portada: alterna entre los dos juegos ---
+  const mockImgs = $$("#mock .shots img");
+  const picks = $$("#mock .pick");
   const mockTitle = $("#mock-title");
   const mockVer = $("#mock-ver");
   const versions = { sz: "", kp: "" };
-  let mi = 0;
+  let mi = 0, mockTimer = null;
   function showMock(i) {
+    mi = i;
     mockImgs.forEach((im, k) => im.classList.toggle("on", k === i));
-    mockSide.forEach((d, k) => d.classList.toggle("on", k === i));
+    picks.forEach((b, k) => b.setAttribute("aria-pressed", k === i ? "true" : "false"));
     mockTitle.className = "mock-title " + (i === 0 ? "sz" : "kp");
     mockTitle.innerHTML = i === 0 ? "STRIKE <span>ZONE</span>" : "KART PARTY";
     mockVer.textContent = (i === 0 ? versions.sz : versions.kp) || "";
   }
-  if (!still) setInterval(() => { mi = 1 - mi; showMock(mi); }, 4200);
-  // Se inclina siguiendo al ratón.
-  const hero = $(".hero");
-  if (!still && matchMedia("(pointer: fine)").matches) {
-    hero.addEventListener("mousemove", e => {
-      const r = hero.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      mock.style.transform = `rotateY(${-14 + x * 16}deg) rotateX(${6 - y * 12}deg)`;
-    });
-    hero.addEventListener("mouseleave", () => { mock.style.transform = ""; });
-  }
+  const runMock = () => { clearInterval(mockTimer); mockTimer = still ? null : setInterval(() => showMock(1 - mi), 4600); };
+  picks.forEach((b, k) => b.addEventListener("click", () => { showMock(k); runMock(); }));
+  runMock();
 
   // --- Tarjetas de juego: sus capturas pasan (más rápido con el ratón encima) ---
   $$("[data-cycle]").forEach(card => {
@@ -65,37 +55,19 @@
     let k = 0, timer = null;
     const next = () => { imgs[k].classList.remove("on"); k = (k + 1) % imgs.length; imgs[k].classList.add("on"); };
     const run = ms => { clearInterval(timer); timer = still ? null : setInterval(next, ms); };
-    card.addEventListener("mouseenter", () => { next(); run(1400); });
-    card.addEventListener("mouseleave", () => run(5000));
-    run(5000 + Math.random() * 1500);
+    card.addEventListener("mouseenter", () => { next(); run(1600); });
+    card.addEventListener("mouseleave", () => run(5200));
+    run(5200 + Math.random() * 1500);
   });
 
   // --- Aparecen al bajar ---
   if ("IntersectionObserver" in window && !still) {
     const io = new IntersectionObserver(es => es.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-    }), { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    }), { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
     $$(".rv").forEach(el => io.observe(el));
   } else {
     $$(".rv").forEach(el => el.classList.add("in"));
-  }
-
-  // --- Collages: cada captura se mueve a su ritmo al hacer scroll ---
-  const collages = $$("[data-parallax]");
-  let ticking = false;
-  function parallax() {
-    ticking = false;
-    const vh = innerHeight;
-    collages.forEach(c => {
-      const r = c.getBoundingClientRect();
-      if (r.bottom < 0 || r.top > vh) return;
-      const p = (r.top + r.height / 2 - vh / 2) / vh;  // -1..1 aprox.
-      $$(".shot", c).forEach((s, i) => { s.style.translate = `0 ${p * (i - 1) * 60}px`; });
-    });
-  }
-  if (!still) {
-    addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(parallax); } }, { passive: true });
-    parallax();
   }
 
   // --- Contadores que suben ---
@@ -110,22 +82,20 @@
     requestAnimationFrame(step);
   }
 
-  // --- Cinta de capturas de los dos juegos ---
+  // --- Cinta única con capturas de los dos juegos ---
   const strip = [
     ["kp_lluvia", "cap_rain"], ["apocalipsis", "cap_apo"], ["kp_puente", "cap_bridge"], ["escondite", "cap_props"],
     ["kp_podio", "cap_podium"], ["repeticiones", "cap_rep"], ["kp_desierto", "cap_desert"], ["clan", "cap_clan"],
-  ];
-  const strip2 = [
     ["menu", "cap_menu"], ["kp_nieve", "cap_snow"], ["trampas", "cap_trap"], ["kp_piloto", "cap_pilot"],
     ["desierto", "cap_sz_desert"], ["kp_isla", "cap_island"], ["podio", "cap_sz_podium"], ["kp_sala", "cap_lobby"],
   ];
   function fillTrack(el, list) {
     const html = list.map(([img, cap]) =>
-      `<button class="shot" data-full="img/${img}.jpg"><img src="img/${img}_s.jpg" alt="" loading="lazy"><span class="cap" data-i18n="${cap}">${T(cap)}</span></button>`).join("");
-    el.innerHTML = html + html.replace(/<button class="shot"/g, '<button class="shot" tabindex="-1" aria-hidden="true"');
+      `<button class="shot" type="button" data-full="img/${img}.jpg"><span class="frame"><img src="img/${img}_s.jpg" alt="" loading="lazy"></span><span class="cap" data-i18n="${cap}">${T(cap)}</span></button>`).join("");
+    // Con movimiento reducido la cinta no se anima: no hace falta la copia para el bucle.
+    el.innerHTML = still ? html : html + html.replace(/<button class="shot"/g, '<button class="shot" tabindex="-1" aria-hidden="true"');
   }
   fillTrack($("#track1"), strip);
-  fillTrack($("#track2"), strip2);
 
   // --- Visor de capturas (con anterior / siguiente) ---
   const lb = $("#lightbox");
@@ -152,7 +122,7 @@
   const close = () => {
     if (lb.hidden) return;
     lb.classList.remove("open");
-    setTimeout(() => { lb.hidden = true; }, 250);
+    setTimeout(() => { lb.hidden = true; }, 400);
     if (from) from.focus();
   };
   lb.addEventListener("click", e => {
@@ -190,9 +160,9 @@
     })
     .catch(() => { /* sin API: la página funciona igual */ });
 
-  // Contadores fijos de la portada
+  // Contadores fijos
   $$("[data-count]").forEach(el => { const n = +el.dataset.count; if (n > 0) countUp(el, n); });
 
   // Al cambiar de idioma, la cinta vuelve a montarse con sus textos.
-  HUB.onChange(() => { fillTrack($("#track1"), strip); fillTrack($("#track2"), strip2); });
+  HUB.onChange(() => fillTrack($("#track1"), strip));
 })();

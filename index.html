@@ -3,393 +3,366 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zile Launcher — Strike Zone y Kart Party gratis</title>
+<title>Zile Launcher - Strike Zone y Kart Party gratis</title>
 <meta name="description" content="Zile Launcher: descarga gratis Strike Zone (shooter con Zombis y Escondite) y Kart Party (carreras locas de karts). Se instalan y actualizan solos. Juega con tus amigos por internet o en red local.">
-<meta name="theme-color" content="#07080c">
+<meta name="theme-color" content="#0c0d10">
+<meta name="color-scheme" content="dark">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Zile Launcher — Strike Zone y Kart Party">
+<meta property="og:title" content="Zile Launcher - Strike Zone y Kart Party">
 <meta property="og:description" content="Dos juegos gratis para jugar con tus amigos: un shooter con Zombis y Escondite, y carreras locas de karts. Un launcher que los instala y actualiza.">
 <meta property="og:image" content="https://newzile.github.io/arena-fps/img/og.jpg">
 <meta property="og:url" content="https://newzile.github.io/arena-fps/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%2322e6ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%2307080c'/%3E%3Cpath d='M16 18h32L22 46h26' fill='none' stroke='url(%23g)' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <script>document.documentElement.classList.add("js");</script>
 <style>
-  @font-face { font-family: Inter; font-weight: 400 700; font-display: swap; src: url("fonts/inter.woff2") format("woff2"); }
-  @font-face { font-family: Rajdhani; font-weight: 600; font-display: swap; src: url("fonts/rajdhani-600.woff2") format("woff2"); }
-  @font-face { font-family: Rajdhani; font-weight: 700; font-display: swap; src: url("fonts/rajdhani-700.woff2") format("woff2"); }
+  /* Sistema de diseño: ver DESIGN.md. Tema oscuro único, un solo acento (ámbar). */
+  @font-face { font-family: "Bricolage Grotesque"; font-weight: 200 800; font-display: swap; src: url("fonts/bricolage-grotesque-latin-wght-normal.woff2") format("woff2"); }
+  @font-face { font-family: Geist; font-weight: 100 900; font-display: swap; src: url("fonts/geist-latin-wght-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Geist Mono"; font-weight: 100 900; font-display: swap; src: url("fonts/geist-mono-latin-wght-normal.woff2") format("woff2"); }
   @font-face { font-family: Luckiest; font-display: swap; src: url("fonts/luckiest.ttf") format("truetype"); }
   :root {
-    --bg: #07080c;
-    --bg-2: #0d0f16;
-    --card: rgba(22, 25, 36, 0.72);
-    --line: rgba(255, 255, 255, 0.09);
-    --text: #eef0f6;
-    --dim: #a2a8ba;
-    --brand-a: #7c5cff;
-    --brand-b: #22e6ff;
-    --sz: #fab847;
-    --sz-ink: #1a1205;
-    --kp-a: #ff3d6e;
-    --kp-b: #ffcc00;
-    --ok: #5fd08e;
-    --radius: 18px;
+    color-scheme: dark;
+    --bg: #0c0d10;
+    --plate: #131418;
+    --tray: #1a1b21;
+    --line: rgba(255, 255, 255, 0.08);
+    --line-2: rgba(255, 255, 255, 0.16);
+    --text: #ecebe6;
+    --dim: #9c9ca6;
+    --accent: #f0b04b;
+    --accent-ink: #1a1205;
+    --r-out: 28px;
+    --r-in: 22px;
+    --r-sm: 18px;
+    --ease: cubic-bezier(.32, .72, 0, 1);
+    --font-display: "Bricolage Grotesque", Geist, system-ui, sans-serif;
+    --font-body: Geist, system-ui, sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, monospace;
+    --z-nav: 40;
+    --z-lightbox: 60;
+    --z-skip: 70;
+    --z-grain: 80;
   }
   * { box-sizing: border-box; }
   [hidden] { display: none !important; }
   html, body { margin: 0; }
-  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 96px; }
   body {
     background: var(--bg); color: var(--text);
-    font: 16px/1.6 Inter, system-ui, sans-serif;
-    overflow-x: hidden;
+    font: 400 16px/1.6 var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  /* Grano fijo: rompe la planitud digital sin repintar el contenido que se desplaza */
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: var(--z-grain); pointer-events: none; opacity: .045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   img { max-width: 100%; display: block; }
   a { color: inherit; }
-  h1, h2, h3 { font-family: Rajdhani, Inter, sans-serif; letter-spacing: .01em; line-height: 1.02; margin: 0; }
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
-  .grad {
-    background: linear-gradient(90deg, var(--brand-a), var(--brand-b), #b388ff, var(--brand-a));
-    background-size: 300% 100%;
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    animation: flow 8s linear infinite;
-  }
-  @keyframes flow { to { background-position: 300% 0; } }
-  .skip { position: absolute; left: 16px; top: -60px; z-index: 50; background: var(--brand-b); color: #041015; font-weight: 700; padding: 10px 16px; border-radius: 8px; text-decoration: none; }
-  .skip:focus { top: 12px; }
-  :focus-visible { outline: 3px solid #fff; outline-offset: 3px; border-radius: 6px; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 800; letter-spacing: -.03em; line-height: 1; margin: 0; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  .wrap { width: min(1240px, 100% - 40px); margin: 0 auto; }
+  .ic { width: 1.5em; height: 1.5em; fill: currentColor; flex: none; }
+  .skip { position: absolute; left: 16px; top: -70px; z-index: var(--z-skip); background: var(--accent); color: var(--accent-ink); font-weight: 600; padding: 12px 20px; border-radius: 999px; text-decoration: none; }
+  .skip:focus { top: 14px; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 48px; pointer-events: none; }
 
-  /* ---------- Barra superior ---------- */
-  .nav {
-    position: fixed; inset: 0 0 auto; z-index: 30;
-    transition: background .3s ease, box-shadow .3s ease, padding .3s ease;
-    padding: 16px 0;
+  /* ---------- Doble bisel: carcasa + núcleo con curvas concéntricas ---------- */
+  .bezel { padding: 6px; border-radius: var(--r-out); background: var(--tray); border: 1px solid var(--line); box-shadow: 0 40px 90px -36px rgba(4, 5, 10, .85); }
+  .bezel > .core { border-radius: var(--r-in); background: var(--plate); box-shadow: inset 0 1px 1px rgba(255, 255, 255, .07); overflow: hidden; }
+
+  /* ---------- Botones ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 16px; text-decoration: none; cursor: pointer; border: 0;
+    font: 600 16px/1.2 var(--font-body); letter-spacing: .02em; white-space: nowrap;
+    padding: 8px 8px 8px 28px; border-radius: 999px; color: var(--accent-ink); background: var(--accent);
+    box-shadow: 0 16px 34px -16px rgba(0, 0, 0, .8), inset 0 1px 0 rgba(255, 255, 255, .35);
+    transition: transform .6s var(--ease), background-color .3s var(--ease), box-shadow .6s var(--ease);
   }
-  .nav.scrolled { background: rgba(7, 8, 12, 0.72); backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4); box-shadow: 0 1px 0 var(--line); padding: 9px 0; }
-  .nav .wrap { display: flex; align-items: center; gap: 24px; }
-  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 700 22px Rajdhani, sans-serif; letter-spacing: .12em; }
+  .btn .go { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: rgba(26, 18, 5, .14); transition: transform .6s var(--ease); }
+  .btn .go .ic { width: 20px; height: 20px; }
+  .btn:hover { background: #f6bd63; box-shadow: 0 22px 40px -16px rgba(0, 0, 0, .85), inset 0 1px 0 rgba(255, 255, 255, .4); }
+  .btn:hover .go { transform: translate(3px, -2px) scale(1.06); }
+  .btn:active { transform: scale(.98); }
+  .link { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; text-decoration: none; padding: 12px 4px; color: var(--text); }
+  .link span { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; padding-bottom: 3px; transition: background-size .5s var(--ease); }
+  .link:hover span { background-size: 100% 1px; }
+  .link .ic { width: 18px; height: 18px; color: var(--accent); transition: transform .5s var(--ease); }
+  .link:hover .ic { transform: translateX(4px); }
+
+  /* ---------- Barra flotante ---------- */
+  .nav { position: fixed; top: 14px; left: 0; right: 0; z-index: var(--z-nav); pointer-events: none; }
+  .bar {
+    pointer-events: auto; width: min(1080px, 100% - 28px); margin: 0 auto; display: flex; align-items: center; gap: 18px;
+    padding: 8px 8px 8px 16px; border-radius: 999px;
+    background: rgba(19, 20, 24, .55); border: 1px solid var(--line);
+    -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 14px 44px -16px rgba(0, 0, 0, .6);
+    transition: background-color .6s var(--ease);
+  }
+  .nav.scrolled .bar { background: rgba(19, 20, 24, .88); }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 800 19px var(--font-display); letter-spacing: .1em; }
   .logo svg { width: 34px; height: 34px; }
-  .nav ul { list-style: none; display: flex; gap: 22px; margin: 0 0 0 auto; padding: 0; }
-  .nav ul a { text-decoration: none; color: var(--dim); font-weight: 600; font-size: 14px; position: relative; transition: color .2s; }
-  .nav ul a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: linear-gradient(90deg, var(--brand-a), var(--brand-b)); transform: scaleX(0); transition: transform .25s ease; transform-origin: left; }
-  .nav ul a:hover { color: var(--text); }
-  .nav ul a:hover::after { transform: scaleX(1); }
-  .nav select {
-    font: 600 13px Inter, sans-serif; color: var(--text); background: rgba(22, 25, 36, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; padding: 7px 10px; cursor: pointer;
+  .bar ul { list-style: none; display: flex; gap: 4px; margin: 0 0 0 auto; padding: 0; }
+  .bar ul a { display: block; text-decoration: none; color: var(--dim); font-weight: 500; font-size: 14px; padding: 10px 14px; border-radius: 999px; transition: color .3s var(--ease), background-color .3s var(--ease); }
+  .bar ul a:hover { color: var(--text); }
+  .bar ul a.on { color: var(--text); background: rgba(255, 255, 255, .07); }
+  .bar select {
+    font: 500 13px var(--font-body); color: var(--text); background: var(--plate);
+    border: 1px solid var(--line-2); border-radius: 999px; padding: 9px 12px; min-height: 40px; cursor: pointer;
   }
-  .btn-mini { text-decoration: none; font: 700 14px Rajdhani, sans-serif; letter-spacing: .08em; padding: 9px 16px; border-radius: 10px; color: #041015; background: linear-gradient(90deg, var(--brand-b), #8cf5ff); box-shadow: 0 6px 20px rgba(34, 230, 255, 0.25); white-space: nowrap; }
+  .bar .btn { padding: 4px 4px 4px 20px; font-size: 14px; gap: 12px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35); }
+  .bar .btn .go { width: 34px; height: 34px; }
+  .bar .btn .go .ic { width: 16px; height: 16px; }
 
   /* ---------- Portada ---------- */
-  .hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; overflow: hidden; isolation: isolate; }
-  .slides { position: absolute; inset: 0; z-index: -3; }
-  .slides img {
-    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-    opacity: 0; transform: scale(1.12); transition: opacity 1.6s ease;
-  }
-  .slides img.on { opacity: 1; animation: kenburns 9s ease-out forwards; }
-  @keyframes kenburns { from { transform: scale(1.14) translate3d(1.5%, 1%, 0); } to { transform: scale(1.02) translate3d(0, 0, 0); } }
+  .hero { position: relative; min-height: 100vh; min-height: 100dvh; display: grid; align-items: center; padding: 96px 0 56px; isolation: isolate; overflow: clip; }
   .hero::before {
-    content: ""; position: absolute; inset: 0; z-index: -2;
-    background:
-      linear-gradient(90deg, rgba(7, 8, 12, 0.95) 0%, rgba(7, 8, 12, 0.75) 42%, rgba(7, 8, 12, 0.25) 100%),
-      linear-gradient(0deg, var(--bg) 0%, rgba(7, 8, 12, 0) 35%);
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: radial-gradient(900px 560px at 88% 12%, rgba(240, 176, 75, .11), transparent 70%), radial-gradient(700px 500px at 0% 100%, rgba(255, 255, 255, .045), transparent 70%);
   }
-  .aurora { position: absolute; inset: -20%; z-index: -1; pointer-events: none; filter: blur(60px); opacity: .55; mix-blend-mode: screen; }
-  .aurora span { position: absolute; width: 42vw; height: 42vw; border-radius: 50%; }
-  .aurora span:nth-child(1) { background: radial-gradient(circle, rgba(124, 92, 255, 0.55), transparent 65%); left: 5%; top: 10%; animation: drift1 18s ease-in-out infinite alternate; }
-  .aurora span:nth-child(2) { background: radial-gradient(circle, rgba(34, 230, 255, 0.35), transparent 65%); left: 30%; top: 45%; animation: drift2 22s ease-in-out infinite alternate; }
-  .aurora span:nth-child(3) { background: radial-gradient(circle, rgba(255, 61, 110, 0.28), transparent 65%); left: 55%; top: 5%; animation: drift1 26s ease-in-out infinite alternate-reverse; }
-  @keyframes drift1 { to { transform: translate(12vw, 8vh) scale(1.2); } }
-  @keyframes drift2 { to { transform: translate(-10vw, -12vh) scale(0.85); } }
-  .floor {
-    position: absolute; left: -50%; right: -50%; bottom: -10%; height: 55%; z-index: -1; pointer-events: none;
-    background-image: linear-gradient(rgba(124, 92, 255, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(124, 92, 255, 0.35) 1px, transparent 1px);
-    background-size: 70px 70px;
-    transform: perspective(500px) rotateX(62deg);
-    mask-image: linear-gradient(0deg, rgba(0, 0, 0, 0.9), transparent 75%);
-    -webkit-mask-image: linear-gradient(0deg, rgba(0, 0, 0, 0.9), transparent 75%);
-    animation: floor 3s linear infinite;
-    opacity: .5;
-  }
-  @keyframes floor { to { background-position: 0 70px, 0 0; } }
-  .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 50px; align-items: center; padding-top: 110px; padding-bottom: 90px; width: 100%; }
-  .kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700; letter-spacing: .2em; color: var(--brand-b); }
-  .kicker::before { content: ""; width: 26px; height: 2px; background: currentColor; }
-  .hero h1 { font-size: clamp(46px, 6.1vw, 88px); margin: 16px 0 18px; text-transform: uppercase; white-space: nowrap; }
-  /* ?static: todo visible y portada de alto fijo (para hacer capturas de la página entera) */
-  .static .hero { min-height: 900px; }
-  .hero h1 .l { display: block; overflow: hidden; }
-  .hero h1 .l > span { display: inline-block; transform: translateY(105%); animation: rise .9s cubic-bezier(.2, .8, .2, 1) forwards; }
+  .hero-grid { display: grid; grid-template-columns: 1.08fr 1fr; gap: clamp(32px, 5vw, 80px); align-items: center; }
+  .hero-grid > * { min-width: 0; }
+  .hero h1 { font-size: clamp(44px, 5.8vw, 92px); line-height: .98; letter-spacing: -.04em; text-transform: none; }
+  .hero h1 .l { display: block; overflow: hidden; padding-bottom: .1em; margin-bottom: -.1em; }
+  .hero h1 .l > span { display: inline-block; transform: translateY(108%); animation: rise 1.1s var(--ease) forwards; }
   .hero h1 .l:nth-child(2) > span { animation-delay: .12s; }
+  .hero h1 .hl { color: var(--accent); }
   @keyframes rise { to { transform: none; } }
-  .lead { color: #c9cddb; font-size: 18px; max-width: 540px; margin: 0 0 30px; }
-  .fade-up { opacity: 0; transform: translateY(20px); animation: fadeup .8s ease forwards; }
-  .d1 { animation-delay: .25s; } .d2 { animation-delay: .4s; } .d3 { animation-delay: .55s; } .d4 { animation-delay: .7s; }
-  @keyframes fadeup { to { opacity: 1; transform: none; } }
-  .ctas { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
-  .btn {
-    position: relative; overflow: hidden; isolation: isolate;
-    display: inline-flex; align-items: center; gap: 12px; text-decoration: none; cursor: pointer; border: 0;
-    font: 700 19px Rajdhani, sans-serif; letter-spacing: .07em; padding: 17px 30px; border-radius: 14px;
-    color: #041015; background: linear-gradient(100deg, var(--brand-b), #9df7ff 45%, #b9a8ff);
-    box-shadow: 0 10px 40px rgba(34, 230, 255, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
-    transition: transform .2s ease, box-shadow .2s ease;
-  }
-  .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 50px rgba(34, 230, 255, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.3) inset; }
-  .btn svg { width: 22px; height: 22px; }
-  .btn::after {
-    content: ""; position: absolute; inset: 0 auto 0 -60%; width: 45%; z-index: -1;
-    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.7), transparent);
-    transform: skewX(-20deg); animation: shine 4s ease-in-out infinite;
-  }
-  @keyframes shine { 0%, 65% { left: -60%; } 100% { left: 140%; } }
-  .btn.ghost { background: rgba(255, 255, 255, 0.06); color: var(--text); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18) inset; backdrop-filter: blur(6px); }
-  .btn.ghost::after { display: none; }
-  .btn.ghost:hover { background: rgba(255, 255, 255, 0.12); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35) inset; }
-  .fine { color: var(--dim); font-size: 13px; margin-top: 14px; }
-  .stats { display: flex; gap: 34px; margin-top: 38px; flex-wrap: wrap; }
-  .stat b { display: block; font: 700 34px Rajdhani, sans-serif; line-height: 1; }
-  .stat span { color: var(--dim); font-size: 13px; }
+  .lead { color: var(--dim); font-size: clamp(17px, 1.5vw, 20px); max-width: 46ch; margin: 26px 0 36px; }
+  .rise { animation: fadeup 1s var(--ease) both; }
+  .d1 { animation-delay: .25s; } .d2 { animation-delay: .4s; }
+  @keyframes fadeup { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+  .ctas { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; }
+  .static .hero { min-height: 900px; }
 
-  /* Ventana del launcher de mentira */
-  .mock-wrap { perspective: 1400px; }
-  .mock {
-    position: relative; border-radius: 16px; overflow: hidden;
-    background: #0f111a; border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(124, 92, 255, 0.15), 0 0 80px rgba(124, 92, 255, 0.25);
-    transform: rotateY(-14deg) rotateX(6deg); transform-style: preserve-3d;
-    transition: transform .15s ease-out;
-    animation: bob 7s ease-in-out infinite;
-  }
-  @keyframes bob { 50% { translate: 0 -12px; } }
-  .mock-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #0a0c12; border-bottom: 1px solid var(--line); font: 700 12px Rajdhani, sans-serif; letter-spacing: .14em; color: var(--dim); }
-  .mock-bar i { width: 10px; height: 10px; border-radius: 50%; background: #333948; }
-  .mock-bar i:nth-child(1) { background: #ff5f57; } .mock-bar i:nth-child(2) { background: #febc2e; } .mock-bar i:nth-child(3) { background: #28c840; }
-  .mock-bar span { margin-left: 8px; }
-  .mock-body { display: grid; grid-template-columns: 64px 1fr; }
-  .mock-side { background: #0a0c12; border-right: 1px solid var(--line); padding: 12px 10px; display: grid; gap: 10px; align-content: start; }
-  .mock-side div { width: 44px; height: 44px; border-radius: 12px; background-size: cover; background-position: center; opacity: .45; transition: opacity .4s, box-shadow .4s, transform .4s; }
-  .mock-side div.on { opacity: 1; box-shadow: 0 0 0 2px var(--brand-b), 0 0 20px rgba(34, 230, 255, 0.5); transform: scale(1.05); }
-  .mock-side .soon { background: repeating-linear-gradient(45deg, #151823, #151823 6px, #1b1f2c 6px, #1b1f2c 12px); }
-  .mock-main { position: relative; aspect-ratio: 16 / 10.5; overflow: hidden; }
-  .mock-main img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.08); transition: opacity .9s ease, transform 5s ease-out; }
-  .mock-main img.on { opacity: 1; transform: scale(1); }
-  .mock-main::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10, 12, 18, 0.95), rgba(10, 12, 18, 0.1) 60%); }
-  .mock-info { position: absolute; left: 22px; right: 22px; bottom: 18px; z-index: 2; }
-  .mock-title { font: 700 34px Rajdhani, sans-serif; line-height: 1; text-transform: uppercase; }
-  .mock-title.kp { font-family: Luckiest, Rajdhani, sans-serif; font-weight: 400; color: var(--kp-b); text-shadow: 0 3px 0 #c43c00; }
-  .mock-title.sz span { color: var(--sz); }
-  .mock-row { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
-  .mock-play { font: 700 15px Rajdhani, sans-serif; letter-spacing: .1em; padding: 9px 22px; border-radius: 10px; background: var(--ok); color: #06200f; animation: pulse 2s ease-in-out infinite; }
-  @keyframes pulse { 50% { box-shadow: 0 0 0 8px rgba(95, 208, 142, 0), 0 0 24px rgba(95, 208, 142, 0.6); } 0%, 100% { box-shadow: 0 0 0 0 rgba(95, 208, 142, 0.5); } }
-  .mock-prog { flex: 1; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.1); overflow: hidden; }
-  .mock-prog i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--brand-a), var(--brand-b)); animation: prog 4s ease-in-out infinite; }
-  @keyframes prog { 0% { width: 0; } 70%, 100% { width: 100%; } }
-  .mock-ver { font-size: 12px; color: var(--dim); font-weight: 600; }
-  .scroll-hint { position: absolute; left: 50%; bottom: 26px; width: 26px; height: 42px; margin-left: -13px; border: 2px solid rgba(255, 255, 255, 0.35); border-radius: 14px; }
-  .scroll-hint::after { content: ""; position: absolute; left: 50%; top: 8px; width: 4px; height: 8px; margin-left: -2px; border-radius: 2px; background: #fff; animation: wheel 1.8s ease-in-out infinite; }
-  @keyframes wheel { 0% { opacity: 0; transform: translateY(-4px); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(12px); } }
+  /* Selector de capturas: alterna entre los dos juegos */
+  .stage .shots { position: relative; aspect-ratio: 16 / 11; background: var(--plate); overflow: hidden; }
+  .stage .shots img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity 1s var(--ease), transform 1.6s var(--ease); }
+  .stage .shots img.on { opacity: 1; transform: none; }
+  .stage-bar { display: flex; align-items: center; gap: 14px; padding: 16px 18px 16px 22px; }
+  .stage-title { flex: 1; min-width: 0; }
+  .mock-title { font: 800 clamp(24px, 2.6vw, 34px)/1 var(--font-display); letter-spacing: -.03em; text-transform: uppercase; }
+  .mock-title.sz span { color: var(--accent); }
+  .mock-title.kp { font-family: Luckiest, var(--font-display); font-weight: 400; letter-spacing: .01em; color: #ffcc00; text-shadow: 0 2px 0 #c43c00; }
+  .mock-ver { font: 500 13px var(--font-mono); color: var(--dim); }
+  .picks { display: flex; gap: 8px; }
+  .pick { padding: 0; border: 2px solid transparent; background: none; border-radius: 14px; cursor: pointer; opacity: .55; transition: opacity .4s var(--ease), border-color .4s var(--ease), transform .5s var(--ease); }
+  .pick img { width: 64px; height: 44px; object-fit: cover; border-radius: 11px; }
+  .pick:hover { opacity: .9; }
+  .pick:active { transform: scale(.96); }
+  .pick[aria-pressed="true"] { opacity: 1; border-color: var(--accent); }
 
   /* ---------- Secciones ---------- */
-  section { position: relative; }
-  .block { padding: 110px 0; }
-  .head { text-align: center; max-width: 720px; margin: 0 auto 50px; }
-  .head h2 { font-size: clamp(38px, 5vw, 60px); text-transform: uppercase; margin: 10px 0 12px; }
-  .head p { color: var(--dim); margin: 0; font-size: 17px; }
-  .head .kicker { justify-content: center; }
-  .head .kicker::after { content: ""; width: 26px; height: 2px; background: currentColor; }
+  .block { padding: clamp(80px, 11vw, 150px) 0; position: relative; }
+  .head { max-width: 760px; margin: 0 0 clamp(36px, 5vw, 64px); }
+  .head h2 { font-size: clamp(38px, 5.2vw, 76px); }
+  .head p { color: var(--dim); font-size: 18px; max-width: 58ch; margin: 20px 0 0; }
+  .stats { display: flex; gap: 14px 48px; flex-wrap: wrap; margin-top: 34px; }
+  .stat b { display: block; font: 700 40px/1 var(--font-mono); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+  .stat span { color: var(--dim); font-size: 14px; }
 
-  /* Tarjetas de los juegos */
-  .games { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
-  .game {
-    position: relative; border-radius: 24px; overflow: hidden; min-height: 520px; isolation: isolate;
-    display: flex; flex-direction: column; justify-content: flex-end; padding: 32px; text-decoration: none;
-    border: 1px solid var(--line); background: #0d0f16;
-    transition: transform .4s cubic-bezier(.2, .8, .2, 1), box-shadow .4s ease;
-  }
-  .game::before {
-    content: ""; position: absolute; inset: -2px; z-index: -3; border-radius: inherit; padding: 2px;
-    background: conic-gradient(from var(--ang, 0deg), transparent 0 60%, var(--c1) 75%, var(--c2) 85%, transparent 100%);
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
-    opacity: 0; transition: opacity .4s ease; animation: spin 4s linear infinite;
-  }
-  @property --ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
-  @keyframes spin { to { --ang: 360deg; } }
-  .game:hover { transform: translateY(-8px); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px var(--glow); }
-  .game:hover::before { opacity: 1; }
-  .game .bg { position: absolute; inset: 0; z-index: -2; }
-  .game .bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .8s ease, transform 6s ease-out; transform: scale(1.1); }
-  .game .bg img.on { opacity: 1; transform: scale(1); }
-  .game::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(7, 8, 12, 0.97) 8%, rgba(7, 8, 12, 0.55) 55%, rgba(7, 8, 12, 0.15)); }
-  .game.sz { --c1: #fab847; --c2: #ffe7a8; --glow: rgba(250, 184, 71, 0.25); }
-  .game.kp { --c1: #ff3d6e; --c2: #ffcc00; --glow: rgba(255, 61, 110, 0.25); }
-  .badge { position: absolute; top: 22px; left: 22px; display: flex; gap: 8px; flex-wrap: wrap; }
-  .badge span { font: 700 11px Inter, sans-serif; letter-spacing: .14em; padding: 5px 11px; border-radius: 20px; background: rgba(7, 8, 12, 0.7); border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(6px); }
-  .badge .live { color: var(--ok); border-color: rgba(95, 208, 142, 0.5); }
-  .badge .live::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--ok); margin-right: 7px; animation: blink 1.4s ease-in-out infinite; }
-  @keyframes blink { 50% { opacity: .25; } }
-  .game h3 { font-size: clamp(44px, 5vw, 64px); text-transform: uppercase; }
-  .game.sz h3 span { color: var(--sz); }
-  .game.kp h3 { font-family: Luckiest, Rajdhani, sans-serif; font-weight: 400; color: var(--kp-b); text-shadow: 0 4px 0 #c43c00; letter-spacing: .02em; }
-  .game.kp h3 span { color: #fff; text-shadow: 0 4px 0 #b3123f; }
-  .game p { color: #cfd3df; margin: 12px 0 18px; max-width: 460px; }
-  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
-  .tags span { font-size: 12px; font-weight: 600; padding: 4px 11px; border-radius: 8px; background: rgba(255, 255, 255, 0.08); color: #dde1ec; }
-  .game .go { display: inline-flex; align-items: center; gap: 10px; font: 700 16px Rajdhani, sans-serif; letter-spacing: .1em; color: var(--c1); }
-  .game .go svg { width: 18px; height: 18px; transition: transform .3s ease; }
-  .game:hover .go svg { transform: translateX(6px); }
-  .game .ver { position: absolute; top: 22px; right: 22px; font: 700 15px Rajdhani, sans-serif; color: #fff; padding: 5px 12px; border-radius: 10px; background: rgba(7, 8, 12, 0.7); border: 1px solid rgba(255, 255, 255, 0.15); }
-  .soon-row { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 26px; }
-  .soon { position: relative; border-radius: 20px; padding: 26px 30px; border: 1px dashed rgba(255, 255, 255, 0.16); background: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02) 12px, transparent 12px, transparent 24px); display: flex; align-items: center; gap: 20px; overflow: hidden; }
-  .soon b { font: 700 40px Rajdhani, sans-serif; position: relative; }
-  .glitch { position: relative; display: inline-block; }
-  .glitch::before, .glitch::after { content: attr(data-t); position: absolute; left: 0; top: 0; opacity: .75; }
-  .glitch::before { color: var(--kp-a); animation: g1 2.6s infinite steps(1); }
-  .glitch::after { color: var(--brand-b); animation: g2 2.6s infinite steps(1); }
-  @keyframes g1 { 0%, 88%, 100% { transform: none; clip-path: inset(0 0 100% 0); } 90% { transform: translate(-3px, 1px); clip-path: inset(20% 0 40% 0); } 94% { transform: translate(3px, -1px); clip-path: inset(60% 0 10% 0); } }
-  @keyframes g2 { 0%, 88%, 100% { transform: none; clip-path: inset(0 0 100% 0); } 91% { transform: translate(3px, 0); clip-path: inset(50% 0 20% 0); } 95% { transform: translate(-3px, 1px); clip-path: inset(10% 0 70% 0); } }
+  /* Juegos: bento entrelazado 7/5 y 5/7 */
+  .games { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
+  .games > * { min-width: 0; }
+  .game.sz { grid-column: span 7; }
+  .game.kp { grid-column: span 5; }
+  .soon.s1 { grid-column: span 5; }
+  .soon.s2 { grid-column: span 7; }
+  .game { display: block; text-decoration: none; color: inherit; transition: transform .7s var(--ease), border-color .5s var(--ease); }
+  .game:hover { transform: translateY(-6px); border-color: rgba(240, 176, 75, .5); }
+  .game .core { display: flex; flex-direction: column; height: 100%; }
+  .game .bg { position: relative; flex: 1; min-height: 300px; background: var(--plate); }
+  .game .bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity 1s var(--ease), transform 1.4s var(--ease); }
+  .game .bg img.on { opacity: 1; transform: none; }
+  .game:hover .bg img.on { transform: scale(1.03); }
+  .game .body { display: flex; flex-direction: column; gap: 12px; padding: 26px 28px 28px; }
+  .meta { display: flex; align-items: center; gap: 14px; font: 500 12px var(--font-mono); color: var(--dim); letter-spacing: .04em; }
+  .meta .ok { color: var(--accent); }
+  .meta .ver { margin-left: auto; color: var(--text); }
+  .game h3 { font-size: clamp(40px, 4.6vw, 64px); text-transform: uppercase; }
+  .game.sz h3 span { color: var(--accent); }
+  .game.kp h3 { font-family: Luckiest, var(--font-display); font-weight: 400; letter-spacing: .01em; color: #ffcc00; text-shadow: 0 3px 0 #c43c00; }
+  .game.kp h3 span { color: #fff; text-shadow: 0 3px 0 #b3123f; }
+  .game p { color: var(--dim); margin: 0; max-width: 52ch; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 4px; }
+  .tags span { font-size: 13px; font-weight: 500; padding: 5px 13px; border-radius: 999px; background: rgba(255, 255, 255, .06); color: var(--text); }
+  .game .more { display: inline-flex; align-items: center; gap: 10px; margin-top: 8px; font-weight: 600; color: var(--accent); }
+  .game .more .ic { width: 18px; height: 18px; transition: transform .5s var(--ease); }
+  .game:hover .more .ic { transform: translateX(6px); }
+  .soon { border-radius: var(--r-out); padding: 30px 32px; border: 1px dashed var(--line-2); display: flex; align-items: center; gap: 22px; min-height: 120px; }
+  .soon b { font: 700 44px/1 var(--font-mono); color: var(--line-2); letter-spacing: -.04em; }
   .soon span { color: var(--dim); }
 
-  /* Escaparate de cada juego */
-  .show { padding: 120px 0; overflow: hidden; }
-  .show::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .5; }
-  .show.sz::before { background: radial-gradient(800px 500px at 85% 30%, rgba(250, 184, 71, 0.12), transparent 70%); }
-  .show.kp::before { background: radial-gradient(800px 500px at 15% 30%, rgba(255, 61, 110, 0.13), transparent 70%), radial-gradient(600px 400px at 40% 80%, rgba(255, 204, 0, 0.08), transparent 70%); }
-  .split { display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: center; }
-  .split.rev { grid-template-columns: 1.1fr 1fr; }
-  .split.rev .txt { order: 2; }
-  .show .kicker { color: var(--c); }
-  .show.sz { --c: var(--sz); }
-  .show.kp { --c: var(--kp-b); }
-  .show h2 { font-size: clamp(54px, 7vw, 92px); text-transform: uppercase; margin: 12px 0 16px; }
-  .show.sz h2 span { color: var(--sz); }
-  .kp-title { font-family: Luckiest, Rajdhani, sans-serif; font-weight: 400; color: var(--kp-b); text-shadow: 0 5px 0 #c43c00, 0 12px 30px rgba(255, 61, 110, 0.35); letter-spacing: .02em; }
-  .kp-title .w { display: inline-block; }
-  .kp-title .ch { display: inline-block; animation: hop 2.8s ease-in-out infinite; animation-delay: calc(var(--i) * 0.09s); }
-  .kp-title .w2 .ch { color: #fff; text-shadow: 0 5px 0 #b3123f, 0 12px 30px rgba(255, 61, 110, 0.35); }
-  @keyframes hop { 0%, 60%, 100% { transform: none; } 30% { transform: translateY(-10px) rotate(-3deg); } }
-  .show .lead { max-width: 520px; }
-  .feats { list-style: none; padding: 0; margin: 26px 0 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .feats li { display: flex; gap: 12px; align-items: flex-start; padding: 14px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); transition: border-color .25s, transform .25s; }
-  .feats li:hover { border-color: var(--c); transform: translateY(-3px); }
-  .feats .ic { flex: none; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 10px; background: color-mix(in srgb, var(--c) 16%, transparent); color: var(--c); }
-  .feats .ic svg { width: 20px; height: 20px; }
-  .feats b { display: block; font: 700 17px Rajdhani, sans-serif; letter-spacing: .02em; }
-  .feats small { color: var(--dim); font-size: 13px; line-height: 1.45; display: block; }
-  .link-more { display: inline-flex; align-items: center; gap: 10px; font: 700 17px Rajdhani, sans-serif; letter-spacing: .08em; color: var(--c); text-decoration: none; padding: 12px 20px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); transition: background .2s, gap .2s; }
-  .link-more:hover { background: color-mix(in srgb, var(--c) 12%, transparent); gap: 16px; }
-  .collage { position: relative; aspect-ratio: 1 / 0.86; }
-  .collage .shot { position: absolute; width: 74%; border-radius: 16px; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6); }
-  .collage .shot:nth-child(1) { left: 0; top: 0; z-index: 1; }
-  .collage .shot:nth-child(2) { right: 0; top: 24%; z-index: 2; }
-  .collage .shot:nth-child(3) { left: 8%; bottom: 0; z-index: 3; width: 62%; }
-  .shot { display: block; padding: 0; border: 1px solid rgba(255, 255, 255, 0.14); overflow: hidden; cursor: zoom-in; background: #111; aspect-ratio: 16 / 9; font: inherit; color: inherit; }
-  .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
-  .shot:hover img { transform: scale(1.06); }
-  .shot figcaption, .shot .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 14px 10px; text-align: left; font: 700 15px Rajdhani, sans-serif; letter-spacing: .05em; background: linear-gradient(transparent, rgba(0, 0, 0, 0.85)); opacity: 0; transform: translateY(8px); transition: opacity .3s, transform .3s; }
-  .shot { position: relative; }
-  .shot:hover .cap, .shot:focus-visible .cap { opacity: 1; transform: none; }
+  /* Escaparates */
+  .show { padding: clamp(80px, 12vw, 170px) 0; position: relative; }
+  .show + .show { padding-top: 0; }
+  .pin { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(36px, 6vw, 100px); align-items: start; }
+  .pin > * { min-width: 0; }
+  .pin .txt { position: sticky; top: 104px; }
+  .show h2 { font-size: clamp(56px, 7.4vw, 112px); text-transform: uppercase; }
+  .show.sz h2 span { color: var(--accent); }
+  .genre { display: block; margin-top: 18px; font: 500 13px var(--font-mono); letter-spacing: .04em; color: var(--dim); }
+  .show .lead { margin: 22px 0 28px; }
+  .feats { list-style: none; padding: 0; margin: 0 0 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
+  .feats li { display: flex; gap: 14px; align-items: flex-start; padding: 18px 0; border-top: 1px solid var(--line); }
+  .feats .ic { color: var(--accent); width: 28px; height: 28px; margin-top: 2px; }
+  .feats b { display: block; font: 600 17px/1.3 var(--font-body); }
+  .feats small { color: var(--dim); font-size: 14px; line-height: 1.5; display: block; margin-top: 2px; }
+  .reel { display: grid; gap: 32px; }
+  .kbd-row, .keys { display: flex; flex-wrap: wrap; gap: 12px 24px; color: var(--dim); font-size: 14px; }
+  .keys { margin: 8px 0 clamp(40px, 6vw, 72px); }
+  .keys > span { display: inline-flex; align-items: center; gap: 10px; }
+  kbd { font: 500 12px var(--font-mono); color: var(--text); background: var(--tray); border: 1px solid var(--line-2); border-bottom-width: 3px; border-radius: 8px; padding: 3px 10px; }
 
-  /* Rejilla de capturas (Kart Party) */
-  .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 170px; gap: 14px; margin-top: 60px; }
-  .bento .shot { aspect-ratio: auto; border-radius: 14px; }
+  /* Capturas: botón que abre el visor */
+  .shot { display: block; width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: zoom-in; }
+  .shot .frame { display: block; position: relative; overflow: hidden; aspect-ratio: 16 / 10; border-radius: var(--r-sm); border: 1px solid var(--line); background: var(--plate); box-shadow: 0 30px 60px -32px rgba(0, 0, 0, .8); }
+  .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .shot:hover img { transform: scale(1.05); }
+  .shot .cap { display: block; margin-top: 12px; font-size: 14px; line-height: 1.4; color: var(--dim); }
+
+  /* Kart Party: introducción a todo el ancho, franja de rasgos y galería */
+  .kp-title { font-family: Luckiest, var(--font-display); font-weight: 400; font-size: clamp(64px, 11vw, 170px); line-height: .92; letter-spacing: .01em; color: #ffcc00; text-shadow: 0 .05em 0 #c43c00; }
+  .kp-title span { color: #fff; text-shadow: 0 .05em 0 #b3123f; }
+  .kp .lead { max-width: 60ch; }
+  .strip { grid-template-columns: repeat(4, 1fr); margin-bottom: 28px; }
+  .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: clamp(150px, 15vw, 210px); gap: 16px; grid-auto-flow: dense; }
+  .bento .shot { height: 100%; }
+  .bento .frame { height: 100%; aspect-ratio: auto; }
+  .bento .cap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0; }
   .bento .big { grid-column: span 2; grid-row: span 2; }
   .bento .wide { grid-column: span 2; }
-  .keys { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 30px; color: var(--dim); font-size: 14px; }
-  .keys span { display: inline-flex; align-items: center; gap: 8px; }
-  kbd { font: 700 12px Inter, sans-serif; color: var(--text); background: #171a25; border: 1px solid rgba(255, 255, 255, 0.2); border-bottom-width: 3px; border-radius: 7px; padding: 3px 9px; }
 
-  /* Cinta de capturas que no para */
-  .marquee { padding: 30px 0 90px; overflow: hidden; }
-  .track { display: flex; gap: 18px; width: max-content; animation: slide 60s linear infinite; }
-  .track.back { animation-direction: reverse; animation-duration: 70s; margin-top: 18px; }
-  .marquee:hover .track { animation-play-state: paused; }
-  .track .shot { width: 360px; border-radius: 14px; flex: none; }
+  /* Cinta única de capturas: muestra el alcance de los dos juegos */
+  .marquee { overflow: hidden; padding: 0 0 clamp(80px, 11vw, 150px); -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+  .track { display: flex; width: max-content; animation: slide 110s linear infinite; }
+  .marquee:hover .track, .marquee:focus-within .track { animation-play-state: paused; }
+  .track .shot { width: 340px; flex: none; margin-right: 20px; }
   @keyframes slide { to { transform: translateX(-50%); } }
 
   /* Cómo empezar */
-  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; counter-reset: s; }
-  .step { position: relative; padding: 30px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); overflow: hidden; transition: transform .3s, border-color .3s; }
-  .step:hover { transform: translateY(-6px); border-color: rgba(34, 230, 255, 0.4); }
-  .step::before { counter-increment: s; content: "0" counter(s); position: absolute; right: 18px; top: 6px; font: 700 84px Rajdhani, sans-serif; color: rgba(255, 255, 255, 0.05); }
-  .step .ic { width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center; margin-bottom: 18px; background: linear-gradient(135deg, rgba(124, 92, 255, 0.3), rgba(34, 230, 255, 0.2)); color: var(--brand-b); }
-  .step .ic svg { width: 26px; height: 26px; }
-  .step h3 { font-size: 24px; margin-bottom: 8px; }
-  .step p { color: var(--dim); margin: 0; font-size: 15px; }
-  .tip { margin: 26px auto 0; max-width: 780px; text-align: center; color: var(--dim); font-size: 14px; }
+  .steps-grid { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(36px, 6vw, 100px); align-items: start; }
+  .steps-grid > * { min-width: 0; }
+  .steps-head { position: sticky; top: 104px; }
+  .kicker { display: block; margin-bottom: 18px; font: 500 12px var(--font-mono); letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+  .steps-head h2 { font-size: clamp(40px, 5vw, 72px); }
+  .tip { margin: 24px 0 0; max-width: 44ch; color: var(--dim); font-size: 15px; }
+  .steps { list-style: none; margin: 0; padding: 0; }
+  .steps li { display: grid; grid-template-columns: auto 1fr; gap: 24px; padding: 34px 0; border-top: 1px solid var(--line); }
+  .steps li:last-child { border-bottom: 1px solid var(--line); }
+  .step-ic { width: 60px; height: 60px; border-radius: var(--r-sm); background: var(--tray); border: 1px solid var(--line); display: grid; place-items: center; color: var(--accent); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07); }
+  .step-ic .ic { width: 28px; height: 28px; }
+  .steps h3 { font-size: clamp(26px, 2.6vw, 34px); margin-bottom: 8px; }
+  .steps p { margin: 0; color: var(--dim); max-width: 46ch; }
 
   /* Llamada final */
-  .final { margin: 40px auto 0; border-radius: 28px; padding: 70px 30px; text-align: center; position: relative; overflow: hidden; isolation: isolate; border: 1px solid rgba(255, 255, 255, 0.12); }
-  .final::before { content: ""; position: absolute; inset: -40%; z-index: -2; background: conic-gradient(from 0deg, #7c5cff, #22e6ff, #ff3d6e, #ffcc00, #fab847, #7c5cff); animation: rot 14s linear infinite; opacity: .55; filter: blur(40px); }
-  .final::after { content: ""; position: absolute; inset: 2px; z-index: -1; border-radius: 26px; background: rgba(9, 10, 16, 0.86); }
-  @keyframes rot { to { transform: rotate(360deg); } }
-  .final h2 { font-size: clamp(40px, 5.5vw, 70px); text-transform: uppercase; margin-bottom: 14px; }
-  .final p { color: #c9cddb; margin: 0 auto 30px; max-width: 560px; }
+  .final { position: relative; isolation: isolate; overflow: hidden; margin-top: clamp(72px, 10vw, 140px); border-radius: var(--r-out); border: 1px solid var(--line); padding: clamp(48px, 8vw, 112px) clamp(24px, 6vw, 88px); }
+  .final .bgimg { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+  .final::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(12, 13, 16, .96) 0%, rgba(12, 13, 16, .78) 50%, rgba(12, 13, 16, .4) 100%); }
+  .final h2 { font-size: clamp(42px, 6.4vw, 96px); text-transform: none; margin-bottom: 36px; max-width: 14ch; }
+  .final h2 .hl { color: var(--accent); }
+  .fine { color: var(--dim); font-size: 14px; margin-top: 24px; }
+  .fine a { color: var(--text); text-underline-offset: 3px; }
 
-  footer { padding: 60px 0 40px; color: var(--dim); font-size: 13px; text-align: center; }
-  footer nav ul { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; }
-  footer a { color: var(--text); text-decoration: none; }
-  footer a:hover { color: var(--brand-b); }
-  footer p { margin: 6px auto; max-width: 760px; }
+  footer { padding: 24px 0 56px; color: var(--dim); font-size: 14px; }
+  footer nav ul { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-wrap: wrap; gap: 4px 24px; }
+  footer nav a { display: inline-block; padding: 8px 0; color: var(--text); text-decoration: none; }
+  footer nav a:hover { color: var(--accent); }
+  footer p { margin: 8px 0; max-width: 78ch; }
+  footer p a { color: var(--text); }
 
   /* Visor de capturas */
-  .lightbox { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(4, 5, 8, 0.92); backdrop-filter: blur(8px); opacity: 0; pointer-events: none; transition: opacity .25s; }
+  .lightbox { position: fixed; inset: 0; z-index: var(--z-lightbox); display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(8, 9, 12, .92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity .4s var(--ease); }
   .lightbox.open { opacity: 1; pointer-events: auto; }
-  .lightbox figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; transform: scale(.94); transition: transform .3s cubic-bezier(.2, .8, .2, 1); }
+  .lightbox figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; transform: scale(.95); transition: transform .6s var(--ease); }
   .lightbox.open figure { transform: none; }
-  .lightbox img { max-height: 82vh; border-radius: 14px; box-shadow: 0 30px 100px rgba(0, 0, 0, 0.7); }
+  .lightbox img { max-width: 100%; max-height: 82vh; border-radius: var(--r-sm); box-shadow: 0 40px 100px rgba(0, 0, 0, .7); }
   .lightbox figcaption { color: var(--text); }
-  .lb-btn { position: absolute; background: rgba(22, 25, 36, 0.9); color: var(--text); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 12px; padding: 10px 16px; font: 600 15px Inter, sans-serif; cursor: pointer; }
+  .lb-btn { position: absolute; background: var(--tray); color: var(--text); border: 1px solid var(--line-2); border-radius: 999px; min-height: 44px; min-width: 44px; padding: 10px 18px; font: 500 15px var(--font-body); cursor: pointer; transition: background-color .3s var(--ease), transform .4s var(--ease); }
+  .lb-btn:hover { background: #24252c; }
+  .lb-btn:active { transform: scale(.96); }
   .lb-close { top: 16px; right: 16px; }
-  .lb-prev, .lb-next { top: 50%; transform: translateY(-50%); font-size: 22px; padding: 12px 18px; }
+  .lb-prev, .lb-next { top: 50%; margin-top: -22px; font-size: 22px; padding: 8px 16px; }
   .lb-prev { left: 16px; } .lb-next { right: 16px; }
 
-  /* Aparecer al bajar */
-  .js .rv { opacity: 0; transform: translateY(40px); transition: opacity .9s cubic-bezier(.2, .8, .2, 1), transform .9s cubic-bezier(.2, .8, .2, 1); transition-delay: calc(var(--d, 0) * 90ms); }
-  .js .rv.left { transform: translateX(-50px); }
-  .js .rv.right { transform: translateX(50px); }
-  .js .rv.zoom { transform: scale(.92); }
-  .rv.in { opacity: 1 !important; transform: none !important; }
+  /* Aparecer al bajar (translate, para no chocar con los hover que usan transform) */
+  .js .rv { opacity: 0; translate: 0 36px; transition: opacity 1s var(--ease) calc(var(--d, 0) * 90ms), translate 1s var(--ease) calc(var(--d, 0) * 90ms), transform .7s var(--ease), border-color .5s var(--ease); }
+  .js .rv.in { opacity: 1; translate: none; }
 
-  .hero .wrap > *, .split > *, .games > * { min-width: 0; }
-  @media (max-width: 960px) {
-    .hero .wrap, .split, .split.rev { grid-template-columns: 1fr; }
-    .split.rev .txt { order: 0; }
-    .mock-wrap { max-width: 560px; }
-    .games, .soon-row, .steps { grid-template-columns: 1fr; }
-    .bento { grid-template-columns: repeat(2, 1fr); }
-    .nav ul { display: none; }
-    .nav select { margin-left: auto; }
+  /* Las capturas del escaparate ganan presencia al llegar (CSS ligado al scroll, sin JS) */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .reel .frame { animation: settle linear both; animation-timeline: view(); animation-range: entry 0% cover 38%; }
+      @keyframes settle { from { transform: scale(.9); opacity: .35; } to { transform: none; opacity: 1; } }
+    }
   }
-  @media (max-width: 560px) {
-    .hero h1 { white-space: normal; font-size: 44px; }
-    .feats { grid-template-columns: 1fr; }
-    .bento { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+
+  @media (max-width: 1000px) {
+    .hero { padding-top: 104px; }
+    .hero-grid, .pin, .steps-grid { grid-template-columns: 1fr; }
+    .pin .txt, .steps-head { position: static; }
+    .stage { max-width: 620px; }
+    .games { grid-template-columns: 1fr; }
+    .game.sz, .game.kp, .soon.s1, .soon.s2 { grid-column: auto; }
+    .bar ul { display: none; }
+    .bar select { margin-left: auto; }
+    .strip { grid-template-columns: 1fr 1fr; }
+    .bento { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-height: 720px) {
+    .pin .txt, .steps-head { position: static; }
+  }
+  @media (max-width: 640px) {
+    .feats, .strip { grid-template-columns: 1fr; }
+    .bento { grid-template-columns: 1fr; grid-auto-rows: 220px; }
     .bento .big, .bento .wide { grid-column: auto; grid-row: auto; }
-    .game { min-height: 460px; padding: 24px; }
-    .btn { width: 100%; justify-content: center; }
+    .game .bg { min-height: 220px; }
+    .game .body { padding: 22px; }
+    .soon { padding: 24px; }
+    .btn { white-space: normal; font-size: 15px; letter-spacing: 0; padding-left: 22px; }
+    .ctas .btn { width: 100%; justify-content: space-between; }
     .track .shot { width: 260px; }
-    .btn-mini { display: none; }
+    .logo span { display: none; }
+    .stage-bar { flex-wrap: wrap; }
+    .steps li { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
+    .final h2 { max-width: none; }
+  }
+  @media (max-width: 400px) {
+    .bar .btn { padding-left: 14px; }
+    .bar select { padding: 9px 8px; }
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    .bar, .lightbox { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--plate); }
   }
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-    .js .rv { opacity: 1; transform: none; }
-    .hero h1 .l > span, .fade-up { transform: none; opacity: 1; }
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+    .js .rv { opacity: 1; translate: none; }
+    .hero h1 .l > span { transform: none; }
+    .rise { opacity: 1; transform: none; }
+    .marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+    .track { animation: none; }
   }
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-arrow-right" viewBox="0 0 256 256"><path d="M220.24,132.24l-72,72a6,6,0,0,1-8.48-8.48L201.51,134H40a6,6,0,0,1,0-12H201.51L139.76,60.24a6,6,0,0,1,8.48-8.48l72,72A6,6,0,0,1,220.24,132.24Z"/></symbol><symbol id="i-arrow-up-right" viewBox="0 0 256 256"><path d="M198,64V168a6,6,0,0,1-12,0V78.48L68.24,196.24a6,6,0,0,1-8.48-8.48L177.52,70H88a6,6,0,0,1,0-12H192A6,6,0,0,1,198,64Z"/></symbol><symbol id="i-caret-left" viewBox="0 0 256 256"><path d="M164.24,203.76a6,6,0,1,1-8.48,8.48l-80-80a6,6,0,0,1,0-8.48l80-80a6,6,0,0,1,8.48,8.48L88.49,128Z"/></symbol><symbol id="i-caret-right" viewBox="0 0 256 256"><path d="M180.24,132.24l-80,80a6,6,0,0,1-8.48-8.48L167.51,128,91.76,52.24a6,6,0,0,1,8.48-8.48l80,80A6,6,0,0,1,180.24,132.24Z"/></symbol><symbol id="i-cloud-rain" viewBox="0 0 256 256"><path d="M157,195.33l-32,48a6,6,0,1,1-10-6.66l32-48a6,6,0,0,1,10,6.66ZM230,92a74.09,74.09,0,0,1-74,74H131.21L101,211.33a6,6,0,1,1-10-6.66L116.79,166H76A50,50,0,1,1,86.2,67,74.08,74.08,0,0,1,230,92Zm-12,0A62.06,62.06,0,0,0,94,88.35a6,6,0,0,1-12-.7,75.84,75.84,0,0,1,1.07-9A38,38,0,1,0,76,154h80A62.07,62.07,0,0,0,218,92Z"/></symbol><symbol id="i-crosshair" viewBox="0 0 256 256"><path d="M232,122H221.8A94.13,94.13,0,0,0,134,34.2V24a6,6,0,0,0-12,0V34.2A94.13,94.13,0,0,0,34.2,122H24a6,6,0,0,0,0,12H34.2A94.13,94.13,0,0,0,122,221.8V232a6,6,0,0,0,12,0V221.8A94.13,94.13,0,0,0,221.8,134H232a6,6,0,0,0,0-12Zm-98,87.76V200a6,6,0,0,0-12,0v9.76A82.09,82.09,0,0,1,46.24,134H56a6,6,0,0,0,0-12H46.24A82.09,82.09,0,0,1,122,46.24V56a6,6,0,0,0,12,0V46.24A82.09,82.09,0,0,1,209.76,122H200a6,6,0,0,0,0,12h9.76A82.09,82.09,0,0,1,134,209.76ZM128,90a38,38,0,1,0,38,38A38,38,0,0,0,128,90Zm0,64a26,26,0,1,1,26-26A26,26,0,0,1,128,154Z"/></symbol><symbol id="i-cube" viewBox="0 0 256 256"><path d="M222.72,67.9l-88-48.17a13.9,13.9,0,0,0-13.44,0l-88,48.18A14,14,0,0,0,26,80.18v95.64a14,14,0,0,0,7.28,12.27l88,48.18a13.92,13.92,0,0,0,13.44,0l88-48.18A14,14,0,0,0,230,175.82V80.18A14,14,0,0,0,222.72,67.9ZM127,30.25a2,2,0,0,1,1.92,0L212.51,76,128,122.24,43.49,76ZM39,177.57a2,2,0,0,1-1-1.75V86.66l84,46V223Zm177.92,0L134,223V132.64l84-46v89.16A2,2,0,0,1,217,177.57Z"/></symbol><symbol id="i-download-simple" viewBox="0 0 256 256"><path d="M222,144v64a6,6,0,0,1-6,6H40a6,6,0,0,1-6-6V144a6,6,0,0,1,12,0v58H210V144a6,6,0,0,1,12,0Zm-98.24,4.24a6,6,0,0,0,8.48,0l40-40a6,6,0,0,0-8.48-8.48L134,129.51V32a6,6,0,0,0-12,0v97.51L92.24,99.76a6,6,0,0,0-8.48,8.48Z"/></symbol><symbol id="i-flag-checkered" viewBox="0 0 256 256"><path d="M226.49,50.5a6,6,0,0,0-6.42.92c-29,25.11-53.28,13.08-81.41-.84-27.92-13.82-59.57-29.49-94.59.84A6,6,0,0,0,42,56V224a6,6,0,0,0,12,0V178.78c28.08-22.79,51.88-11,79.34,2.59,27.92,13.82,59.58,29.48,94.59-.85A6,6,0,0,0,230,176V56A6,6,0,0,0,226.49,50.5ZM218,68v45.2c-15.53,12.6-29.75,14.65-44,11.65V76.88C188,79.33,202.64,77.78,218,68Zm-56,5.87v47.4c-7.6-2.85-15.31-6.66-23.34-10.64-9.16-4.53-18.71-9.26-28.66-12.5V50.71a255.17,255.17,0,0,1,23.34,10.63C142.5,65.87,152.05,70.59,162,73.83ZM98,47.13V95c-14-2.45-28.64-.89-44,8.93V58.75C69.53,46.15,83.75,44.13,98,47.13ZM86.63,154C76.13,154,65.24,156.79,54,164V118.79c15.53-12.61,29.75-14.65,44-11.65v47.93A66.32,66.32,0,0,0,86.63,154ZM110,158.11V110.72c7.6,2.84,15.31,6.66,23.34,10.63,9.16,4.53,18.71,9.26,28.66,12.5v47.39c-7.6-2.85-15.31-6.66-23.34-10.63C129.5,166.07,120,161.35,110,158.11Zm64,26.7V136.89a66.32,66.32,0,0,0,11.37,1c10.5,0,21.39-2.78,32.63-10v45.24C202.47,185.79,188.25,187.81,174,184.81Z"/></symbol><symbol id="i-game-controller" viewBox="0 0 256 256"><path d="M176,110H152a6,6,0,0,1,0-12h24a6,6,0,0,1,0,12ZM104,98H94V88a6,6,0,0,0-12,0V98H72a6,6,0,0,0,0,12H82v10a6,6,0,0,0,12,0V110h10a6,6,0,0,0,0-12ZM239.84,199.5A34,34,0,0,1,212,214,34.11,34.11,0,0,1,188,204.05l-.26-.28L147.38,158H108.62L68.31,203.76,68,204A34,34,0,0,1,44,214a34,34,0,0,1-33.46-39.91s0-.06,0-.1L26.9,89.88A57.89,57.89,0,0,1,83.89,42H172a58.07,58.07,0,0,1,57.05,47.63c0,.07,0,.12,0,.19L245.46,174s0,.07,0,.11A33.75,33.75,0,0,1,239.84,199.5ZM172,146a46,46,0,0,0,0-92H83.89A45.9,45.9,0,0,0,38.71,92a.36.36,0,0,0,0,.1L22.33,176.23a22,22,0,0,0,37.11,19.45l42-47.65a6,6,0,0,1,4.5-2Zm61.67,30.23-9.79-50.35A58.06,58.06,0,0,1,172,158h-8.63l33.19,37.68a22,22,0,0,0,37.11-19.45Z"/></symbol><symbol id="i-map-trifold" viewBox="0 0 256 256"><path d="M227.69,51.27a6,6,0,0,0-5.15-1.09L160.7,65.64l-62-31a6,6,0,0,0-4.14-.45l-64,16A6,6,0,0,0,26,56V200a6,6,0,0,0,7.46,5.82L95.3,190.36l62,31a6,6,0,0,0,4.14.45l64-16A6,6,0,0,0,230,200V56A6,6,0,0,0,227.69,51.27ZM102,49.71l52,26V206.29l-52-26Zm-64,11,52-13V179.32l-52,13ZM218,195.32l-52,13V76.68l52-13Z"/></symbol><symbol id="i-package" viewBox="0 0 256 256"><path d="M222.72,67.91l-88-48.18a13.9,13.9,0,0,0-13.44,0l-88,48.18A14,14,0,0,0,26,80.18v95.64a14,14,0,0,0,7.28,12.27l88,48.18a13.92,13.92,0,0,0,13.44,0l88-48.18A14,14,0,0,0,230,175.82V80.18A14,14,0,0,0,222.72,67.91ZM127,30.25a2,2,0,0,1,1.92,0L212.51,76,178.57,94.57,94.05,48.31ZM122,223,39,177.57a2,2,0,0,1-1-1.75V86.66l84,46ZM43.49,76,81.56,55.15l84.51,46.26L128,122.24ZM218,175.82a2,2,0,0,1-1,1.75h0L134,223V132.64l36-19.71V152a6,6,0,0,0,12,0V106.37l36-19.71Z"/></symbol><symbol id="i-skull" viewBox="0 0 256 256"><path d="M92,106a26,26,0,1,0,26,26A26,26,0,0,0,92,106Zm0,40a14,14,0,1,1,14-14A14,14,0,0,1,92,146Zm72-40a26,26,0,1,0,26,26A26,26,0,0,0,164,106Zm0,40a14,14,0,1,1,14-14A14,14,0,0,1,164,146ZM128,18C71.76,18,26,62,26,116c0,33.77,18.3,65.31,48,83.15V216a14,14,0,0,0,14,14h80a14,14,0,0,0,14-14V199.15c29.7-17.84,48-49.38,48-83.15C230,62,184.24,18,128,18Zm45.09,172.44a6,6,0,0,0-3.09,5.25V216a2,2,0,0,1-2,2H150V192a6,6,0,0,0-12,0v26H118V192a6,6,0,0,0-12,0v26H88a2,2,0,0,1-2-2V195.69a6,6,0,0,0-3.09-5.25C55.21,175.09,38,146.56,38,116c0-47.42,40.37-86,90-86s90,38.58,90,86C218,146.56,200.79,175.09,173.09,190.44Z"/></symbol><symbol id="i-trophy" viewBox="0 0 256 256"><path d="M232,66H206V48a6,6,0,0,0-6-6H56a6,6,0,0,0-6,6V66H24A14,14,0,0,0,10,80V96a38,38,0,0,0,38,38h5.14A78,78,0,0,0,122,189.75V218H96a6,6,0,0,0,0,12h64a6,6,0,0,0,0-12H134V189.75c32.44-2.52,59.43-25.3,68.62-55.75H208a38,38,0,0,0,38-38V80A14,14,0,0,0,232,66ZM48,122A26,26,0,0,1,22,96V80a2,2,0,0,1,2-2H50v34a80.87,80.87,0,0,0,.65,10Zm146-10.9c0,36.62-29.38,66.63-65.5,66.9A66,66,0,0,1,62,112V54H194ZM234,96a26,26,0,0,1-26,26h-2.77a78.45,78.45,0,0,0,.77-10.9V78h26a2,2,0,0,1,2,2Z"/></symbol><symbol id="i-user-circle" viewBox="0 0 256 256"><path d="M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26ZM71.44,198a66,66,0,0,1,113.12,0,89.8,89.8,0,0,1-113.12,0ZM94,120a34,34,0,1,1,34,34A34,34,0,0,1,94,120Zm99.51,69.64a77.53,77.53,0,0,0-40-31.38,46,46,0,1,0-51,0,77.53,77.53,0,0,0-40,31.38,90,90,0,1,1,131,0Z"/></symbol><symbol id="i-users-three" viewBox="0 0 256 256"><path d="M243.6,148.8a6,6,0,0,1-8.4-1.2A53.58,53.58,0,0,0,192,126a6,6,0,0,1,0-12,26,26,0,1,0-25.18-32.5,6,6,0,0,1-11.62-3,38,38,0,1,1,59.91,39.63A65.69,65.69,0,0,1,244.8,140.4,6,6,0,0,1,243.6,148.8ZM189.19,213a6,6,0,0,1-2.19,8.2,5.9,5.9,0,0,1-3,.81,6,6,0,0,1-5.2-3,59,59,0,0,0-101.62,0,6,6,0,1,1-10.38-6A70.1,70.1,0,0,1,103,182.55a46,46,0,1,1,50.1,0A70.1,70.1,0,0,1,189.19,213ZM128,178a34,34,0,1,0-34-34A34,34,0,0,0,128,178ZM70,120a6,6,0,0,0-6-6A26,26,0,1,1,89.18,81.49a6,6,0,1,0,11.62-3,38,38,0,1,0-59.91,39.63A65.69,65.69,0,0,0,11.2,140.4a6,6,0,1,0,9.6,7.2A53.58,53.58,0,0,1,64,126,6,6,0,0,0,70,120Z"/></symbol><symbol id="i-x" viewBox="0 0 256 256"><path d="M204.24,195.76a6,6,0,1,1-8.48,8.48L128,136.49,60.24,204.24a6,6,0,0,1-8.48-8.48L119.51,128,51.76,60.24a6,6,0,0,1,8.48-8.48L128,119.51l67.76-67.75a6,6,0,0,1,8.48,8.48L136.49,128Z"/></symbol></defs></svg>
 <a class="skip" href="#juegos" data-i18n="skip">Saltar al contenido</a>
+<div class="sentinel" id="sentinel" aria-hidden="true"></div>
 
 <nav class="nav" id="nav" aria-label="Principal" data-i18n-aria="nav_label">
-  <div class="wrap">
+  <div class="bar">
     <a class="logo" href="#top" aria-label="Zile Launcher">
       <svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#22e6ff"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="#12141d"/><path d="M16 18h32L22 46h26" fill="none" stroke="url(#lg)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      ZILE
+      <span>ZILE</span>
     </a>
     <ul>
       <li><a href="#juegos" data-i18n="nav_games">Juegos</a></li>
@@ -402,180 +375,163 @@
       <option value="es">ES</option><option value="en">EN</option><option value="pt">PT</option>
       <option value="fr">FR</option><option value="de">DE</option><option value="it">IT</option>
     </select>
-    <a class="btn-mini dl-launcher" href="https://github.com/NewZile/arena-fps/releases/download/launcher/ZileLauncher.exe" data-i18n="nav_dl">DESCARGAR</a>
+    <a class="btn dl-launcher" href="https://github.com/NewZile/arena-fps/releases/download/launcher/ZileLauncher.exe">
+      <span data-i18n="nav_dl">DESCARGAR</span>
+      <span class="go"><svg class="ic" aria-hidden="true"><use href="#i-download-simple"/></svg></span>
+    </a>
   </div>
 </nav>
 
 <header class="hero" id="top">
-  <div class="slides" aria-hidden="true">
-    <img src="img/kp_noche.jpg" alt="" class="on">
-    <img src="img/apocalipsis.jpg" alt="">
-    <img src="img/kp_desierto.jpg" alt="">
-    <img src="img/zombis.jpg" alt="">
-    <img src="img/kp_puente.jpg" alt="">
-    <img src="img/ciudad.jpg" alt="">
-  </div>
-  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
-  <div class="floor" aria-hidden="true"></div>
-  <div class="wrap">
-    <div>
-      <div class="kicker fade-up" data-i18n="hero_kicker">GRATIS · WINDOWS · CON AMIGOS</div>
-      <h1><span class="l"><span data-i18n="hero_t1">Tus juegos.</span></span><span class="l"><span class="grad" data-i18n="hero_t2">Un launcher.</span></span></h1>
-      <p class="lead fade-up d1" data-i18n="hero_lead">El <b>Zile Launcher</b> instala y mantiene al día <b>Strike Zone</b>, un shooter con Zombis y Escondite, y <b>Kart Party</b>, carreras locas de karts. Sin cuentas, sin compras: descargar y a jugar.</p>
-      <div class="ctas fade-up d2">
+  <div class="wrap hero-grid">
+    <div class="copy">
+      <h1><span class="l"><span data-i18n="hero_t1">Tus juegos.</span></span><span class="l"><span class="hl" data-i18n="hero_t2">Un launcher.</span></span></h1>
+      <p class="lead rise d1" data-i18n="final_p">Descarga el Zile Launcher y ten los dos juegos en un minuto.</p>
+      <div class="ctas rise d2">
         <a class="btn dl-launcher" href="https://github.com/NewZile/arena-fps/releases/download/launcher/ZileLauncher.exe">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
           <span data-i18n="hero_dl">DESCARGAR ZILE LAUNCHER</span>
+          <span class="go"><svg class="ic" aria-hidden="true"><use href="#i-download-simple"/></svg></span>
         </a>
-        <a class="btn ghost" href="#juegos" data-i18n="hero_see">VER LOS JUEGOS</a>
-      </div>
-      <div class="fine fade-up d3" data-i18n="hero_fine">Windows 10 y 11 · 64 bits · Se actualiza solo</div>
-      <div class="stats fade-up d4">
-        <div class="stat"><b>2</b><span data-i18n="st_games">juegos gratis</span></div>
-        <div class="stat"><b data-count="11">11</b><span data-i18n="st_modes">modos y circuitos</span></div>
-        <div class="stat" id="dl-stat" hidden><b data-count="0" id="dl-total">0</b><span data-i18n="st_dl">descargas</span></div>
+        <a class="link" href="#juegos"><span data-i18n="hero_see">VER LOS JUEGOS</span><svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
       </div>
     </div>
-    <div class="mock-wrap fade-up d2">
-      <div class="mock" id="mock" aria-hidden="true">
-        <div class="mock-bar"><i></i><i></i><i></i><span>ZILE LAUNCHER</span></div>
-        <div class="mock-body">
-          <div class="mock-side">
-            <div class="on" style="background-image:url(img/zombis_s.jpg)"></div>
-            <div style="background-image:url(img/kp_noche_s.jpg)"></div>
-            <div class="soon"></div><div class="soon"></div>
+    <div class="stage rise d2" id="mock">
+      <div class="bezel"><div class="core">
+        <div class="shots">
+          <img src="img/zombis_s.jpg" alt="La horda de zombis de Strike Zone" class="on" fetchpriority="high">
+          <img src="img/kp_noche_s.jpg" alt="Carrera nocturna de Kart Party">
+        </div>
+        <div class="stage-bar">
+          <div class="stage-title">
+            <div class="mock-title sz" id="mock-title">STRIKE <span>ZONE</span></div>
           </div>
-          <div class="mock-main">
-            <img src="img/zombis_s.jpg" alt="" class="on">
-            <img src="img/kp_noche_s.jpg" alt="">
-            <div class="mock-info">
-              <div class="mock-title sz" id="mock-title">STRIKE <span>ZONE</span></div>
-              <div class="mock-row"><span class="mock-play" data-i18n="mock_play">JUGAR</span><span class="mock-prog"><i></i></span><span class="mock-ver" id="mock-ver">v1</span></div>
-            </div>
+          <span class="mock-ver" id="mock-ver"></span>
+          <div class="picks">
+            <button class="pick" type="button" aria-label="Strike Zone" aria-pressed="true"><img src="img/zombis_s.jpg" alt=""></button>
+            <button class="pick" type="button" aria-label="Kart Party" aria-pressed="false"><img src="img/kp_noche_s.jpg" alt=""></button>
           </div>
         </div>
-      </div>
+      </div></div>
     </div>
   </div>
-  <div class="scroll-hint" aria-hidden="true"></div>
 </header>
 
 <main>
   <section class="block" id="juegos">
     <div class="wrap">
       <div class="head rv">
-        <div class="kicker" data-i18n="games_kicker">LA COLECCIÓN</div>
         <h2 data-i18n="games_title">Elige a qué jugar</h2>
         <p data-i18n="games_sub">Los dos se instalan desde el launcher con un clic y se actualizan solos cada vez que sale una versión nueva.</p>
+        <div class="stats">
+          <div class="stat"><b>2</b><span data-i18n="st_games">juegos gratis</span></div>
+          <div class="stat"><b data-count="11">11</b><span data-i18n="st_modes">modos y circuitos</span></div>
+          <div class="stat" id="dl-stat" hidden><b data-count="0" id="dl-total">0</b><span data-i18n="st_dl">descargas</span></div>
+        </div>
       </div>
       <div class="games">
-        <a class="game sz rv left" href="#strikezone" data-cycle>
-          <div class="bg"><img src="img/zombis_s.jpg" alt="" class="on"><img src="img/ciudad_s.jpg" alt=""><img src="img/escondite_s.jpg" alt=""><img src="img/apocalipsis_s.jpg" alt=""></div>
-          <div class="badge"><span class="live" data-i18n="available">DISPONIBLE</span><span>SHOOTER</span></div>
-          <div class="ver" id="ver-sz" hidden></div>
-          <h3>Strike <span>Zone</span></h3>
-          <p data-i18n="sz_card">Shooter táctico con modo Bomba, Zombis por oleadas y Escondite (Prop Hunt). Rangos, skins, clanes y bots listos.</p>
-          <div class="tags"><span data-i18n="t_zombies">Zombis</span><span data-i18n="t_hide">Escondite</span><span data-i18n="t_bomb">Modo Bomba</span><span data-i18n="t_clans">Clanes</span></div>
-          <span class="go"><span data-i18n="discover">DESCÚBRELO</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <a class="game sz bezel rv" href="#strikezone" data-cycle>
+          <div class="core">
+            <div class="bg" aria-hidden="true"><img src="img/zombis_s.jpg" alt="" class="on"><img src="img/ciudad_s.jpg" alt="" loading="lazy"><img src="img/escondite_s.jpg" alt="" loading="lazy"><img src="img/apocalipsis_s.jpg" alt="" loading="lazy"></div>
+            <div class="body">
+              <div class="meta"><span class="ok" data-i18n="available">DISPONIBLE</span><span>SHOOTER</span><span class="ver" id="ver-sz" hidden></span></div>
+              <h3>Strike <span>Zone</span></h3>
+              <p data-i18n="sz_card">Shooter táctico con modo Bomba, Zombis por oleadas y Escondite (Prop Hunt). Rangos, skins, clanes y bots listos.</p>
+              <div class="tags"><span data-i18n="t_zombies">Zombis</span><span data-i18n="t_hide">Escondite</span><span data-i18n="t_bomb">Modo Bomba</span><span data-i18n="t_clans">Clanes</span></div>
+              <span class="more"><span data-i18n="discover">DESCÚBRELO</span><svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </div>
+          </div>
         </a>
-        <a class="game kp rv right" href="#kartparty" data-cycle>
-          <div class="bg"><img src="img/kp_noche_s.jpg" alt="" class="on"><img src="img/kp_desierto_s.jpg" alt=""><img src="img/kp_podio_s.jpg" alt=""><img src="img/kp_puente_s.jpg" alt=""></div>
-          <div class="badge"><span class="live" data-i18n="available">DISPONIBLE</span><span data-i18n="t_racing">CARRERAS</span></div>
-          <div class="ver" id="ver-kp" hidden></div>
-          <h3>Kart <span>Party</span></h3>
-          <p data-i18n="kp_card">Carreras locas de karts: derrapes con mini-turbo, plátanos y caparazones, copas con podio, lluvia y tu propio piloto.</p>
-          <div class="tags"><span data-i18n="t_5tracks">5 circuitos</span><span data-i18n="t_cup">Copa y podio</span><span data-i18n="t_pilot">Tu piloto</span><span data-i18n="t_online">Online</span></div>
-          <span class="go"><span data-i18n="discover">DESCÚBRELO</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <a class="game kp bezel rv" style="--d:1" href="#kartparty" data-cycle>
+          <div class="core">
+            <div class="bg" aria-hidden="true"><img src="img/kp_noche_s.jpg" alt="" class="on"><img src="img/kp_desierto_s.jpg" alt="" loading="lazy"><img src="img/kp_podio_s.jpg" alt="" loading="lazy"><img src="img/kp_puente_s.jpg" alt="" loading="lazy"></div>
+            <div class="body">
+              <div class="meta"><span class="ok" data-i18n="available">DISPONIBLE</span><span data-i18n="t_racing">CARRERAS</span><span class="ver" id="ver-kp" hidden></span></div>
+              <h3>Kart <span>Party</span></h3>
+              <p data-i18n="kp_card">Carreras locas de karts: derrapes con mini-turbo, plátanos y caparazones, copas con podio, lluvia y tu propio piloto.</p>
+              <div class="tags"><span data-i18n="t_5tracks">5 circuitos</span><span data-i18n="t_cup">Copa y podio</span><span data-i18n="t_pilot">Tu piloto</span><span data-i18n="t_online">Online</span></div>
+              <span class="more"><span data-i18n="discover">DESCÚBRELO</span><svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </div>
+          </div>
         </a>
-      </div>
-      <div class="soon-row">
-        <div class="soon rv" style="--d:1"><b class="glitch" data-t="???">???</b><span data-i18n="soon1">Un juego nuevo está en camino…</span></div>
-        <div class="soon rv" style="--d:2"><b class="glitch" data-t="???">???</b><span data-i18n="soon2">Muy pronto en el launcher</span></div>
+        <div class="soon s1 rv"><b aria-hidden="true">???</b><span data-i18n="soon1">Un juego nuevo está en camino…</span></div>
+        <div class="soon s2 rv" style="--d:1"><b aria-hidden="true">???</b><span data-i18n="soon2">Muy pronto en el launcher</span></div>
       </div>
     </div>
   </section>
 
   <section class="show sz" id="strikezone">
-    <div class="wrap split">
+    <div class="wrap pin">
       <div class="txt">
-        <div class="kicker rv" data-i18n="sz_kicker">FPS MULTIJUGADOR</div>
-        <h2 class="rv" style="--d:1">Strike <span>Zone</span></h2>
+        <h2 class="rv">Strike <span>Zone</span></h2>
+        <span class="genre rv" style="--d:1" data-i18n="sz_kicker">FPS MULTIJUGADOR</span>
         <p class="lead rv" style="--d:2" data-i18n="sz_lead">Tres juegos en uno: <b>Shooter</b> táctico, <b>Zombis</b> por oleadas para un jugador o cooperativo, y <b>Escondite</b>, donde te conviertes en un objeto del mapa para que no te encuentren.</p>
-        <ul class="feats">
-          <li class="rv" style="--d:3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a8 8 0 0 0-5 14.2V20h10v-2.8A8 8 0 0 0 12 3z"/><circle cx="9" cy="11" r="1.6"/><circle cx="15" cy="11" r="1.6"/></svg></span><span><b data-i18n="szf1">Modo Zombis</b><small data-i18n="szf1d">Oleadas, caja misteriosa, ventajas y trampas.</small></span></li>
-          <li class="rv" style="--d:4"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8l-9-5-9 5v8l9 5z"/><path d="M3.3 7 12 12l8.7-5M12 22V12"/></svg></span><span><b data-i18n="szf2">Escondite</b><small data-i18n="szf2d">Conviértete en caja, barril o buzón… y que no te pillen.</small></span></li>
-          <li class="rv" style="--d:5"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></span><span><b data-i18n="szf3">6 modos, 5 mapas</b><small data-i18n="szf3d">Bomba, equipos, cuchillos, todos contra todos…</small></span></li>
-          <li class="rv" style="--d:6"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/></svg></span><span><b data-i18n="szf4">Rangos y skins</b><small data-i18n="szf4d">Cajas, mercado, clanes, medallas y repeticiones.</small></span></li>
+        <ul class="feats rv" style="--d:3">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-skull"/></svg><span><b data-i18n="szf1">Modo Zombis</b><small data-i18n="szf1d">Oleadas, caja misteriosa, ventajas y trampas.</small></span></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-cube"/></svg><span><b data-i18n="szf2">Escondite</b><small data-i18n="szf2d">Conviértete en caja, barril o buzón… y que no te pillen.</small></span></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-crosshair"/></svg><span><b data-i18n="szf3">6 modos, 5 mapas</b><small data-i18n="szf3d">Bomba, equipos, cuchillos, todos contra todos…</small></span></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg><span><b data-i18n="szf4">Rangos y skins</b><small data-i18n="szf4d">Cajas, mercado, clanes, medallas y repeticiones.</small></span></li>
         </ul>
-        <a class="link-more rv" style="--d:7" href="strikezone.html"><span data-i18n="sz_more">TODO SOBRE STRIKE ZONE</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="link rv" style="--d:4" href="strikezone.html"><span data-i18n="sz_more">TODO SOBRE STRIKE ZONE</span><svg class="ic" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
       </div>
-      <div class="collage" data-parallax>
-        <button class="shot rv right" data-full="img/zombis.jpg" data-cap="cap_horde"><img src="img/zombis_s.jpg" alt="La horda de zombis en el mapa Apocalipsis" loading="lazy"><span class="cap" data-i18n="cap_horde">La horda · Zombis</span></button>
-        <button class="shot rv right" style="--d:2" data-full="img/escondite.jpg"><img src="img/escondite_s.jpg" alt="Modo Escondite: uno de los objetos es un jugador" loading="lazy"><span class="cap" data-i18n="cap_props">¿Cuál es el jugador?</span></button>
-        <button class="shot rv right" style="--d:4" data-full="img/ciudad.jpg"><img src="img/ciudad_s.jpg" alt="Mapa Ciudad en modo Bomba" loading="lazy"><span class="cap" data-i18n="cap_city">Ciudad · modo Bomba</span></button>
+      <div class="reel">
+        <button class="shot" type="button" data-full="img/zombis.jpg"><span class="frame"><img src="img/zombis_s.jpg" alt="La horda de zombis en el mapa Apocalipsis" loading="lazy"></span><span class="cap" data-i18n="cap_horde">La horda · Zombis</span></button>
+        <button class="shot" type="button" data-full="img/escondite.jpg"><span class="frame"><img src="img/escondite_s.jpg" alt="Modo Escondite: uno de los objetos es un jugador" loading="lazy"></span><span class="cap" data-i18n="cap_props">¿Cuál es el jugador?</span></button>
+        <button class="shot" type="button" data-full="img/ciudad.jpg"><span class="frame"><img src="img/ciudad_s.jpg" alt="Mapa Ciudad en modo Bomba" loading="lazy"></span><span class="cap" data-i18n="cap_city">Ciudad · modo Bomba</span></button>
       </div>
     </div>
   </section>
 
   <section class="show kp" id="kartparty">
-    <div class="wrap split rev">
-      <div class="txt">
-        <div class="kicker rv" data-i18n="kp_kicker">CARRERAS CON AMIGOS</div>
-        <h2 class="kp-title rv" style="--d:1" aria-label="Kart Party"><span class="w" aria-hidden="true"><span class="ch" style="--i:0">K</span><span class="ch" style="--i:1">A</span><span class="ch" style="--i:2">R</span><span class="ch" style="--i:3">T</span></span> <span class="w w2" aria-hidden="true"><span class="ch" style="--i:5">P</span><span class="ch" style="--i:6">A</span><span class="ch" style="--i:7">R</span><span class="ch" style="--i:8">T</span><span class="ch" style="--i:9">Y</span></span></h2>
-        <p class="lead rv" style="--d:2" data-i18n="kp_lead">Derrapa para cargar el mini-turbo, lanza plátanos y caparazones y gana la <b>Copa</b> para subir al podio con tu piloto. Solo contra bots, en red local u online con un código.</p>
-        <ul class="feats">
-          <li class="rv" style="--d:3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 6-3 6 3 6-3v13l-6 3-6-3-6 3z"/><path d="M9 4v13M15 7v13"/></svg></span><span><b data-i18n="kpf1">5 circuitos</b><small data-i18n="kpf1d">Valle, nieve, isla con puente, desierto y ciudad de noche.</small></span></li>
-          <li class="rv" style="--d:4"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></span><span><b data-i18n="kpf2">Copa y podio</b><small data-i18n="kpf2d">Todos los circuitos seguidos, puntos y trofeos.</small></span></li>
-          <li class="rv" style="--d:5"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><span><b data-i18n="kpf3">Tu piloto y tu coche</b><small data-i18n="kpf3d">Cascos, atuendos, número, pegatinas, bocina y baile.</small></span></li>
-          <li class="rv" style="--d:6"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 16.6A5 5 0 0 0 18 7h-1.3A8 8 0 1 0 4 15.3"/><path d="M8 19v2M8 13v2M16 19v2M16 13v2M12 21v2M12 15v2"/></svg></span><span><b data-i18n="kpf4">Lluvia y noche</b><small data-i18n="kpf4d">Asfalto mojado, relámpagos y menos agarre.</small></span></li>
-        </ul>
-        <div class="keys rv" style="--d:7"><span><kbd>WASD</kbd><span data-i18n="kk_drive">conducir</span></span><span><kbd data-i18n="kk_space">Espacio</kbd><span data-i18n="kk_drift">derrapar</span></span><span><kbd>E</kbd><span data-i18n="kk_item">objeto</span></span><span><kbd>H</kbd><span data-i18n="kk_horn">bocina</span></span><span data-i18n="kk_pad">🎮 Mando compatible</span></div>
-      </div>
-      <div class="collage" data-parallax>
-        <button class="shot rv left" data-full="img/kp_lluvia.jpg"><img src="img/kp_lluvia_s.jpg" alt="Carrera de noche bajo la lluvia en la Ciudad Nocturna" loading="lazy"><span class="cap" data-i18n="cap_rain">Ciudad Nocturna con lluvia</span></button>
-        <button class="shot rv left" style="--d:2" data-full="img/kp_podio.jpg"><img src="img/kp_podio_s.jpg" alt="Podio del final de la copa con los pilotos celebrando" loading="lazy"><span class="cap" data-i18n="cap_podium">El podio de la Copa</span></button>
-        <button class="shot rv left" style="--d:4" data-full="img/kp_desierto.jpg"><img src="img/kp_desierto_s.jpg" alt="Un bólido F1 en Dunas Doradas con líneas de velocidad" loading="lazy"><span class="cap" data-i18n="cap_desert">Dunas Doradas a 185 km/h</span></button>
-      </div>
-    </div>
     <div class="wrap">
+      <h2 class="kp-title rv" aria-label="Kart Party">Kart <span>Party</span></h2>
+      <span class="genre rv" data-i18n="kp_kicker">CARRERAS CON AMIGOS</span>
+      <p class="lead rv" data-i18n="kp_lead">Derrapa para cargar el mini-turbo, lanza plátanos y caparazones y gana la <b>Copa</b> para subir al podio con tu piloto. Solo contra bots, en red local u online con un código.</p>
+      <ul class="feats strip rv">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-map-trifold"/></svg><span><b data-i18n="kpf1">5 circuitos</b><small data-i18n="kpf1d">Valle, nieve, isla con puente, desierto y ciudad de noche.</small></span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-flag-checkered"/></svg><span><b data-i18n="kpf2">Copa y podio</b><small data-i18n="kpf2d">Todos los circuitos seguidos, puntos y trofeos.</small></span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-user-circle"/></svg><span><b data-i18n="kpf3">Tu piloto y tu coche</b><small data-i18n="kpf3d">Cascos, atuendos, número, pegatinas, bocina y baile.</small></span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-cloud-rain"/></svg><span><b data-i18n="kpf4">Lluvia y noche</b><small data-i18n="kpf4d">Asfalto mojado, relámpagos y menos agarre.</small></span></li>
+      </ul>
+      <div class="keys rv"><span><kbd>WASD</kbd><span data-i18n="kk_drive">conducir</span></span><span><kbd data-i18n="kk_space">Espacio</kbd><span data-i18n="kk_drift">derrapar</span></span><span><kbd>E</kbd><span data-i18n="kk_item">objeto</span></span><span><kbd>H</kbd><span data-i18n="kk_horn">bocina</span></span><span data-i18n="kk_pad">Mando compatible</span></div>
       <div class="bento">
-        <button class="shot big rv zoom" data-full="img/kp_puente.jpg"><img src="img/kp_puente_s.jpg" alt="El puente del circuito en ocho de Isla Tropical" loading="lazy"><span class="cap" data-i18n="cap_bridge">Isla Tropical: circuito en 8 con puente</span></button>
-        <button class="shot rv zoom" style="--d:1" data-full="img/kp_piloto.jpg"><img src="img/kp_piloto_s.jpg" alt="Editor del piloto con corona y capa" loading="lazy"><span class="cap" data-i18n="cap_pilot">Crea tu piloto</span></button>
-        <button class="shot rv zoom" style="--d:2" data-full="img/kp_coche.jpg"><img src="img/kp_coche_s.jpg" alt="Número, pegatinas y bocina del coche" loading="lazy"><span class="cap" data-i18n="cap_car">Número y pegatinas</span></button>
-        <button class="shot wide rv zoom" style="--d:3" data-full="img/kp_nieve.jpg"><img src="img/kp_nieve_s.jpg" alt="Carrera en Pico Nevado" loading="lazy"><span class="cap" data-i18n="cap_snow">Pico Nevado</span></button>
-        <button class="shot rv zoom" style="--d:1" data-full="img/kp_copa.jpg"><img src="img/kp_copa_s.jpg" alt="Clasificación de la copa con puntos y trofeo" loading="lazy"><span class="cap" data-i18n="cap_cup">Puntos y trofeos</span></button>
-        <button class="shot rv zoom" style="--d:2" data-full="img/kp_sala.jpg"><img src="img/kp_sala_s.jpg" alt="La sala con el garaje, el circuito, el modo y la dificultad" loading="lazy"><span class="cap" data-i18n="cap_lobby">La sala y el garaje</span></button>
-        <button class="shot wide rv zoom" style="--d:3" data-full="img/kp_isla.jpg"><img src="img/kp_isla_s.jpg" alt="Isla Tropical al atardecer con cajas de objetos" loading="lazy"><span class="cap" data-i18n="cap_island">Cajas de objetos al atardecer</span></button>
+        <button class="shot big rv" type="button" data-full="img/kp_puente.jpg"><span class="frame"><img src="img/kp_puente_s.jpg" alt="El puente del circuito en ocho de Isla Tropical" loading="lazy"></span><span class="cap" data-i18n="cap_bridge">Isla Tropical: circuito en 8 con puente</span></button>
+        <button class="shot rv" style="--d:1" type="button" data-full="img/kp_piloto.jpg"><span class="frame"><img src="img/kp_piloto_s.jpg" alt="Editor del piloto con corona y capa" loading="lazy"></span><span class="cap" data-i18n="cap_pilot">Crea tu piloto</span></button>
+        <button class="shot rv" style="--d:2" type="button" data-full="img/kp_coche.jpg"><span class="frame"><img src="img/kp_coche_s.jpg" alt="Número, pegatinas y bocina del coche" loading="lazy"></span><span class="cap" data-i18n="cap_car">Número y pegatinas</span></button>
+        <button class="shot wide rv" style="--d:3" type="button" data-full="img/kp_nieve.jpg"><span class="frame"><img src="img/kp_nieve_s.jpg" alt="Carrera en Pico Nevado" loading="lazy"></span><span class="cap" data-i18n="cap_snow">Pico Nevado</span></button>
+        <button class="shot rv" style="--d:1" type="button" data-full="img/kp_copa.jpg"><span class="frame"><img src="img/kp_copa_s.jpg" alt="Clasificación de la copa con puntos y trofeo" loading="lazy"></span><span class="cap" data-i18n="cap_cup">Puntos y trofeos</span></button>
+        <button class="shot rv" style="--d:2" type="button" data-full="img/kp_sala.jpg"><span class="frame"><img src="img/kp_sala_s.jpg" alt="La sala con el garaje, el circuito, el modo y la dificultad" loading="lazy"></span><span class="cap" data-i18n="cap_lobby">La sala y el garaje</span></button>
+        <button class="shot wide rv" style="--d:3" type="button" data-full="img/kp_isla.jpg"><span class="frame"><img src="img/kp_isla_s.jpg" alt="Isla Tropical al atardecer con cajas de objetos" loading="lazy"></span><span class="cap" data-i18n="cap_island">Cajas de objetos al atardecer</span></button>
       </div>
     </div>
   </section>
 
   <section class="marquee" aria-label="Capturas de los dos juegos" data-i18n-aria="marquee_label">
     <div class="track" id="track1"></div>
-    <div class="track back" id="track2"></div>
   </section>
 
-  <section class="block" id="empezar">
-    <div class="wrap">
-      <div class="head rv">
-        <div class="kicker" data-i18n="start_kicker">EN UN MINUTO</div>
+  <section class="block" id="empezar" style="padding-top:0">
+    <div class="wrap steps-grid">
+      <div class="steps-head rv">
+        <span class="kicker" data-i18n="start_kicker">EN UN MINUTO</span>
         <h2 data-i18n="start_title">Cómo empezar</h2>
+        <p class="tip" data-i18n="tip">Si Windows avisa de que “protegió su PC”, pulsa <b>Más información → Ejecutar de todas formas</b>. Los juegos son gratis y no tienen anuncios ni compras.</p>
       </div>
-      <div class="steps">
-        <div class="step rv" style="--d:0"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></div><h3 data-i18n="s1t">Descarga el launcher</h3><p data-i18n="s1p">Un solo archivo, <b>ZileLauncher.exe</b>. No hace falta instalar nada más.</p></div>
-        <div class="step rv" style="--d:1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg></div><h3 data-i18n="s2t">Instala tus juegos</h3><p data-i18n="s2p">Elige Strike Zone o Kart Party y pulsa <b>INSTALAR</b>. Cuando salga una versión nueva, se actualizan solos.</p></div>
-        <div class="step rv" style="--d:2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16 14.2A5 5 0 0 1 22 19"/></svg></div><h3 data-i18n="s3t">Juega con amigos</h3><p data-i18n="s3p">Crea una sala online y pásales el código, o jugad en la misma red. También hay bots para jugar solo.</p></div>
-      </div>
-      <p class="tip rv" data-i18n="tip">Si Windows avisa de que “protegió su PC”, pulsa <b>Más información → Ejecutar de todas formas</b>. Los juegos son gratis y no tienen anuncios ni compras.</p>
-
-      <div class="final rv zoom">
-        <h2><span data-i18n="final_t1">¿Listo para</span> <span class="grad" data-i18n="final_t2">jugar?</span></h2>
-        <p data-i18n="final_p">Descarga el Zile Launcher y ten los dos juegos en un minuto.</p>
+      <ol class="steps">
+        <li class="rv"><div class="step-ic"><svg class="ic" aria-hidden="true"><use href="#i-download-simple"/></svg></div><div><h3 data-i18n="s1t">Descarga el launcher</h3><p data-i18n="s1p">Un solo archivo, <b>ZileLauncher.exe</b>. No hace falta instalar nada más.</p></div></li>
+        <li class="rv" style="--d:1"><div class="step-ic"><svg class="ic" aria-hidden="true"><use href="#i-package"/></svg></div><div><h3 data-i18n="s2t">Instala tus juegos</h3><p data-i18n="s2p">Elige Strike Zone o Kart Party y pulsa <b>INSTALAR</b>. Cuando salga una versión nueva, se actualizan solos.</p></div></li>
+        <li class="rv" style="--d:2"><div class="step-ic"><svg class="ic" aria-hidden="true"><use href="#i-users-three"/></svg></div><div><h3 data-i18n="s3t">Juega con amigos</h3><p data-i18n="s3p">Crea una sala online y pásales el código, o jugad en la misma red. También hay bots para jugar solo.</p></div></li>
+      </ol>
+    </div>
+    <div class="wrap">
+      <div class="final rv">
+        <img class="bgimg" src="img/kp_noche.jpg" alt="" loading="lazy">
+        <h2><span data-i18n="final_t1">¿Listo para</span> <span class="hl" data-i18n="final_t2">jugar?</span></h2>
         <a class="btn dl-launcher" href="https://github.com/NewZile/arena-fps/releases/download/launcher/ZileLauncher.exe">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
           <span data-i18n="hero_dl">DESCARGAR ZILE LAUNCHER</span>
+          <span class="go"><svg class="ic" aria-hidden="true"><use href="#i-download-simple"/></svg></span>
         </a>
-        <div class="fine"><a href="strikezone.html" data-i18n="zip_link">¿Prefieres el .zip de Strike Zone? Está en su página</a></div>
+        <p class="fine" data-i18n="hero_fine">Windows 10 y 11 · 64 bits · Se actualiza solo</p>
+        <p class="fine"><a href="strikezone.html" data-i18n="zip_link">¿Prefieres el .zip de Strike Zone? Está en su página</a></p>
       </div>
     </div>
   </section>
@@ -592,7 +548,7 @@
       <li><a href="creditos.html" data-i18n="l_credits">Créditos y licencias</a></li>
       <li><a href="accesibilidad.html" data-i18n="l_access">Accesibilidad</a></li>
     </ul></nav>
-    <p data-i18n="foot1">Juegos gratuitos y sin ánimo de lucro, hechos con Godot 4 por NewZile. Fuentes: Inter, Rajdhani y Luckiest Guy (Astigmatic, Apache 2.0). <a href="creditos.html">Ver todos los créditos</a>.</p>
+    <p data-i18n="foot1">Juegos gratuitos y sin ánimo de lucro, hechos con Godot 4 por NewZile. Fuentes: Bricolage Grotesque, Geist, Inter, Rajdhani y Luckiest Guy (Astigmatic, Apache 2.0). <a href="creditos.html">Ver todos los créditos</a>.</p>
     <p data-i18n="foot2">Esta web no usa cookies ni herramientas de seguimiento. Strike Zone no está afiliado ni respaldado por Valve Corporation.</p>
   </div>
 </footer>
