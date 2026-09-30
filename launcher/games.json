@@ -58,10 +58,20 @@
       "thumb": "builtin:kp_thumb.jpg"
     },
     {
-      "id": "soon-1",
-      "name": "???",
+      "id": "umbral",
+      "name": "Umbral",
+      "title_a": "UMBRAL",
+      "tagline": "Vuelves a la casa de tu infancia y algo se ha quedado dentro. Terror de supervivencia en primera persona.",
+      "tags": ["TERROR", "UN JUGADOR"],
       "status": "soon",
-      "hint": "Un juego nuevo está en camino"
+      "hint": "Terror de supervivencia",
+      "covers": [
+        "https://newzile.github.io/arena-fps/img/umbral_1.jpg",
+        "https://newzile.github.io/arena-fps/img/umbral_2.jpg",
+        "https://newzile.github.io/arena-fps/img/umbral_5.jpg",
+        "https://newzile.github.io/arena-fps/img/umbral_3.jpg"
+      ],
+      "thumb": "https://newzile.github.io/arena-fps/img/umbral_thumb.jpg"
     },
     {
       "id": "soon-2",

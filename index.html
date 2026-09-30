@@ -222,8 +222,8 @@
   .games { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; }
   .game.sz { grid-column: span 7; }
   .game.kp { grid-column: span 5; }
-  .soon.s1 { grid-column: span 5; }
-  .soon.s2 { grid-column: span 7; }
+  .game.um { grid-column: span 7; }
+  .soon.s2 { grid-column: span 5; }
   .game { display: block; text-decoration: none; color: inherit; transition: transform .7s var(--ease), border-color .5s var(--ease); }
   .game:hover { transform: translateY(-6px); border-color: var(--accent-line); }
   .game .core { display: flex; flex-direction: column; height: 100%; }
@@ -239,6 +239,10 @@
   .game.sz h3 span { color: var(--accent); }
   .game.kp h3 { font-family: Luckiest, var(--font-display); font-weight: 400; letter-spacing: .01em; color: var(--kp-yellow); text-shadow: 0 3px 0 var(--kp-orange); }
   .game.kp h3 span { color: var(--kp-white); text-shadow: 0 3px 0 var(--kp-pink); }
+  .game.um { cursor: default; }
+  .soon.s2 { align-self: start; }
+  .game.um:hover { transform: none; border-color: var(--line); }
+  .game .note { font-size: 13px; color: var(--dim); margin-top: 6px; }
   .game p { color: var(--dim); margin: 0; max-width: 52ch; }
   .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 4px; }
   .tags span { font-size: 13px; font-weight: 500; padding: 5px 13px; border-radius: 999px; background: var(--wash); color: var(--text); }
@@ -365,7 +369,7 @@
     .pin .txt { position: static; }
     .stage { max-width: 620px; }
     .games { grid-template-columns: minmax(0, 1fr); }
-    .game.sz, .game.kp, .soon.s1, .soon.s2 { grid-column: auto; }
+    .game.sz, .game.kp, .game.um, .soon.s2 { grid-column: auto; }
     .bar ul { display: none; }
     .bar select { margin-left: auto; }
     .menu-btn { display: block; }
@@ -526,8 +530,19 @@
             </div>
           </div>
         </a>
-        <div class="soon s1 rv"><b aria-hidden="true">???</b><span data-i18n="soon1">Un juego nuevo está en camino…</span></div>
-        <div class="soon s2 rv" style="--d:1"><b aria-hidden="true">???</b><span data-i18n="soon2">Muy pronto en el launcher</span></div>
+        <div class="game um bezel rv" style="--d:1" data-cycle>
+          <div class="core">
+            <div class="bg" aria-hidden="true"><img src="img/umbral_1_s.jpg" alt="" class="on" loading="lazy"><img src="img/umbral_2_s.jpg" alt="" loading="lazy"><img src="img/umbral_5_s.jpg" alt="" loading="lazy"><img src="img/umbral_3_s.jpg" alt="" loading="lazy"></div>
+            <div class="body">
+              <div class="meta"><span class="ok" data-i18n="dev_tag">EN DESARROLLO</span><span data-i18n="t_horror">TERROR</span></div>
+              <h3>Umbral</h3>
+              <p data-i18n="um_card">Vuelves a la casa de tu infancia y algo se ha quedado dentro. Terror de supervivencia en primera persona, con una linterna y poca luz.</p>
+              <div class="tags"><span data-i18n="ut1">Casa abandonada</span><span data-i18n="ut2">Un jugador</span><span data-i18n="ut3">Supervivencia</span></div>
+              <p class="note" data-i18n="um_note">Imágenes de concepto renderizadas en Godot. El juego aún no está disponible.</p>
+            </div>
+          </div>
+        </div>
+        <div class="soon s2 rv" style="--d:2"><b aria-hidden="true">???</b><span data-i18n="soon2">Muy pronto en el launcher</span></div>
       </div>
     </div>
   </section>
