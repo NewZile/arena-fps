@@ -1,6 +1,8 @@
-// Portada del Zile Launcher: selector de capturas, visor, cinta y versiones
+// Portada del Zile Launcher: selector de capturas, menú móvil, visor, cinta,
+// animaciones con GSAP + ScrollTrigger (alojados en lib/) y versiones
 // publicadas (GitHub Releases del mismo repositorio que sirve la web).
-// Sin listeners de scroll: la barra y el resaltado del menú usan IntersectionObserver.
+// Sin listeners de scroll: la barra y el resaltado del menú usan IntersectionObserver
+// y el resto del movimiento ligado al scroll lo lleva ScrollTrigger.
 (function () {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
@@ -30,6 +32,21 @@
     links.forEach((_, id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
   }
 
+  // --- Menú móvil: pantalla completa, se cierra con Escape, con un enlace o con el mismo botón ---
+  const menuBtn = $("#menu-btn");
+  const menu = $("#menu");
+  function setMenu(open) {
+    document.body.classList.toggle("menu-open", open);
+    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open) $("a", menu).focus({ preventScroll: true });
+  }
+  menuBtn.addEventListener("click", () => setMenu(!document.body.classList.contains("menu-open")));
+  $$("a", menu).forEach(a => a.addEventListener("click", () => setMenu(false)));
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && document.body.classList.contains("menu-open")) { setMenu(false); menuBtn.focus(); }
+  });
+  matchMedia("(min-width: 1001px)").addEventListener("change", e => { if (e.matches) setMenu(false); });
+
   // --- Selector de capturas de la portada: alterna entre los dos juegos ---
   const mockImgs = $$("#mock .shots img");
   const picks = $$("#mock .pick");
@@ -45,8 +62,15 @@
     mockTitle.innerHTML = i === 0 ? "STRIKE <span>ZONE</span>" : "KART PARTY";
     mockVer.textContent = (i === 0 ? versions.sz : versions.kp) || "";
   }
-  const runMock = () => { clearInterval(mockTimer); mockTimer = still ? null : setInterval(() => showMock(1 - mi), 4600); };
-  picks.forEach((b, k) => b.addEventListener("click", () => { showMock(k); runMock(); }));
+  // Se pausa con el ratón encima o con el foco dentro (WCAG 2.2.2) y se para del todo si eliges tú.
+  let mockManual = false;
+  const runMock = () => { clearInterval(mockTimer); mockTimer = still || mockManual ? null : setInterval(() => showMock(1 - mi), 4600); };
+  const stage = $("#mock");
+  stage.addEventListener("mouseenter", () => clearInterval(mockTimer));
+  stage.addEventListener("mouseleave", runMock);
+  stage.addEventListener("focusin", () => clearInterval(mockTimer));
+  stage.addEventListener("focusout", runMock);
+  picks.forEach((b, k) => b.addEventListener("click", () => { mockManual = true; showMock(k); runMock(); }));
   runMock();
 
   // --- Tarjetas de juego: sus capturas pasan (más rápido con el ratón encima) ---
@@ -60,7 +84,7 @@
     run(5200 + Math.random() * 1500);
   });
 
-  // --- Aparecen al bajar ---
+  // --- Aparecen al bajar (entradas sencillas: IntersectionObserver, sin GSAP) ---
   if ("IntersectionObserver" in window && !still) {
     const io = new IntersectionObserver(es => es.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
@@ -68,6 +92,63 @@
     $$(".rv").forEach(el => io.observe(el));
   } else {
     $$(".rv").forEach(el => el.classList.add("in"));
+  }
+
+  // --- GSAP + ScrollTrigger: dos movimientos con motivo ---
+  //  1) Las capturas de Strike Zone crecen al llegar y se apagan al irse: marcan cuál toca mirar.
+  //  2) El texto de introducción se ilumina palabra a palabra al leerlo: lleva la lectura.
+  // Con "reducir movimiento" no se monta nada (gsap.matchMedia lo deshace si cambia el ajuste).
+  function splitWords(node) {
+    Array.from(node.childNodes).forEach(n => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(p => {
+          if (!p) return;
+          if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(p)); return; }
+          const s = document.createElement("span");
+          s.className = "w";
+          s.textContent = p;
+          frag.appendChild(s);
+        });
+        n.replaceWith(frag);
+      } else if (n.nodeType === 1 && !n.classList.contains("w")) splitWords(n);
+    });
+  }
+
+  if (window.gsap && window.ScrollTrigger && !still) {
+    gsap.registerPlugin(ScrollTrigger);
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      $$(".reel .shot").forEach(shot => {
+        const frame = $(".frame", shot);
+        gsap.timeline({ scrollTrigger: { trigger: shot, start: "top 92%", end: "bottom 8%", scrub: true } })
+          .fromTo(frame, { scale: 0.8, opacity: 0.4 }, { scale: 1, opacity: 1, ease: "none", duration: 0.35 })
+          .to(frame, { scale: 0.97, opacity: 0.25, ease: "none", duration: 0.35 }, "+=0.3");
+      });
+
+      let tweens = [];
+      function mountScrub() {
+        tweens.forEach(t => { if (t.scrollTrigger) t.scrollTrigger.kill(); t.kill(); });
+        tweens = [];
+        $$("[data-scrub]").forEach(el => {
+          splitWords(el);
+          const ws = $$(".w", el);
+          if (!ws.length) return;
+          tweens.push(gsap.fromTo(ws, { opacity: 0.14 }, {
+            opacity: 1, ease: "none", stagger: 0.1,
+            scrollTrigger: { trigger: el, start: "top 85%", end: "bottom 55%", scrub: true },
+          }));
+        });
+        ScrollTrigger.refresh();
+      }
+      mountScrub();
+      HUB.onChange(mountScrub);
+      return () => {
+        tweens.forEach(t => t.kill());
+        // al volver a "reducir movimiento" el texto queda entero
+        $$("[data-scrub] .w").forEach(w => { w.style.opacity = ""; });
+      };
+    });
   }
 
   // --- Contadores que suben ---

@@ -26,15 +26,39 @@
   @font-face { font-family: Luckiest; font-display: swap; src: url("fonts/luckiest.ttf") format("truetype"); }
   :root {
     color-scheme: dark;
+    /* Superficies */
     --bg: #0c0d10;
     --plate: #131418;
     --tray: #1a1b21;
+    --tray-hover: #22232a;
     --line: rgba(255, 255, 255, 0.08);
     --line-2: rgba(255, 255, 255, 0.16);
+    --wash: rgba(255, 255, 255, 0.06);
+    --wash-2: rgba(255, 255, 255, 0.07);
+    --edge-light: rgba(255, 255, 255, 0.07);
+    --glass: rgba(19, 20, 24, 0.55);
+    --glass-strong: rgba(19, 20, 24, 0.88);
+    --scrim: rgba(12, 13, 16, 0.94);
+    --scrim-mid: rgba(12, 13, 16, 0.72);
+    --scrim-soft: rgba(12, 13, 16, 0.4);
+    --overlay: rgba(8, 9, 12, 0.92);
+    --shadow-deep: rgba(4, 5, 10, 0.85);
+    --shadow-soft: rgba(0, 0, 0, 0.6);
+    /* Texto y acento */
     --text: #ecebe6;
     --dim: #9c9ca6;
     --accent: #f0b04b;
+    --accent-hover: #f6bd63;
+    --accent-line: rgba(240, 176, 75, 0.5);
+    --accent-wash: rgba(240, 176, 75, 0.11);
     --accent-ink: #1a1205;
+    --accent-ink-wash: rgba(26, 18, 5, 0.14);
+    /* Logotipo de Kart Party (identidad del juego, solo en su rótulo) */
+    --kp-yellow: #ffcc00;
+    --kp-orange: #c43c00;
+    --kp-white: #ffffff;
+    --kp-pink: #b3123f;
+    /* Formas: interactivos en píldora, contenedores 28/22, capturas sueltas 18 */
     --r-out: 28px;
     --r-in: 22px;
     --r-sm: 18px;
@@ -42,21 +66,23 @@
     --font-display: "Bricolage Grotesque", Geist, system-ui, sans-serif;
     --font-body: Geist, system-ui, sans-serif;
     --font-mono: "Geist Mono", ui-monospace, monospace;
+    /* Capas */
     --z-nav: 40;
+    --z-menu: 50;
     --z-lightbox: 60;
     --z-skip: 70;
     --z-grain: 80;
   }
   * { box-sizing: border-box; }
   [hidden] { display: none !important; }
-  html, body { margin: 0; }
+  html, body { margin: 0; overflow-x: clip; }
   html { scroll-behavior: smooth; scroll-padding-top: 96px; }
   body {
     background: var(--bg); color: var(--text);
     font: 400 16px/1.6 var(--font-body);
     -webkit-font-smoothing: antialiased;
-    overflow-x: clip;
   }
+  body.menu-open { overflow: hidden; }
   /* Grano fijo: rompe la planitud digital sin repintar el contenido que se desplaza */
   body::after {
     content: ""; position: fixed; inset: 0; z-index: var(--z-grain); pointer-events: none; opacity: .045;
@@ -64,7 +90,7 @@
   }
   img { max-width: 100%; display: block; }
   a { color: inherit; }
-  h1, h2, h3 { font-family: var(--font-display); font-weight: 800; letter-spacing: -.03em; line-height: 1; margin: 0; text-wrap: balance; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 800; letter-spacing: -.03em; line-height: 1; margin: 0; text-wrap: balance; overflow-wrap: anywhere; min-width: 0; font-style: normal; }
   p { text-wrap: pretty; }
   .wrap { width: min(1240px, 100% - 40px); margin: 0 auto; }
   .ic { width: 1.5em; height: 1.5em; fill: currentColor; flex: none; }
@@ -75,72 +101,95 @@
   .sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 48px; pointer-events: none; }
 
   /* ---------- Doble bisel: carcasa + núcleo con curvas concéntricas ---------- */
-  .bezel { padding: 6px; border-radius: var(--r-out); background: var(--tray); border: 1px solid var(--line); box-shadow: 0 40px 90px -36px rgba(4, 5, 10, .85); }
-  .bezel > .core { border-radius: var(--r-in); background: var(--plate); box-shadow: inset 0 1px 1px rgba(255, 255, 255, .07); overflow: hidden; }
+  .bezel { padding: 6px; border-radius: var(--r-out); background: var(--tray); border: 1px solid var(--line); box-shadow: 0 40px 90px -36px var(--shadow-deep); }
+  .bezel > .core { border-radius: var(--r-in); background: var(--plate); box-shadow: inset 0 1px 1px var(--edge-light); overflow: hidden; }
 
   /* ---------- Botones ---------- */
   .btn {
     display: inline-flex; align-items: center; gap: 16px; text-decoration: none; cursor: pointer; border: 0;
     font: 600 16px/1.2 var(--font-body); letter-spacing: .02em; white-space: nowrap;
     padding: 8px 8px 8px 28px; border-radius: 999px; color: var(--accent-ink); background: var(--accent);
-    box-shadow: 0 16px 34px -16px rgba(0, 0, 0, .8), inset 0 1px 0 rgba(255, 255, 255, .35);
+    box-shadow: 0 16px 34px -16px var(--shadow-deep), inset 0 1px 0 var(--edge-light);
     transition: transform .6s var(--ease), background-color .3s var(--ease), box-shadow .6s var(--ease);
   }
-  .btn .go { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: rgba(26, 18, 5, .14); transition: transform .6s var(--ease); }
+  .btn .go { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-ink-wash); transition: transform .6s var(--ease); }
   .btn .go .ic { width: 20px; height: 20px; }
-  .btn:hover { background: #f6bd63; box-shadow: 0 22px 40px -16px rgba(0, 0, 0, .85), inset 0 1px 0 rgba(255, 255, 255, .4); }
+  .btn:hover { background: var(--accent-hover); box-shadow: 0 22px 40px -16px var(--shadow-deep), inset 0 1px 0 var(--edge-light); }
   .btn:hover .go { transform: translate(3px, -2px) scale(1.06); }
   .btn:active { transform: scale(.98); }
-  .link { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; text-decoration: none; padding: 12px 4px; color: var(--text); }
+  .link { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 600; text-decoration: none; padding: 12px 4px; color: var(--text); white-space: nowrap; }
   .link span { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; padding-bottom: 3px; transition: background-size .5s var(--ease); }
   .link:hover span { background-size: 100% 1px; }
   .link .ic { width: 18px; height: 18px; color: var(--accent); transition: transform .5s var(--ease); }
   .link:hover .ic { transform: translateX(4px); }
 
-  /* ---------- Barra flotante ---------- */
+  /* ---------- Barra flotante y menú móvil ---------- */
   .nav { position: fixed; top: 14px; left: 0; right: 0; z-index: var(--z-nav); pointer-events: none; }
   .bar {
-    pointer-events: auto; width: min(1080px, 100% - 28px); margin: 0 auto; display: flex; align-items: center; gap: 18px;
+    pointer-events: auto; width: min(1080px, 100% - 28px); margin: 0 auto; display: flex; align-items: center; gap: 14px;
     padding: 8px 8px 8px 16px; border-radius: 999px;
-    background: rgba(19, 20, 24, .55); border: 1px solid var(--line);
+    background: var(--glass); border: 1px solid var(--line);
     -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 14px 44px -16px rgba(0, 0, 0, .6);
+    box-shadow: inset 0 1px 0 var(--edge-light), 0 14px 44px -16px var(--shadow-soft);
     transition: background-color .6s var(--ease);
   }
-  .nav.scrolled .bar { background: rgba(19, 20, 24, .88); }
+  .nav.scrolled .bar { background: var(--glass-strong); }
   .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 800 19px var(--font-display); letter-spacing: .1em; }
   .logo svg { width: 34px; height: 34px; }
   .bar ul { list-style: none; display: flex; gap: 4px; margin: 0 0 0 auto; padding: 0; }
-  .bar ul a { display: block; text-decoration: none; color: var(--dim); font-weight: 500; font-size: 14px; padding: 10px 14px; border-radius: 999px; transition: color .3s var(--ease), background-color .3s var(--ease); }
+  .bar ul a { display: block; text-decoration: none; color: var(--dim); font-weight: 500; font-size: 14px; padding: 10px 14px; border-radius: 999px; white-space: nowrap; transition: color .3s var(--ease), background-color .3s var(--ease); }
   .bar ul a:hover { color: var(--text); }
-  .bar ul a.on { color: var(--text); background: rgba(255, 255, 255, .07); }
+  .bar ul a.on { color: var(--text); background: var(--wash-2); }
   .bar select {
     font: 500 13px var(--font-body); color: var(--text); background: var(--plate);
-    border: 1px solid var(--line-2); border-radius: 999px; padding: 9px 12px; min-height: 40px; cursor: pointer;
+    border: 1px solid var(--line-2); border-radius: 999px; padding: 9px 12px; min-height: 44px; cursor: pointer;
   }
-  .bar .btn { padding: 4px 4px 4px 20px; font-size: 14px; gap: 12px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35); }
-  .bar .btn .go { width: 34px; height: 34px; }
+  .bar .btn { padding: 4px 4px 4px 20px; font-size: 14px; gap: 12px; }
+  .bar .btn .go { width: 36px; height: 36px; }
   .bar .btn .go .ic { width: 16px; height: 16px; }
+  .menu-btn { display: none; position: relative; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-2); background: var(--plate); cursor: pointer; padding: 0; transition: background-color .3s var(--ease), transform .4s var(--ease); }
+  .menu-btn:active { transform: scale(.96); }
+  .menu-btn i { position: absolute; left: 13px; right: 13px; height: 2px; border-radius: 2px; background: var(--text); transition: transform .6s var(--ease), opacity .3s var(--ease); }
+  .menu-btn i:nth-child(1) { top: 16px; }
+  .menu-btn i:nth-child(2) { top: 21px; }
+  .menu-btn i:nth-child(3) { top: 26px; }
+  .menu-open .menu-btn i:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+  .menu-open .menu-btn i:nth-child(2) { opacity: 0; }
+  .menu-open .menu-btn i:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+  .menu { position: fixed; inset: 0; z-index: var(--z-menu); display: flex; align-items: center; padding: 96px 28px 40px; background: var(--overlay); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); opacity: 0; visibility: hidden; transition: opacity .5s var(--ease), visibility .5s; }
+  .menu-open .menu { opacity: 1; visibility: visible; }
+  .menu ul { list-style: none; margin: 0; padding: 0; width: 100%; }
+  .menu li { border-top: 1px solid var(--line); opacity: 0; transform: translateY(28px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+  .menu li:last-child { border-bottom: 1px solid var(--line); }
+  .menu-open .menu li { opacity: 1; transform: none; }
+  .menu-open .menu li:nth-child(1) { transition-delay: .1s; } .menu-open .menu li:nth-child(2) { transition-delay: .16s; }
+  .menu-open .menu li:nth-child(3) { transition-delay: .22s; } .menu-open .menu li:nth-child(4) { transition-delay: .28s; }
+  .menu a { display: block; padding: 22px 4px; text-decoration: none; font: 800 clamp(34px, 9vw, 56px)/1 var(--font-display); letter-spacing: -.03em; }
+  .menu a:hover { color: var(--accent); }
+  /* El nav sube por encima del menú para que el botón de cierre siga siendo pulsable */
+  .menu-open .nav { z-index: calc(var(--z-menu) + 1); }
 
   /* ---------- Portada ---------- */
   .hero { position: relative; min-height: 100vh; min-height: 100dvh; display: grid; align-items: center; padding: 96px 0 56px; isolation: isolate; overflow: clip; }
   .hero::before {
     content: ""; position: absolute; inset: 0; z-index: -1;
-    background: radial-gradient(900px 560px at 88% 12%, rgba(240, 176, 75, .11), transparent 70%), radial-gradient(700px 500px at 0% 100%, rgba(255, 255, 255, .045), transparent 70%);
+    background: radial-gradient(900px 560px at 88% 12%, var(--accent-wash), transparent 70%), radial-gradient(700px 500px at 0% 100%, var(--wash), transparent 70%);
   }
-  .hero-grid { display: grid; grid-template-columns: 1.08fr 1fr; gap: clamp(32px, 5vw, 80px); align-items: center; }
-  .hero-grid > * { min-width: 0; }
-  .hero h1 { font-size: clamp(44px, 5.8vw, 92px); line-height: .98; letter-spacing: -.04em; text-transform: none; }
-  .hero h1 .l { display: block; overflow: hidden; padding-bottom: .1em; margin-bottom: -.1em; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
+  .hero h1 { font-size: clamp(40px, 5.2vw, 80px); line-height: .98; letter-spacing: -.04em; }
+  .hero h1 .l { display: flex; align-items: center; gap: .22em; overflow: hidden; padding-bottom: .1em; margin-bottom: -.1em; }
   .hero h1 .l > span { display: inline-block; transform: translateY(108%); animation: rise 1.1s var(--ease) forwards; }
   .hero h1 .l:nth-child(2) > span { animation-delay: .12s; }
   .hero h1 .hl { color: var(--accent); }
+  /* Imagen en línea con el titular: puntuación visual a la altura de la tipografía */
+  .hero h1 .inl { flex: 0 1 1.5em; min-width: .7em; height: .74em; border-radius: 999px; object-fit: cover; border: 1px solid var(--line-2); transform: translateY(108%); animation: rise 1.1s var(--ease) .1s forwards; }
+  .hero h1 .l:nth-child(2) .inl { animation-delay: .22s; }
   @keyframes rise { to { transform: none; } }
   .lead { color: var(--dim); font-size: clamp(17px, 1.5vw, 20px); max-width: 46ch; margin: 26px 0 36px; }
   .rise { animation: fadeup 1s var(--ease) both; }
   .d1 { animation-delay: .25s; } .d2 { animation-delay: .4s; }
   @keyframes fadeup { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
-  .ctas { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: center; }
   .static .hero { min-height: 900px; }
 
   /* Selector de capturas: alterna entre los dos juegos */
@@ -151,14 +200,14 @@
   .stage-title { flex: 1; min-width: 0; }
   .mock-title { font: 800 clamp(24px, 2.6vw, 34px)/1 var(--font-display); letter-spacing: -.03em; text-transform: uppercase; }
   .mock-title.sz span { color: var(--accent); }
-  .mock-title.kp { font-family: Luckiest, var(--font-display); font-weight: 400; letter-spacing: .01em; color: #ffcc00; text-shadow: 0 2px 0 #c43c00; }
+  .mock-title.kp { font-family: Luckiest, var(--font-display); font-weight: 400; letter-spacing: .01em; color: var(--kp-yellow); text-shadow: 0 2px 0 var(--kp-orange); }
   .mock-ver { font: 500 13px var(--font-mono); color: var(--dim); }
-  .picks { display: flex; gap: 8px; }
-  .pick { padding: 0; border: 2px solid transparent; background: none; border-radius: 14px; cursor: pointer; opacity: .55; transition: opacity .4s var(--ease), border-color .4s var(--ease), transform .5s var(--ease); }
-  .pick img { width: 64px; height: 44px; object-fit: cover; border-radius: 11px; }
+  .picks { display: flex; gap: 6px; }
+  .pick { padding: 4px; border: 0; background: none; border-radius: 16px; cursor: pointer; opacity: .55; transition: opacity .4s var(--ease), background-color .4s var(--ease), transform .5s var(--ease); }
+  .pick img { width: 64px; height: 44px; object-fit: cover; border-radius: 12px; }
   .pick:hover { opacity: .9; }
   .pick:active { transform: scale(.96); }
-  .pick[aria-pressed="true"] { opacity: 1; border-color: var(--accent); }
+  .pick[aria-pressed="true"] { opacity: 1; background: var(--accent); }
 
   /* ---------- Secciones ---------- */
   .block { padding: clamp(80px, 11vw, 150px) 0; position: relative; }
@@ -170,14 +219,13 @@
   .stat span { color: var(--dim); font-size: 14px; }
 
   /* Juegos: bento entrelazado 7/5 y 5/7 */
-  .games { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
-  .games > * { min-width: 0; }
+  .games { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; }
   .game.sz { grid-column: span 7; }
   .game.kp { grid-column: span 5; }
   .soon.s1 { grid-column: span 5; }
   .soon.s2 { grid-column: span 7; }
   .game { display: block; text-decoration: none; color: inherit; transition: transform .7s var(--ease), border-color .5s var(--ease); }
-  .game:hover { transform: translateY(-6px); border-color: rgba(240, 176, 75, .5); }
+  .game:hover { transform: translateY(-6px); border-color: var(--accent-line); }
   .game .core { display: flex; flex-direction: column; height: 100%; }
   .game .bg { position: relative; flex: 1; min-height: 300px; background: var(--plate); }
   .game .bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity 1s var(--ease), transform 1.4s var(--ease); }
@@ -189,11 +237,11 @@
   .meta .ver { margin-left: auto; color: var(--text); }
   .game h3 { font-size: clamp(40px, 4.6vw, 64px); text-transform: uppercase; }
   .game.sz h3 span { color: var(--accent); }
-  .game.kp h3 { font-family: Luckiest, var(--font-display); font-weight: 400; letter-spacing: .01em; color: #ffcc00; text-shadow: 0 3px 0 #c43c00; }
-  .game.kp h3 span { color: #fff; text-shadow: 0 3px 0 #b3123f; }
+  .game.kp h3 { font-family: Luckiest, var(--font-display); font-weight: 400; letter-spacing: .01em; color: var(--kp-yellow); text-shadow: 0 3px 0 var(--kp-orange); }
+  .game.kp h3 span { color: var(--kp-white); text-shadow: 0 3px 0 var(--kp-pink); }
   .game p { color: var(--dim); margin: 0; max-width: 52ch; }
   .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 4px; }
-  .tags span { font-size: 13px; font-weight: 500; padding: 5px 13px; border-radius: 999px; background: rgba(255, 255, 255, .06); color: var(--text); }
+  .tags span { font-size: 13px; font-weight: 500; padding: 5px 13px; border-radius: 999px; background: var(--wash); color: var(--text); }
   .game .more { display: inline-flex; align-items: center; gap: 10px; margin-top: 8px; font-weight: 600; color: var(--accent); }
   .game .more .ic { width: 18px; height: 18px; transition: transform .5s var(--ease); }
   .game:hover .more .ic { transform: translateX(6px); }
@@ -204,37 +252,35 @@
   /* Escaparates */
   .show { padding: clamp(80px, 12vw, 170px) 0; position: relative; }
   .show + .show { padding-top: 0; }
-  .pin { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(36px, 6vw, 100px); align-items: start; }
-  .pin > * { min-width: 0; }
+  .pin { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(36px, 6vw, 100px); align-items: start; }
   .pin .txt { position: sticky; top: 104px; }
   .show h2 { font-size: clamp(56px, 7.4vw, 112px); text-transform: uppercase; }
   .show.sz h2 span { color: var(--accent); }
   .genre { display: block; margin-top: 18px; font: 500 13px var(--font-mono); letter-spacing: .04em; color: var(--dim); }
   .show .lead { margin: 22px 0 28px; }
-  .feats { list-style: none; padding: 0; margin: 0 0 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
+  .feats { list-style: none; padding: 0; margin: 0 0 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
   .feats li { display: flex; gap: 14px; align-items: flex-start; padding: 18px 0; border-top: 1px solid var(--line); }
   .feats .ic { color: var(--accent); width: 28px; height: 28px; margin-top: 2px; }
   .feats b { display: block; font: 600 17px/1.3 var(--font-body); }
   .feats small { color: var(--dim); font-size: 14px; line-height: 1.5; display: block; margin-top: 2px; }
   .reel { display: grid; gap: 32px; }
-  .kbd-row, .keys { display: flex; flex-wrap: wrap; gap: 12px 24px; color: var(--dim); font-size: 14px; }
-  .keys { margin: 8px 0 clamp(40px, 6vw, 72px); }
+  .keys { display: flex; flex-wrap: wrap; gap: 12px 24px; color: var(--dim); font-size: 14px; margin: 8px 0 clamp(40px, 6vw, 72px); }
   .keys > span { display: inline-flex; align-items: center; gap: 10px; }
   kbd { font: 500 12px var(--font-mono); color: var(--text); background: var(--tray); border: 1px solid var(--line-2); border-bottom-width: 3px; border-radius: 8px; padding: 3px 10px; }
 
   /* Capturas: botón que abre el visor */
   .shot { display: block; width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: zoom-in; }
-  .shot .frame { display: block; position: relative; overflow: hidden; aspect-ratio: 16 / 10; border-radius: var(--r-sm); border: 1px solid var(--line); background: var(--plate); box-shadow: 0 30px 60px -32px rgba(0, 0, 0, .8); }
+  .shot .frame { display: block; position: relative; overflow: hidden; aspect-ratio: 16 / 10; border-radius: var(--r-sm); border: 1px solid var(--line); background: var(--plate); box-shadow: 0 30px 60px -32px var(--shadow-deep); }
   .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
   .shot:hover img { transform: scale(1.05); }
   .shot .cap { display: block; margin-top: 12px; font-size: 14px; line-height: 1.4; color: var(--dim); }
 
   /* Kart Party: introducción a todo el ancho, franja de rasgos y galería */
-  .kp-title { font-family: Luckiest, var(--font-display); font-weight: 400; font-size: clamp(64px, 11vw, 170px); line-height: .92; letter-spacing: .01em; color: #ffcc00; text-shadow: 0 .05em 0 #c43c00; }
-  .kp-title span { color: #fff; text-shadow: 0 .05em 0 #b3123f; }
+  .kp-title { font-family: Luckiest, var(--font-display); font-weight: 400; font-size: clamp(56px, 11vw, 170px); line-height: .92; letter-spacing: .01em; color: var(--kp-yellow); text-shadow: 0 .05em 0 var(--kp-orange); }
+  .kp-title span { color: var(--kp-white); text-shadow: 0 .05em 0 var(--kp-pink); }
   .kp .lead { max-width: 60ch; }
-  .strip { grid-template-columns: repeat(4, 1fr); margin-bottom: 28px; }
-  .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: clamp(150px, 15vw, 210px); gap: 16px; grid-auto-flow: dense; }
+  .strip { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-bottom: 28px; }
+  .bento { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: clamp(150px, 15vw, 210px); gap: 16px; grid-auto-flow: dense; }
   .bento .shot { height: 100%; }
   .bento .frame { height: 100%; aspect-ratio: auto; }
   .bento .cap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0; }
@@ -248,46 +294,45 @@
   .track .shot { width: 340px; flex: none; margin-right: 20px; }
   @keyframes slide { to { transform: translateX(-50%); } }
 
-  /* Cómo empezar */
-  .steps-grid { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(36px, 6vw, 100px); align-items: start; }
-  .steps-grid > * { min-width: 0; }
-  .steps-head { position: sticky; top: 104px; }
+  /* Cómo empezar: libro de registro a todo el ancho (otra familia que el escaparate fijado) */
+  .steps-head { max-width: 760px; margin-bottom: clamp(32px, 5vw, 56px); }
   .kicker { display: block; margin-bottom: 18px; font: 500 12px var(--font-mono); letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
-  .steps-head h2 { font-size: clamp(40px, 5vw, 72px); }
-  .tip { margin: 24px 0 0; max-width: 44ch; color: var(--dim); font-size: 15px; }
-  .steps { list-style: none; margin: 0; padding: 0; }
-  .steps li { display: grid; grid-template-columns: auto 1fr; gap: 24px; padding: 34px 0; border-top: 1px solid var(--line); }
-  .steps li:last-child { border-bottom: 1px solid var(--line); }
-  .step-ic { width: 60px; height: 60px; border-radius: var(--r-sm); background: var(--tray); border: 1px solid var(--line); display: grid; place-items: center; color: var(--accent); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07); }
-  .step-ic .ic { width: 28px; height: 28px; }
-  .steps h3 { font-size: clamp(26px, 2.6vw, 34px); margin-bottom: 8px; }
-  .steps p { margin: 0; color: var(--dim); max-width: 46ch; }
+  .steps-head h2 { font-size: clamp(40px, 5.2vw, 76px); }
+  .steps { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  @media (min-width: 1001px) { .steps li { padding: 44px 0 48px; } }
+  .steps li { display: grid; grid-template-columns: 56px minmax(0, 1.05fr) minmax(0, 1fr); gap: 20px clamp(20px, 4vw, 56px); align-items: start; padding: 36px 0 40px; border-bottom: 1px solid var(--line); transition: background-color .5s var(--ease); }
+  .steps li:hover { background: var(--wash); }
+  .step-ic { display: block; color: var(--accent); padding-top: 6px; }
+  .step-ic .ic { width: 36px; height: 36px; }
+  .steps h3 { font-size: clamp(30px, 3.6vw, 52px); }
+  .steps p { margin: 4px 0 0; color: var(--dim); max-width: 46ch; }
+  .tip { margin: 28px 0 0; max-width: 62ch; color: var(--dim); font-size: 15px; }
 
   /* Llamada final */
   .final { position: relative; isolation: isolate; overflow: hidden; margin-top: clamp(72px, 10vw, 140px); border-radius: var(--r-out); border: 1px solid var(--line); padding: clamp(48px, 8vw, 112px) clamp(24px, 6vw, 88px); }
   .final .bgimg { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
-  .final::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(12, 13, 16, .96) 0%, rgba(12, 13, 16, .78) 50%, rgba(12, 13, 16, .4) 100%); }
-  .final h2 { font-size: clamp(42px, 6.4vw, 96px); text-transform: none; margin-bottom: 36px; max-width: 14ch; }
+  .final::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, var(--scrim) 0%, var(--scrim-mid) 50%, var(--scrim-soft) 100%); }
+  .final h2 { font-size: clamp(42px, 6.4vw, 96px); margin-bottom: 36px; max-width: 14ch; }
   .final h2 .hl { color: var(--accent); }
-  .fine { color: var(--dim); font-size: 14px; margin-top: 24px; }
+  .fine { color: var(--dim); font-size: 14px; margin: 24px 0 0; }
   .fine a { color: var(--text); text-underline-offset: 3px; }
 
   footer { padding: 24px 0 56px; color: var(--dim); font-size: 14px; }
   footer nav ul { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-wrap: wrap; gap: 4px 24px; }
-  footer nav a { display: inline-block; padding: 8px 0; color: var(--text); text-decoration: none; }
+  footer nav a { display: inline-block; padding: 12px 0; color: var(--text); text-decoration: none; white-space: nowrap; }
   footer nav a:hover { color: var(--accent); }
   footer p { margin: 8px 0; max-width: 78ch; }
   footer p a { color: var(--text); }
 
   /* Visor de capturas */
-  .lightbox { position: fixed; inset: 0; z-index: var(--z-lightbox); display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(8, 9, 12, .92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity .4s var(--ease); }
+  .lightbox { position: fixed; inset: 0; z-index: var(--z-lightbox); display: flex; align-items: center; justify-content: center; padding: 20px; background: var(--overlay); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity .4s var(--ease); }
   .lightbox.open { opacity: 1; pointer-events: auto; }
   .lightbox figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; transform: scale(.95); transition: transform .6s var(--ease); }
   .lightbox.open figure { transform: none; }
-  .lightbox img { max-width: 100%; max-height: 82vh; border-radius: var(--r-sm); box-shadow: 0 40px 100px rgba(0, 0, 0, .7); }
+  .lightbox img { max-width: 100%; max-height: 82vh; border-radius: var(--r-sm); box-shadow: 0 40px 100px var(--shadow-deep); }
   .lightbox figcaption { color: var(--text); }
   .lb-btn { position: absolute; background: var(--tray); color: var(--text); border: 1px solid var(--line-2); border-radius: 999px; min-height: 44px; min-width: 44px; padding: 10px 18px; font: 500 15px var(--font-body); cursor: pointer; transition: background-color .3s var(--ease), transform .4s var(--ease); }
-  .lb-btn:hover { background: #24252c; }
+  .lb-btn:hover { background: var(--tray-hover); }
   .lb-btn:active { transform: scale(.96); }
   .lb-close { top: 16px; right: 16px; }
   .lb-prev, .lb-next { top: 50%; margin-top: -22px; font-size: 22px; padding: 8px 16px; }
@@ -296,58 +341,60 @@
   /* Aparecer al bajar (translate, para no chocar con los hover que usan transform) */
   .js .rv { opacity: 0; translate: 0 36px; transition: opacity 1s var(--ease) calc(var(--d, 0) * 90ms), translate 1s var(--ease) calc(var(--d, 0) * 90ms), transform .7s var(--ease), border-color .5s var(--ease); }
   .js .rv.in { opacity: 1; translate: none; }
-
-  /* Las capturas del escaparate ganan presencia al llegar (CSS ligado al scroll, sin JS) */
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .reel .frame { animation: settle linear both; animation-timeline: view(); animation-range: entry 0% cover 38%; }
-      @keyframes settle { from { transform: scale(.9); opacity: .35; } to { transform: none; opacity: 1; } }
-    }
-  }
+  /* Palabras del texto que se revela al hacer scroll (las anima GSAP) */
+  .w { display: inline; }
 
   @media (max-width: 1000px) {
     .hero { padding-top: 104px; }
-    .hero-grid, .pin, .steps-grid { grid-template-columns: 1fr; }
-    .pin .txt, .steps-head { position: static; }
+    .hero-grid, .pin { grid-template-columns: minmax(0, 1fr); }
+    .pin .txt { position: static; }
     .stage { max-width: 620px; }
-    .games { grid-template-columns: 1fr; }
+    .games { grid-template-columns: minmax(0, 1fr); }
     .game.sz, .game.kp, .soon.s1, .soon.s2 { grid-column: auto; }
     .bar ul { display: none; }
     .bar select { margin-left: auto; }
-    .strip { grid-template-columns: 1fr 1fr; }
-    .bento { grid-template-columns: repeat(2, 1fr); }
+    .menu-btn { display: block; }
+    .strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .steps li { grid-template-columns: 56px minmax(0, 1fr); }
+    .steps li p { grid-column: 2; margin-top: 0; }
   }
   @media (max-height: 720px) {
-    .pin .txt, .steps-head { position: static; }
+    .pin .txt { position: static; }
   }
   @media (max-width: 640px) {
-    .feats, .strip { grid-template-columns: 1fr; }
-    .bento { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+    .feats, .strip { grid-template-columns: minmax(0, 1fr); }
+    .bento { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 220px; }
     .bento .big, .bento .wide { grid-column: auto; grid-row: auto; }
     .game .bg { min-height: 220px; }
     .game .body { padding: 22px; }
     .soon { padding: 24px; }
-    .btn { white-space: normal; font-size: 15px; letter-spacing: 0; padding-left: 22px; }
     .ctas .btn { width: 100%; justify-content: space-between; }
     .track .shot { width: 260px; }
     .logo span { display: none; }
     .stage-bar { flex-wrap: wrap; }
-    .steps li { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
+    .steps li { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+    .steps li p { grid-column: auto; }
     .final h2 { max-width: none; }
   }
   @media (max-width: 400px) {
+    .bar { gap: 8px; padding-left: 12px; }
     .bar .btn { padding-left: 14px; }
     .bar select { padding: 9px 8px; }
   }
   @media (prefers-reduced-transparency: reduce) {
-    .bar, .lightbox { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--plate); }
+    .bar, .lightbox, .menu { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--plate); }
   }
+  /* Movimiento reducido: los cambios de estado se conservan con fundidos de opacidad; se quita el desplazamiento, el zoom y los bucles */
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
-    .js .rv { opacity: 1; translate: none; }
-    .hero h1 .l > span { transform: none; }
-    .rise { opacity: 1; transform: none; }
+    .js .rv { opacity: 1; translate: none; transition: none; }
+    .hero h1 .l > span, .hero h1 .inl { transform: none; animation: none; }
+    .rise { animation: none; }
+    .stage .shots img, .game .bg img { transform: none; transition: opacity .4s linear; }
+    .game:hover, .shot:hover img, .btn:hover .go, .link:hover .ic, .game:hover .more .ic { transform: none; }
+    .menu li { transform: none; transition: opacity .3s linear; }
+    .menu-btn i { transition: none; }
     .marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
     .track { animation: none; }
   }
@@ -379,17 +426,27 @@
       <span data-i18n="nav_dl">DESCARGAR</span>
       <span class="go"><svg class="ic" aria-hidden="true"><use href="#i-download-simple"/></svg></span>
     </a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menú" data-i18n-aria="nav_label"><i></i><i></i><i></i></button>
   </div>
 </nav>
+
+<div class="menu" id="menu" role="navigation" aria-label="Principal" data-i18n-aria="nav_label">
+  <ul>
+    <li><a href="#juegos" data-i18n="nav_games">Juegos</a></li>
+    <li><a href="#strikezone">Strike Zone</a></li>
+    <li><a href="#kartparty">Kart Party</a></li>
+    <li><a href="#empezar" data-i18n="nav_start">Cómo empezar</a></li>
+  </ul>
+</div>
 
 <header class="hero" id="top">
   <div class="wrap hero-grid">
     <div class="copy">
-      <h1><span class="l"><span data-i18n="hero_t1">Tus juegos.</span></span><span class="l"><span class="hl" data-i18n="hero_t2">Un launcher.</span></span></h1>
+      <h1><span class="l"><span data-i18n="hero_t1">Tus juegos.</span><img class="inl" src="img/ciudad_s.jpg" alt=""></span><span class="l"><span class="hl" data-i18n="hero_t2">Un launcher.</span><img class="inl" src="img/kp_puente_s.jpg" alt=""></span></h1>
       <p class="lead rise d1" data-i18n="final_p">Descarga el Zile Launcher y ten los dos juegos en un minuto.</p>
       <div class="ctas rise d2">
         <a class="btn dl-launcher" href="https://github.com/NewZile/arena-fps/releases/download/launcher/ZileLauncher.exe">
-          <span data-i18n="hero_dl">DESCARGAR ZILE LAUNCHER</span>
+          <span data-i18n="nav_dl">DESCARGAR</span>
           <span class="go"><svg class="ic" aria-hidden="true"><use href="#i-download-simple"/></svg></span>
         </a>
         <a class="link" href="#juegos"><span data-i18n="hero_see">VER LOS JUEGOS</span><svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
@@ -421,7 +478,7 @@
     <div class="wrap">
       <div class="head rv">
         <h2 data-i18n="games_title">Elige a qué jugar</h2>
-        <p data-i18n="games_sub">Los dos se instalan desde el launcher con un clic y se actualizan solos cada vez que sale una versión nueva.</p>
+        <p data-scrub data-i18n="games_sub">Los dos se instalan desde el launcher con un clic y se actualizan solos cada vez que sale una versión nueva.</p>
         <div class="stats">
           <div class="stat"><b>2</b><span data-i18n="st_games">juegos gratis</span></div>
           <div class="stat"><b data-count="11">11</b><span data-i18n="st_modes">modos y circuitos</span></div>
@@ -485,7 +542,7 @@
     <div class="wrap">
       <h2 class="kp-title rv" aria-label="Kart Party">Kart <span>Party</span></h2>
       <span class="genre rv" data-i18n="kp_kicker">CARRERAS CON AMIGOS</span>
-      <p class="lead rv" data-i18n="kp_lead">Derrapa para cargar el mini-turbo, lanza plátanos y caparazones y gana la <b>Copa</b> para subir al podio con tu piloto. Solo contra bots, en red local u online con un código.</p>
+      <p class="lead rv" data-scrub data-i18n="kp_lead">Derrapa para cargar el mini-turbo, lanza plátanos y caparazones y gana la <b>Copa</b> para subir al podio con tu piloto. Solo contra bots, en red local u online con un código.</p>
       <ul class="feats strip rv">
         <li><svg class="ic" aria-hidden="true"><use href="#i-map-trifold"/></svg><span><b data-i18n="kpf1">5 circuitos</b><small data-i18n="kpf1d">Valle, nieve, isla con puente, desierto y ciudad de noche.</small></span></li>
         <li><svg class="ic" aria-hidden="true"><use href="#i-flag-checkered"/></svg><span><b data-i18n="kpf2">Copa y podio</b><small data-i18n="kpf2d">Todos los circuitos seguidos, puntos y trofeos.</small></span></li>
@@ -494,13 +551,13 @@
       </ul>
       <div class="keys rv"><span><kbd>WASD</kbd><span data-i18n="kk_drive">conducir</span></span><span><kbd data-i18n="kk_space">Espacio</kbd><span data-i18n="kk_drift">derrapar</span></span><span><kbd>E</kbd><span data-i18n="kk_item">objeto</span></span><span><kbd>H</kbd><span data-i18n="kk_horn">bocina</span></span><span data-i18n="kk_pad">Mando compatible</span></div>
       <div class="bento">
-        <button class="shot big rv" type="button" data-full="img/kp_puente.jpg"><span class="frame"><img src="img/kp_puente_s.jpg" alt="El puente del circuito en ocho de Isla Tropical" loading="lazy"></span><span class="cap" data-i18n="cap_bridge">Isla Tropical: circuito en 8 con puente</span></button>
-        <button class="shot rv" style="--d:1" type="button" data-full="img/kp_piloto.jpg"><span class="frame"><img src="img/kp_piloto_s.jpg" alt="Editor del piloto con corona y capa" loading="lazy"></span><span class="cap" data-i18n="cap_pilot">Crea tu piloto</span></button>
-        <button class="shot rv" style="--d:2" type="button" data-full="img/kp_coche.jpg"><span class="frame"><img src="img/kp_coche_s.jpg" alt="Número, pegatinas y bocina del coche" loading="lazy"></span><span class="cap" data-i18n="cap_car">Número y pegatinas</span></button>
-        <button class="shot wide rv" style="--d:3" type="button" data-full="img/kp_nieve.jpg"><span class="frame"><img src="img/kp_nieve_s.jpg" alt="Carrera en Pico Nevado" loading="lazy"></span><span class="cap" data-i18n="cap_snow">Pico Nevado</span></button>
-        <button class="shot rv" style="--d:1" type="button" data-full="img/kp_copa.jpg"><span class="frame"><img src="img/kp_copa_s.jpg" alt="Clasificación de la copa con puntos y trofeo" loading="lazy"></span><span class="cap" data-i18n="cap_cup">Puntos y trofeos</span></button>
-        <button class="shot rv" style="--d:2" type="button" data-full="img/kp_sala.jpg"><span class="frame"><img src="img/kp_sala_s.jpg" alt="La sala con el garaje, el circuito, el modo y la dificultad" loading="lazy"></span><span class="cap" data-i18n="cap_lobby">La sala y el garaje</span></button>
-        <button class="shot wide rv" style="--d:3" type="button" data-full="img/kp_isla.jpg"><span class="frame"><img src="img/kp_isla_s.jpg" alt="Isla Tropical al atardecer con cajas de objetos" loading="lazy"></span><span class="cap" data-i18n="cap_island">Cajas de objetos al atardecer</span></button>
+        <button class="shot big" type="button" data-full="img/kp_puente.jpg"><span class="frame"><img src="img/kp_puente_s.jpg" alt="El puente del circuito en ocho de Isla Tropical" loading="lazy"></span><span class="cap" data-i18n="cap_bridge">Isla Tropical: circuito en 8 con puente</span></button>
+        <button class="shot" type="button" data-full="img/kp_piloto.jpg"><span class="frame"><img src="img/kp_piloto_s.jpg" alt="Editor del piloto con corona y capa" loading="lazy"></span><span class="cap" data-i18n="cap_pilot">Crea tu piloto</span></button>
+        <button class="shot" type="button" data-full="img/kp_coche.jpg"><span class="frame"><img src="img/kp_coche_s.jpg" alt="Número, pegatinas y bocina del coche" loading="lazy"></span><span class="cap" data-i18n="cap_car">Número y pegatinas</span></button>
+        <button class="shot wide" type="button" data-full="img/kp_nieve.jpg"><span class="frame"><img src="img/kp_nieve_s.jpg" alt="Carrera en Pico Nevado" loading="lazy"></span><span class="cap" data-i18n="cap_snow">Pico Nevado</span></button>
+        <button class="shot" type="button" data-full="img/kp_copa.jpg"><span class="frame"><img src="img/kp_copa_s.jpg" alt="Clasificación de la copa con puntos y trofeo" loading="lazy"></span><span class="cap" data-i18n="cap_cup">Puntos y trofeos</span></button>
+        <button class="shot" type="button" data-full="img/kp_sala.jpg"><span class="frame"><img src="img/kp_sala_s.jpg" alt="La sala con el garaje, el circuito, el modo y la dificultad" loading="lazy"></span><span class="cap" data-i18n="cap_lobby">La sala y el garaje</span></button>
+        <button class="shot wide" type="button" data-full="img/kp_isla.jpg"><span class="frame"><img src="img/kp_isla_s.jpg" alt="Isla Tropical al atardecer con cajas de objetos" loading="lazy"></span><span class="cap" data-i18n="cap_island">Cajas de objetos al atardecer</span></button>
       </div>
     </div>
   </section>
@@ -509,28 +566,27 @@
     <div class="track" id="track1"></div>
   </section>
 
-  <section class="block" id="empezar" style="padding-top:0">
-    <div class="wrap steps-grid">
+  <section class="block" id="empezar">
+    <div class="wrap">
       <div class="steps-head rv">
         <span class="kicker" data-i18n="start_kicker">EN UN MINUTO</span>
         <h2 data-i18n="start_title">Cómo empezar</h2>
-        <p class="tip" data-i18n="tip">Si Windows avisa de que “protegió su PC”, pulsa <b>Más información → Ejecutar de todas formas</b>. Los juegos son gratis y no tienen anuncios ni compras.</p>
       </div>
       <ol class="steps">
-        <li class="rv"><div class="step-ic"><svg class="ic" aria-hidden="true"><use href="#i-download-simple"/></svg></div><div><h3 data-i18n="s1t">Descarga el launcher</h3><p data-i18n="s1p">Un solo archivo, <b>ZileLauncher.exe</b>. No hace falta instalar nada más.</p></div></li>
-        <li class="rv" style="--d:1"><div class="step-ic"><svg class="ic" aria-hidden="true"><use href="#i-package"/></svg></div><div><h3 data-i18n="s2t">Instala tus juegos</h3><p data-i18n="s2p">Elige Strike Zone o Kart Party y pulsa <b>INSTALAR</b>. Cuando salga una versión nueva, se actualizan solos.</p></div></li>
-        <li class="rv" style="--d:2"><div class="step-ic"><svg class="ic" aria-hidden="true"><use href="#i-users-three"/></svg></div><div><h3 data-i18n="s3t">Juega con amigos</h3><p data-i18n="s3p">Crea una sala online y pásales el código, o jugad en la misma red. También hay bots para jugar solo.</p></div></li>
+        <li class="rv"><div class="step-ic"><svg class="ic" aria-hidden="true"><use href="#i-download-simple"/></svg></div><h3 data-i18n="s1t">Descarga el launcher</h3><p data-i18n="s1p">Un solo archivo, <b>ZileLauncher.exe</b>. No hace falta instalar nada más.</p></li>
+        <li class="rv"><div class="step-ic"><svg class="ic" aria-hidden="true"><use href="#i-package"/></svg></div><h3 data-i18n="s2t">Instala tus juegos</h3><p data-i18n="s2p">Elige Strike Zone o Kart Party y pulsa <b>INSTALAR</b>. Cuando salga una versión nueva, se actualizan solos.</p></li>
+        <li class="rv"><div class="step-ic"><svg class="ic" aria-hidden="true"><use href="#i-users-three"/></svg></div><h3 data-i18n="s3t">Juega con amigos</h3><p data-i18n="s3p">Crea una sala online y pásales el código, o jugad en la misma red. También hay bots para jugar solo.</p></li>
       </ol>
-    </div>
-    <div class="wrap">
+      <p class="tip rv" data-i18n="tip">Si Windows avisa de que “protegió su PC”, pulsa <b>Más información → Ejecutar de todas formas</b>. Los juegos son gratis y no tienen anuncios ni compras.</p>
+
       <div class="final rv">
         <img class="bgimg" src="img/kp_noche.jpg" alt="" loading="lazy">
         <h2><span data-i18n="final_t1">¿Listo para</span> <span class="hl" data-i18n="final_t2">jugar?</span></h2>
         <a class="btn dl-launcher" href="https://github.com/NewZile/arena-fps/releases/download/launcher/ZileLauncher.exe">
-          <span data-i18n="hero_dl">DESCARGAR ZILE LAUNCHER</span>
+          <span data-i18n="nav_dl">DESCARGAR</span>
           <span class="go"><svg class="ic" aria-hidden="true"><use href="#i-download-simple"/></svg></span>
         </a>
-        <p class="fine" data-i18n="hero_fine">Windows 10 y 11 · 64 bits · Se actualiza solo</p>
+        <p class="fine" data-i18n="hero_fine">Windows 10 y 11, 64 bits, se actualiza solo</p>
         <p class="fine"><a href="strikezone.html" data-i18n="zip_link">¿Prefieres el .zip de Strike Zone? Está en su página</a></p>
       </div>
     </div>
@@ -560,6 +616,8 @@
   <figure><img alt=""><figcaption></figcaption></figure>
 </div>
 
+<script src="lib/gsap.min.js"></script>
+<script src="lib/ScrollTrigger.min.js"></script>
 <script src="hub-i18n.js"></script>
 <script src="hub.js"></script>
 </body>
