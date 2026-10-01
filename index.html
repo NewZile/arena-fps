@@ -190,6 +190,9 @@
   .d1 { animation-delay: .25s; } .d2 { animation-delay: .4s; }
   @keyframes fadeup { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
   .ctas { display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: center; }
+  .hero-note { margin-top: 28px; max-width: 46ch; color: var(--dim); font-size: 14px; line-height: 1.5; }
+  .hero-note p { margin: 0 0 6px; }
+  .hero-note b { color: var(--text); font-weight: 600; }
   .static .hero { min-height: 900px; }
 
   /* Selector de capturas: alterna entre los dos juegos */
@@ -210,7 +213,7 @@
   .pick[aria-pressed="true"] { opacity: 1; background: var(--accent); }
 
   /* ---------- Secciones ---------- */
-  .block { padding: clamp(80px, 11vw, 150px) 0; position: relative; }
+  .block { padding: clamp(72px, 8vw, 112px) 0; position: relative; }
   .head { max-width: 760px; margin: 0 0 clamp(36px, 5vw, 64px); }
   .head h2 { font-size: clamp(38px, 5.2vw, 76px); }
   .head p { color: var(--dim); font-size: 18px; max-width: 58ch; margin: 20px 0 0; }
@@ -254,7 +257,7 @@
   .soon span { color: var(--dim); }
 
   /* Escaparates */
-  .show { padding: clamp(80px, 12vw, 170px) 0; position: relative; }
+  .show { padding: clamp(72px, 9vw, 128px) 0; position: relative; }
   .show + .show { padding-top: 0; }
   .pin { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(36px, 6vw, 100px); align-items: start; }
   .pin .txt { position: sticky; top: 104px; }
@@ -291,13 +294,6 @@
   .bento .big { grid-column: span 2; grid-row: span 2; }
   .bento .wide { grid-column: span 2; }
 
-  /* Cinta única de capturas: muestra el alcance de los dos juegos */
-  .marquee { overflow: hidden; padding: 0 0 clamp(80px, 11vw, 150px); -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
-  .track { display: flex; width: max-content; animation: slide 110s linear infinite; }
-  .marquee:hover .track, .marquee:focus-within .track { animation-play-state: paused; }
-  .track .shot { width: 340px; flex: none; margin-right: 20px; }
-  @keyframes slide { to { transform: translateX(-50%); } }
-
   /* Cómo empezar: libro de registro a todo el ancho (otra familia que el escaparate fijado) */
   .steps-head { max-width: 760px; margin-bottom: clamp(32px, 5vw, 56px); }
   .kicker { display: block; margin-bottom: 18px; font: 500 12px var(--font-mono); letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
@@ -310,7 +306,6 @@
   .step-ic .ic { width: 36px; height: 36px; }
   .steps h3 { font-size: clamp(30px, 3.6vw, 52px); }
   .steps p { margin: 4px 0 0; color: var(--dim); max-width: 46ch; }
-  .tip { margin: 28px 0 0; max-width: 62ch; color: var(--dim); font-size: 15px; }
 
   /* Captura real del launcher */
   .showcase { margin: clamp(40px, 6vw, 72px) 0 0; }
@@ -390,7 +385,6 @@
     .game .body { padding: 22px; }
     .soon { padding: 24px; }
     .ctas .btn { width: 100%; justify-content: space-between; }
-    .track .shot { width: 260px; }
     .logo span { display: none; }
     .stage-bar { flex-wrap: wrap; }
     .steps li { grid-template-columns: minmax(0, 1fr); gap: 16px; }
@@ -415,8 +409,6 @@
     .game:hover, .shot:hover img, .btn:hover .go, .link:hover .ic, .game:hover .more .ic { transform: none; }
     .menu li { transform: none; transition: opacity .3s linear; }
     .menu-btn i { transition: none; }
-    .marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
-    .track { animation: none; }
   }
 </style>
 </head>
@@ -471,6 +463,10 @@
         </a>
         <a class="link" href="#juegos"><span data-i18n="hero_see">VER LOS JUEGOS</span><svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
       </div>
+      <div class="hero-note rise d2">
+        <p data-i18n="hero_fine">Windows 10 y 11, 64 bits, se actualiza solo</p>
+        <p data-i18n="tip">Si Windows avisa de que “protegió su PC”, pulsa <b>Más información → Ejecutar de todas formas</b>. Los juegos son gratis y no tienen anuncios ni compras.</p>
+      </div>
     </div>
     <div class="stage rise d2" id="mock">
       <div class="bezel"><div class="core">
@@ -513,7 +509,6 @@
               <div class="meta"><span class="ok" data-i18n="available">DISPONIBLE</span><span>SHOOTER</span><span class="ver" id="ver-sz" hidden></span></div>
               <h3>Strike <span>Zone</span></h3>
               <p data-i18n="sz_card">Shooter táctico con modo Bomba, Zombis por oleadas y Escondite (Prop Hunt). Rangos, skins, clanes y bots listos.</p>
-              <div class="tags"><span data-i18n="t_zombies">Zombis</span><span data-i18n="t_hide">Escondite</span><span data-i18n="t_bomb">Modo Bomba</span><span data-i18n="t_clans">Clanes</span></div>
               <span class="more"><span data-i18n="discover">DESCÚBRELO</span><svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
             </div>
           </div>
@@ -525,7 +520,6 @@
               <div class="meta"><span class="ok" data-i18n="available">DISPONIBLE</span><span data-i18n="t_racing">CARRERAS</span><span class="ver" id="ver-kp" hidden></span></div>
               <h3>Kart <span>Party</span></h3>
               <p data-i18n="kp_card">Carreras locas de karts: derrapes con mini-turbo, plátanos y caparazones, copas con podio, lluvia y tu propio piloto.</p>
-              <div class="tags"><span data-i18n="t_5tracks">5 circuitos</span><span data-i18n="t_cup">Copa y podio</span><span data-i18n="t_pilot">Tu piloto</span><span data-i18n="t_online">Online</span></div>
               <span class="more"><span data-i18n="discover">DESCÚBRELO</span><svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
             </div>
           </div>
@@ -593,10 +587,6 @@
     </div>
   </section>
 
-  <section class="marquee" aria-label="Capturas de los dos juegos" data-i18n-aria="marquee_label">
-    <div class="track" id="track1"></div>
-  </section>
-
   <section class="block news" id="novedades" hidden>
     <div class="wrap">
       <h2 data-i18n="news_title">Novedades</h2>
@@ -618,7 +608,6 @@
       <figure class="showcase rv">
         <div class="bezel"><div class="core"><img src="img/launcher.jpg" srcset="img/launcher_s.jpg 800w, img/launcher.jpg 1280w" sizes="(min-width: 1000px) 1200px, 92vw" width="1280" height="760" alt="El Zile Launcher: la biblioteca con Strike Zone y Kart Party, el botón JUGAR y las novedades de la última versión" loading="lazy"></div></div>
       </figure>
-      <p class="tip rv" data-i18n="tip">Si Windows avisa de que “protegió su PC”, pulsa <b>Más información → Ejecutar de todas formas</b>. Los juegos son gratis y no tienen anuncios ni compras.</p>
 
       <div class="final rv">
         <img class="bgimg" src="img/kp_noche.jpg" alt="" loading="lazy">

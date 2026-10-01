@@ -1,4 +1,4 @@
-// Portada del Zile Launcher: selector de capturas, menú móvil, visor, cinta,
+// Portada del Zile Launcher: selector de capturas, menú móvil, visor,
 // animaciones con GSAP + ScrollTrigger (alojados en lib/) y versiones
 // publicadas (GitHub Releases del mismo repositorio que sirve la web).
 // Sin listeners de scroll: la barra y el resaltado del menú usan IntersectionObserver
@@ -9,7 +9,6 @@
   const isStatic = new URLSearchParams(location.search).has("static");
   if (isStatic) document.documentElement.classList.add("static");
   const still = isStatic || matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const T = k => HUB.t(k);
 
   // En https://<usuario>.github.io/<repo>/ ; si se abre en local, el repo de siempre.
   const onPages = location.hostname.endsWith("github.io");
@@ -163,21 +162,6 @@
     requestAnimationFrame(step);
   }
 
-  // --- Cinta única con capturas de los dos juegos ---
-  const strip = [
-    ["kp_lluvia", "cap_rain"], ["apocalipsis", "cap_apo"], ["kp_puente", "cap_bridge"], ["escondite", "cap_props"],
-    ["kp_podio", "cap_podium"], ["repeticiones", "cap_rep"], ["kp_desierto", "cap_desert"], ["clan", "cap_clan"],
-    ["menu", "cap_menu"], ["kp_nieve", "cap_snow"], ["trampas", "cap_trap"], ["kp_piloto", "cap_pilot"],
-    ["desierto", "cap_sz_desert"], ["kp_isla", "cap_island"], ["podio", "cap_sz_podium"], ["kp_sala", "cap_lobby"],
-  ];
-  function fillTrack(el, list) {
-    const html = list.map(([img, cap]) =>
-      `<button class="shot" type="button" data-full="img/${img}.jpg"><span class="frame"><img src="img/${img}_s.jpg" alt="" loading="lazy"></span><span class="cap" data-i18n="${cap}">${T(cap)}</span></button>`).join("");
-    // Con movimiento reducido la cinta no se anima: no hace falta la copia para el bucle.
-    el.innerHTML = still ? html : html + html.replace(/<button class="shot"/g, '<button class="shot" tabindex="-1" aria-hidden="true"');
-  }
-  fillTrack($("#track1"), strip);
-
   // --- Visor de capturas (con anterior / siguiente) ---
   const lb = $("#lightbox");
   const lbImg = $("img", lb), lbCap = $("figcaption", lb), lbClose = $(".lb-close", lb);
@@ -265,7 +249,4 @@
 
   // Contadores fijos
   $$("[data-count]").forEach(el => { const n = +el.dataset.count; if (n > 0) countUp(el, n); });
-
-  // Al cambiar de idioma, la cinta vuelve a montarse con sus textos.
-  HUB.onChange(() => fillTrack($("#track1"), strip));
 })();
