@@ -72,12 +72,12 @@
       "page": "https://newzile.github.io/arena-fps/",
       "developer": "NewZile",
       "covers": [
-        "https://newzile.github.io/arena-fps/img/umbral_1.jpg",
-        "https://newzile.github.io/arena-fps/img/umbral_2.jpg",
-        "https://newzile.github.io/arena-fps/img/umbral_5.jpg",
-        "https://newzile.github.io/arena-fps/img/umbral_3.jpg"
+        "https://newzile.github.io/arena-fps/img/umbral_1.jpg?v=2",
+        "https://newzile.github.io/arena-fps/img/umbral_2.jpg?v=2",
+        "https://newzile.github.io/arena-fps/img/umbral_5.jpg?v=2",
+        "https://newzile.github.io/arena-fps/img/umbral_3.jpg?v=2"
       ],
-      "thumb": "https://newzile.github.io/arena-fps/img/umbral_thumb.jpg"
+      "thumb": "https://newzile.github.io/arena-fps/img/umbral_thumb.jpg?v=2"
     },
     {
       "id": "soon-2",
