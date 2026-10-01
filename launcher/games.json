@@ -80,6 +80,29 @@
       "thumb": "https://newzile.github.io/arena-fps/img/umbral_thumb.jpg?v=2"
     },
     {
+      "id": "luckypixel",
+      "name": "Lucky Pixel",
+      "title_a": "LUCKY",
+      "title_b": "PIXEL",
+      "tagline": "Casino social 3D para jugar con amigos: ruleta, poker, blackjack y máquinas con fichas virtuales sin valor real. Crea tu personaje y quedad en la misma sala.",
+      "tags": ["CASINO", "MULTIJUGADOR", "FICHAS VIRTUALES"],
+      "status": "live",
+      "tag_prefix": "lucky-v",
+      "repo": "NewZile/arena-fps",
+      "asset": "LuckyPixel.zip",
+      "exe": "LuckyPixel.exe",
+      "folder": "Lucky Pixel",
+      "page": "https://newzile.github.io/arena-fps/",
+      "developer": "NewZile",
+      "covers": [
+        "https://newzile.github.io/arena-fps/img/lp_1.jpg?v=1",
+        "https://newzile.github.io/arena-fps/img/lp_2.jpg?v=1",
+        "https://newzile.github.io/arena-fps/img/lp_3.jpg?v=1",
+        "https://newzile.github.io/arena-fps/img/lp_4.jpg?v=1"
+      ],
+      "thumb": "https://newzile.github.io/arena-fps/img/lp_thumb.jpg?v=1"
+    },
+    {
       "id": "soon-2",
       "name": "???",
       "status": "soon",
