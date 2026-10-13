@@ -107,6 +107,31 @@
       "thumb": "https://newzile.github.io/arena-fps/img/lp_thumb.jpg?v=1"
     },
     {
+      "id": "headcode",
+      "name": "Head Code",
+      "title_a": "HEAD",
+      "title_b": "CODE",
+      "tagline": "Todos llevan un número de 4 cifras sobre la cabeza. Si alguien lo ve y lo escribe en su tablet, estás eliminado. Usa los prismáticos para cazar de lejos.",
+      "tags": ["SUPERVIVENCIA", "MULTIJUGADOR", "BOTS"],
+      "status": "live",
+      "tag_prefix": "headcode-v",
+      "repo": "NewZile/arena-fps",
+      "asset": "HeadCode.zip",
+      "exe": "HeadCode.exe",
+      "asset_linux": "HeadCode-linux.zip",
+      "exe_linux": "HeadCode.x86_64",
+      "folder": "Head Code",
+      "page": "https://newzile.github.io/arena-fps/",
+      "developer": "NewZile",
+      "covers": [
+        "https://newzile.github.io/arena-fps/img/hc_1.jpg?v=1",
+        "https://newzile.github.io/arena-fps/img/hc_2.jpg?v=1",
+        "https://newzile.github.io/arena-fps/img/hc_3.jpg?v=1",
+        "https://newzile.github.io/arena-fps/img/hc_4.jpg?v=1"
+      ],
+      "thumb": "https://newzile.github.io/arena-fps/img/hc_thumb.jpg?v=1"
+    },
+    {
       "id": "soon-2",
       "name": "???",
       "status": "soon",
